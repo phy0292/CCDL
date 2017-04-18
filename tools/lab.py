@@ -10,7 +10,7 @@ import cv2
 #parameters
 path = "frames"
 wndName = "ESC close, s save, c clean, p back"
-className = ["plane"]
+className = ["plane", "demo"]
 colors = [(0, 255, 0), (255, 0, 0)]
 
 
@@ -24,36 +24,39 @@ for i in range(len(imgs)-1, -1, -1):
 
 show = []
 cach = []
-down = False
+cach2 = []
 dpoint = []
 epoint = []
 objs = []
+waitSecDown = False
 
-def refreshCurrentShow(drawCurrentRectangle):
+def refreshCurrentShow():
     cv2.resize(show, (cach.shape[1], cach.shape[0]), cach)
     cv2.putText(cach, className[currentClass], (10, 30), 1, 2, colors[currentClass], 2)
     drawObjs(objs, cach)
 
-    if drawCurrentRectangle:
-        cv2.rectangle(cach, dpoint, epoint, colors[currentClass], 5)
+    if waitSecDown:
+        cv2.circle(cach, dpoint, 5, colors[currentClass], 2)
     cv2.imshow(wndName, cach)
 
 def onMouse(event, x, y, flag, points):
-    global dpoint, down, wndName, epoint, cach
+    global dpoint, waitSecDown, wndName, epoint, cach
 
     if event == cv2.EVENT_LBUTTONDOWN:
-        dpoint = (x, y)
-        down = True
-    elif event == cv2.EVENT_LBUTTONUP:
-        if down:
-            down = False
-            objs.append((dpoint, epoint, currentClass))
-
-    elif event == cv2.EVENT_MOUSEMOVE:
-        if down:
+        if waitSecDown:
             epoint = (x, y)
-            refreshCurrentShow(drawCurrentRectangle = True)
-            
+            waitSecDown = False
+            objs.append((dpoint, epoint, currentClass))
+        else:
+            dpoint = (x, y)
+            waitSecDown = True
+
+        refreshCurrentShow()
+    elif event == cv2.EVENT_MOUSEMOVE:
+        cv2.resize(cach, (cach.shape[1], cach.shape[0]), cach2)
+        cv2.line(cach2, (0, y), (cach.shape[1], y), (0, 255, 0), 2)
+        cv2.line(cach2, (x, 0), (x, cach.shape[0]), (0, 255, 0), 2)
+        cv2.imshow(wndName, cach2)
 
 def drawObjs(objs, canvas):
     for item in objs:
@@ -147,19 +150,18 @@ while True:
     saveBreakpoint(i)
     show = cv2.imread(imgs[i][1])
     cach = cv2.imread(imgs[i][1])
+    cach2 = cv2.imread(imgs[i][1])
     pos = imgs[i][0].rfind(".")
     currentClass, objs = loadObjs("%s/%s.xml.txt" %(path, imgs[i][0][:pos]))
+    waitSecDown = False
 
     while True:
         cv2.resize(show, (cach.shape[1], cach.shape[0]), cach)
 
-        refreshCurrentShow(drawCurrentRectangle = down)
+        refreshCurrentShow()
         cv2.setMouseCallback(wndName, onMouse)
         key = cv2.waitKey()
         key = key & 0xFF;
-
-        if down: 
-            continue
 
         if key == 0x1B: #ESC
             endOf = True;
