@@ -1,15 +1,15 @@
 ## lab.py
 
-Windows:
-该工具依赖opencv python库，下面是windows下的cv2.pyd下载地址，依赖python2.7.
-下载地址: [cv2.pyd](http://www.zifuture.com/fs/1.lab.py/cv2.pyd)
+Windows:<br/>
+该工具依赖opencv python库，下面是windows下的cv2.pyd下载地址，依赖python2.7.<br/>
+下载地址: [cv2.pyd](http://www.zifuture.com/fs/1.lab.py/cv2.pyd)<br/>
 
-Linux:
-linux下需要安装python-opencv来支持import cv2
+Linux:<br/>
+linux下需要安装python-opencv来支持import cv2<br/>
 
 ## 其他说明
-breakpoint.txt文件是记录断点，用来关闭程序后能够恢复原有位置
-frames用来存放图片文件的文件夹，内部存放xml、和.xml.txt
+breakpoint.txt文件是记录断点，用来关闭程序后能够恢复原有位置<br/>
+frames用来存放图片文件的文件夹，内部存放xml、和.xml.txt<br/>
 
 ## 快捷键:
 - ESC:         关闭，程序会记住断点，所以再次打开也会还原回来
