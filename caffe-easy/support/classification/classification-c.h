@@ -1,0 +1,112 @@
+#pragma once
+
+#include <support-common.h>
+
+#ifdef __cplusplus
+class Classifier;
+#else
+typedef void* Classifier;
+#endif
+
+#ifdef __cplusplus
+extern "C"{
+#endif
+	struct SoftmaxData{
+		int label;
+		float conf;
+	};
+
+	struct SoftmaxLayerOutput{
+		int count;
+		SoftmaxData* result;
+	};
+
+	struct SoftmaxResult{
+		int count;
+		SoftmaxLayerOutput* list;
+	};
+
+	struct BlobData{
+		int count;
+		float* list;
+		int num;
+		int channels;
+		int height;
+		int width;
+	};
+
+	//setDecipherCallback
+	const static int type_prototxt = 0;			//通过回调要求解密的部分是协议数据
+	const static int type_caffemodel = 1;		//通过回调要求解密的部分是模型权重数据
+
+	const static int event_decipher = 0;		//产生的事件要求解密
+	const static int event_free = 1;			//产生的事件要求释放数据
+
+	//event_decipher时回调的结果要求是数据指针，指针第一个4字节是数据长度，剩下是数据
+	//event_free时，返回结果为0就行了，这时候length为0，data为event_decipher返回的数据指针
+	typedef void* (__stdcall *DecipherCallback)(int event, int type, const void* data, int length);
+	Caffe_API float __stdcall getVersion(DecipherCallback callback);
+
+	Caffe_API void  __stdcall releaseBlobData(BlobData* ptr);
+	Caffe_API void  __stdcall releaseSoftmaxResult(SoftmaxResult* ptr);
+
+	Caffe_API Classifier* __stdcall createClassifier(
+		const char* prototxt_file,
+		const char* caffemodel_file,
+		float scale_raw = 1,
+		const char* mean_file = 0,
+		int num_means = 0,
+		float* means = 0,
+		int gpu_id = -1);
+
+	Caffe_API Classifier* __stdcall createClassifierByData(
+		const void* prototxt_data,
+		int prototxt_data_length,
+		const void* caffemodel_data,
+		int caffemodel_data_length,
+		float scale_raw = 1,
+		const char* mean_file = 0,
+		int num_means = 0,
+		float* means = 0,
+		int gpu_id = -1);
+
+	Caffe_API void __stdcall releaseClassifier(Classifier* classifier);
+	Caffe_API SoftmaxResult* __stdcall predictSoftmax(Classifier*classifier, const void* img, int len, int top_n = 5);
+	Caffe_API BlobData* __stdcall extfeature(Classifier*classifier, const void* img, int len, const char* feature_name);
+
+	//获取特征的长度
+	Caffe_API int __stdcall getFeatureLength(BlobData* feature);
+
+	//将特征复制到缓存区
+	Caffe_API void __stdcall cpyFeature(void* buffer, BlobData* feature);
+
+	//获取输出层的个数
+	Caffe_API int __stdcall getNumOutlayers(SoftmaxResult* result);
+
+	//获取层里面的数据个数
+	Caffe_API int __stdcall getLayerNumData(SoftmaxLayerOutput* layer);
+
+	//获取结果的label
+	Caffe_API int __stdcall getResultLabel(SoftmaxResult* result, int layer, int num);
+
+	//获取结果的置信度
+	Caffe_API float __stdcall getResultConf(SoftmaxResult* result, int layer, int num);
+
+	//多标签就是多个输出层，每个层取softmax，注意buf的个数是getNumOutlayers得到的数目一致
+	Caffe_API void __stdcall getMultiLabel(SoftmaxResult* result, int* buf);
+
+	//获取第0个输出的label
+	Caffe_API int __stdcall getSingleLabel(SoftmaxResult* result);
+
+	//获取第0个输出的置信度
+	Caffe_API float __stdcall getSingleConf(SoftmaxResult* result);
+
+	//获取最后发生的错误，没有错误返回0
+	Caffe_API const char* __stdcall getLastErrorMessage();
+
+	Caffe_API void __stdcall enablePrintErrorToConsole();
+
+	Caffe_API void __stdcall disableErrorOutput();
+#ifdef __cplusplus
+}; 
+#endif

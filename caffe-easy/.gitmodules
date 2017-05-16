@@ -1,0 +1,3 @@
+[submodule "models/VGGNet"]
+	path = models/VGGNet
+	url = https://github.com/conner99/VGGNet.git

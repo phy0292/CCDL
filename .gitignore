@@ -1,13 +1,5 @@
-/NugetPackages
-/caffe/Build
 *.suo
 *.sdf
 *.pdb
-/demo-data/SSD_300x300/VGG_coco_SSD_300x300_iter_400000.caffemodel
-/caffe/windows/x64
 *.pyc
-*.pdb
 *.exp
-/bin
-/bin-caffe-gpu-7.5
-/examples/mnist/mnist_data
