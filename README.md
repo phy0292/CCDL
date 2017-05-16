@@ -4,7 +4,7 @@
 目前集中精力在windows下，将来也会支持linux系统<br/>
 
 ## 编译工具
-visual studio 2013，建议使用这个版本。目前编译全部是静态编译方式，最后也仅仅依赖几个OpenBlas的dll或者甚至不依赖dll，即可发布您的软件<br/>
+visual studio 2013，建议使用这个版本。目前编译全部是静态编译方式，最后也仅仅依赖几个OpenBlas的dll(该DLL在CPU上可以实现大约3-5倍的加速，所以很有必要)或者甚至不依赖dll，即可发布您的软件<br/>
 
 ## 特性：
 添加了[Center Loss](https://github.com/ydwen/caffe-face)，以支持人脸识别的训练<br/>
