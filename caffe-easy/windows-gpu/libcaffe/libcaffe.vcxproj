@@ -575,7 +575,12 @@
       <IgnoreSpecificDefaultLibraries>MSVCRT.lib</IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
-      <Command>copy ..\..\3rd\staticlib\openblas\$(Platform)\*.dll ..\..\Build\cpu\$(Configuration)\$(Platform)\</Command>
+      <Command>copy ..\..\3rd\staticlib\openblas\$(Platform)\*.dll ..\..\Build\gpu\$(Configuration)\$(Platform)\
+copy ..\..\support\support-common.h ..\..\Build\gpu\$(Configuration)\$(Platform)\
+copy ..\..\support\classification\*.h ..\..\Build\gpu\$(Configuration)\$(Platform)\
+copy ..\..\support\mtcnn\mtcnn.h ..\..\Build\gpu\$(Configuration)\$(Platform)\
+copy ..\..\support\network\network.h ..\..\Build\gpu\$(Configuration)\$(Platform)\
+copy ..\..\support\model_compress\model_compress.h ..\..\Build\gpu\$(Configuration)\$(Platform)\</Command>
     </PostBuildEvent>
     <CudaCompile>
       <TargetMachinePlatform>64</TargetMachinePlatform>
