@@ -69,7 +69,7 @@ models/*
 *.solverstate.h5
 *.binaryproto
 *leveldb
-*lmdb
+# *lmdb
 
 # build, distribute, and bins (+ python proto bindings)
 build
