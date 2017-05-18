@@ -21,3 +21,8 @@ disableErrorOutput
 getVersion
 model_compress
 train_network
+predictMultiSoftmax
+getMultiSoftmaxElement
+getMultiSoftmaxNum
+releaseMultiSoftmaxResult
+getMultiConf

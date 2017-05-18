@@ -24,7 +24,7 @@ static volatile DecipherCallback decipherCallback = 0;
 
 #define ThisNet ((Net<float>*)net_)
 
-#define Version		1.0
+#define Version		2.0
 #define	snprintf	_snprintf
 #define vsnprintf	_vsnprintf
 #define errBegin	try{

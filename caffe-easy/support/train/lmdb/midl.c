@@ -15,7 +15,7 @@
  * top-level directory of the distribution or, alternatively, at
  * <http://www.OpenLDAP.org/license.html>.
  */
-#ifdef USE_LMDB
+
 #include <limits.h>
 #include <string.h>
 #include <stdlib.h>
@@ -419,5 +419,3 @@ int mdb_mid3l_insert( MDB_ID3L ids, MDB_ID3 *id )
 
 /** @} */
 /** @} */
-
-#endif /*USE_LMDB*/

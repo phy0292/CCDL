@@ -23,7 +23,7 @@
  * top-level directory of the distribution or, alternatively, at
  * <http://www.OpenLDAP.org/license.html>.
  */
-#ifdef USE_LMDB
+
 #ifndef _MDB_MIDL_H_
 #define _MDB_MIDL_H_
 
@@ -202,4 +202,3 @@ int mdb_mid3l_insert( MDB_ID3L ids, MDB_ID3 *id );
 }
 #endif
 #endif	/* _MDB_MIDL_H_ */
-#endif /*USE_LMDB*/

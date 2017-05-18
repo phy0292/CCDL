@@ -367,7 +367,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>USE_LMDB;USE_OPENCV;WIN32;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>USE_LMDB;DEBUG;USE_OPENCV;WIN32;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
@@ -376,7 +376,7 @@
       <AdditionalDependencies>shlwapi.lib;gflags_static.lib;libprotobufd.lib;libglog_static.lib;libopenblasd.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy ..\..\3rd\staticlib\openblas\$(Platform)\*.dll ..\..\Build\cpu\$(Configuration)\$(Platform)\</Command>
+      <Command>copy ..\..\3rd\staticlib\openblas\$(Platform)\*.dll ..\..\Build\gpu\$(Configuration)\$(Platform)\</Command>
     </PostBuildEvent>
     <CudaCompile>
       <CodeGeneration>compute_30,sm_30; compute_20,sm_20; compute_35,sm_35;compute_52,sm_52</CodeGeneration>
@@ -391,7 +391,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>USE_LMDB;USE_OPENCV;WIN32;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>USE_LMDB;NDEBUG;USE_OPENCV;WIN32;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
@@ -404,7 +404,7 @@
       <IgnoreSpecificDefaultLibraries>MSVCRT.lib</IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
-      <Command>copy ..\..\3rd\staticlib\openblas\$(Platform)\*.dll ..\..\Build\cpu\$(Configuration)\$(Platform)\</Command>
+      <Command>copy ..\..\3rd\staticlib\openblas\$(Platform)\*.dll ..\..\Build\gpu\$(Configuration)\$(Platform)\</Command>
     </PostBuildEvent>
     <CudaCompile>
       <CodeGeneration>compute_30,sm_30; compute_20,sm_20; compute_35,sm_35;compute_52,sm_52</CodeGeneration>
@@ -412,7 +412,7 @@
     </CudaCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-   <ImportGroup Label="ExtensionTargets">
+  <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA $(CC_CUDA_VERSION).targets" />
   </ImportGroup>
 </Project>

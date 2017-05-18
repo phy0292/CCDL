@@ -163,7 +163,6 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-#ifdef USE_LMDB
 #ifndef _LMDB_H_
 #define _LMDB_H_
 
@@ -1640,4 +1639,3 @@ int	mdb_reader_check(MDB_env *env, int *dead);
 */
 
 #endif /* _LMDB_H_ */
-#endif /*USE_LMDB*/

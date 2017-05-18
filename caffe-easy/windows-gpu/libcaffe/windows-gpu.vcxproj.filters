@@ -29,10 +29,10 @@
       <UniqueIdentifier>{0e5a35d0-ab11-487d-8c89-753d9688a4e5}</UniqueIdentifier>
     </Filter>
     <Filter Include="support">
-      <UniqueIdentifier>{a9c5f26c-a860-4436-bbc1-58755a87d0df}</UniqueIdentifier>
+      <UniqueIdentifier>{8f1b5de8-7513-462f-b083-64f87aa08ee1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="support\lmdb">
-      <UniqueIdentifier>{a59e950c-9deb-4a81-82e0-ad08c41e14f3}</UniqueIdentifier>
+    <Filter Include="support\train">
+      <UniqueIdentifier>{c6e91fbf-b2d6-496f-ab45-1e78a4be880d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -382,10 +382,10 @@
       <Filter>include\layers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\support\train\lmdb\lmdb.h">
-      <Filter>support\lmdb</Filter>
+      <Filter>support\train</Filter>
     </ClInclude>
     <ClInclude Include="..\..\support\train\lmdb\midl.h">
-      <Filter>support\lmdb</Filter>
+      <Filter>support\train</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -729,10 +729,10 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\support\train\lmdb\mdb.c">
-      <Filter>support\lmdb</Filter>
+      <Filter>support\train</Filter>
     </ClCompile>
     <ClCompile Include="..\..\support\train\lmdb\midl.c">
-      <Filter>support\lmdb</Filter>
+      <Filter>support\train</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

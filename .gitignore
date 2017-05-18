@@ -1,5 +1,11 @@
-*.suo
+﻿*.suo
 *.sdf
 *.pdb
 *.pyc
 *.exp
+*.rar
+*.dll
+*.caffemodel
+/examples/易语言高性能识别/测试数据
+/examples
+/demo-data/veriCode/samples

@@ -44,7 +44,7 @@ namespace caffe {
 		// label
 		if (this->output_labels_) {
 			vector<int> label_shape(2, batch_size);
-			label_shape[1] = datum.labels_size();
+			label_shape[1] = datum.labels_size() == 0 ? 1 : datum.labels_size();
 
 			top[1]->Reshape(label_shape);
 			//top[1]->Reshape(batch_size, 4, 1, 1);
@@ -97,10 +97,15 @@ namespace caffe {
 			if (this->output_labels_) {
 				//printf("datum.labels_size() = %d\n", datum.labels_size());
 				//printf("label: ");
-				for (int labi = 0; labi < datum.labels_size(); ++labi){
-					top_label[item_id*datum.labels_size() + labi] = datum.labels(labi);
-					//top_label[item_id*4 + labi] = datum.labels(labi);
-					//printf("%f ", datum.labels(labi));
+				if (datum.labels_size() > 0){
+					for (int labi = 0; labi < datum.labels_size(); ++labi){
+						top_label[item_id*datum.labels_size() + labi] = datum.labels(labi);
+						//top_label[item_id*4 + labi] = datum.labels(labi);
+						//printf("%f ", datum.labels(labi));
+					}
+				}
+				else{
+					top_label[item_id] = datum.label();
 				}
 				//printf("\n");
 
