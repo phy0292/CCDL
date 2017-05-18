@@ -29,28 +29,10 @@
       <UniqueIdentifier>{0e5a35d0-ab11-487d-8c89-753d9688a4e5}</UniqueIdentifier>
     </Filter>
     <Filter Include="support">
-      <UniqueIdentifier>{129611dd-f0f3-416f-92ad-b35c1093e6e2}</UniqueIdentifier>
+      <UniqueIdentifier>{a9c5f26c-a860-4436-bbc1-58755a87d0df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="support\mtcnn">
-      <UniqueIdentifier>{6be5422e-cd12-4a83-951b-a421821409b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="support\classification">
-      <UniqueIdentifier>{5a096176-eb78-4efb-ba70-d9c9c45c6ca2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="support\network">
-      <UniqueIdentifier>{0485d41a-0fe5-48e3-96a6-c0967242a1ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="support\test">
-      <UniqueIdentifier>{4d79de4b-a236-40d3-9a8a-efb37e026bb2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="support\model_compress">
-      <UniqueIdentifier>{062e5653-a507-4256-9ec6-b6a2e6a767da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="support\train">
-      <UniqueIdentifier>{35149489-95f7-4fb8-8705-7fc05b3030a1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="support\train\lmdb">
-      <UniqueIdentifier>{f94ccfa8-25b5-4d72-a7bf-b10ef58a7f5b}</UniqueIdentifier>
+    <Filter Include="support\lmdb">
+      <UniqueIdentifier>{a59e950c-9deb-4a81-82e0-ad08c41e14f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -399,41 +381,11 @@
     <ClInclude Include="..\..\include\caffe\layers\predict_box_layer.hpp">
       <Filter>include\layers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\support\mtcnn\BoundingBox.inc.h">
-      <Filter>support\mtcnn</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\support\mtcnn\GetRect.inc.h">
-      <Filter>support\mtcnn</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\support\mtcnn\TestFaceDetection.inc.h">
-      <Filter>support\mtcnn</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\support\classification\classification.h">
-      <Filter>support\classification</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\support\classification\classification-c.h">
-      <Filter>support\classification</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\support\network\network.h">
-      <Filter>support\network</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\support\mtcnn\mtcnn.h">
-      <Filter>support\mtcnn</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\support\model_compress\caffe_layer_vector.h">
-      <Filter>support\model_compress</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\support\train\lmdb\lmdb.h">
-      <Filter>support\train\lmdb</Filter>
+      <Filter>support\lmdb</Filter>
     </ClInclude>
     <ClInclude Include="..\..\support\train\lmdb\midl.h">
-      <Filter>support\train\lmdb</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\support\support-common.h">
-      <Filter>support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\support\model_compress\model_compress.h">
-      <Filter>support\model_compress</Filter>
+      <Filter>support\lmdb</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -776,38 +728,14 @@
     <ClCompile Include="..\..\src\caffe\layers\predict_box_layer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\support\classification\classification.cpp">
-      <Filter>support\classification</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\support\network\network.cpp">
-      <Filter>support\network</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\support\test\test.cpp">
-      <Filter>support\test</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\support\model_compress\model_compress.cpp">
-      <Filter>support\model_compress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\support\train\train.cpp">
-      <Filter>support\train</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\support\mtcnn\mtcnn.cpp">
-      <Filter>support\mtcnn</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\support\train\lmdb\mdb.c">
-      <Filter>support\train\lmdb</Filter>
+      <Filter>support\lmdb</Filter>
     </ClCompile>
     <ClCompile Include="..\..\support\train\lmdb\midl.c">
-      <Filter>support\train\lmdb</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\support\train\lmdb\lmdb-link.cpp">
-      <Filter>support\train\lmdb</Filter>
+      <Filter>support\lmdb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="def.def">
-      <Filter>support</Filter>
-    </None>
     <None Include="..\..\src\caffe\layers\absval_layer.cu">
       <Filter>src\layers</Filter>
     </None>

@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <iostream>
 #include "caffe_layer_vector.h"
+#include <import-staticlib.h>
 
 using namespace caffe;
 using namespace std;
@@ -43,6 +44,7 @@ extern "C"{
 			LayerParameter& param = *net.mutable_layer(i);
 			//printf("layer: %s\n", param.name().c_str());
 
+#if 0
 			if (param.mutable_blobs()->size()){
 				BlobProto* blob = param.mutable_blobs(0);
 				BlobProto* bais = param.mutable_blobs(1);
@@ -59,6 +61,25 @@ extern "C"{
 
 				for (int k = 0; k < len; ++k)
 					weights[k] = ((int)(weights[k] * intup)) * floatup;
+			}
+#endif
+
+			for (int j = 0; j < param.mutable_blobs()->size(); ++j){
+				BlobProto* blob = param.mutable_blobs(j);
+				float* data = blob->mutable_data()->mutable_data();
+				int len = blob->data_size();
+				float* weights = data;
+				for (int k = 0; k < len; ++k)
+					weights[k] = ((int)(weights[k] * intup)) * floatup;
+
+#if 0
+				BlobProto* bais = param.mutable_blobs(1);
+				float* bias = bais->mutable_data()->mutable_data();
+				int bias_len = bais->data_size();
+
+				for (int k = 0; k < bias_len; ++k)
+					bias[k] = ((int)(bias[k] * intup)) * floatup;
+#endif
 			}
 		}
 	}
@@ -105,4 +126,19 @@ extern "C"{
 #endif
 		return success;
 	}
+}
+
+int main(int argc, char** argv){
+
+	//这个压缩程序产生的ys.caffemodel文件，可以使用压缩算法把模型压缩的很小，因为原始的模型你无论怎么压缩
+	//尺寸很难减小，而这个算法处理后的模型，可以很轻易减小很大
+	//但是这个指标upLevel，需要注意，取值越大，压缩效果越差，但是精度损失越少
+	//相反，取值越小，压缩效果越好，精度损失越大
+	//他只是对权重做一个变换：w = ((int)(w * upLevel)) / upLevel
+	const char* caffemodel = "../../../../../demo-data/SSD_300x300/VGG_coco_SSD_300x300_iter_400000.caffemodel";
+	const char* caffemodelsave = "../../../../../demo-data/SSD_300x300/VGG_coco_SSD_300x300_iter_400000.ys.caffemodel";
+	if (!model_compress(caffemodel, caffemodelsave, 1000)){
+		printf("压缩失败.\n");
+	}
+	return 0;
 }

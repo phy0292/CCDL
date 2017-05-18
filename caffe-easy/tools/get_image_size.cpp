@@ -22,7 +22,7 @@
 #include "glog/logging.h"
 
 #include "caffe/util/io.hpp"
-
+#include <import-staticlib.h>
 using namespace caffe;  // NOLINT(build/namespaces)
 
 DEFINE_string(name_id_file, "",

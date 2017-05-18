@@ -30,6 +30,7 @@
 #include "caffe/util/format.hpp"
 #include "caffe/util/io.hpp"
 #include "caffe/util/rng.hpp"
+#include <import-staticlib.h>
 
 using namespace caffe;  // NOLINT(build/namespaces)
 using std::pair;

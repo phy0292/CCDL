@@ -1,5 +1,5 @@
 #include "network.h"
-#include <caffe\caffe.hpp>
+#include "caffe/net.hpp"
 #include <caffe\layers\memory_data_layer.hpp>
 #include <boost/thread.hpp>
 

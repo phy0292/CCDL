@@ -14,6 +14,7 @@ namespace bp = boost::python;
 #include "boost/algorithm/string.hpp"
 #include "caffe/caffe.hpp"
 #include "caffe/util/signal_handler.h"
+#include <import-staticlib.h>
 
 using caffe::Blob;
 using caffe::Caffe;
@@ -25,6 +26,11 @@ using caffe::string;
 using caffe::Timer;
 using caffe::vector;
 using std::ostringstream;
+
+#ifdef GFLAGS_DLL_DEFINE_FLAG
+#undef GFLAGS_DLL_DEFINE_FLAG
+#define GFLAGS_DLL_DEFINE_FLAG
+#endif
 
 DEFINE_string(gpu, "",
     "Optional; run in GPU mode on given device IDs separated by ','."

@@ -26,6 +26,11 @@ extern "C"{
 		SoftmaxLayerOutput* list;
 	};
 
+	struct MultiSoftmaxResult{
+		int count;
+		SoftmaxResult* list;
+	};
+
 	struct BlobData{
 		int count;
 		float* list;
@@ -49,6 +54,7 @@ extern "C"{
 
 	Caffe_API void  __stdcall releaseBlobData(BlobData* ptr);
 	Caffe_API void  __stdcall releaseSoftmaxResult(SoftmaxResult* ptr);
+	Caffe_API void __stdcall releaseMultiSoftmaxResult(MultiSoftmaxResult* ptr);
 
 	Caffe_API Classifier* __stdcall createClassifier(
 		const char* prototxt_file,
@@ -72,6 +78,7 @@ extern "C"{
 
 	Caffe_API void __stdcall releaseClassifier(Classifier* classifier);
 	Caffe_API SoftmaxResult* __stdcall predictSoftmax(Classifier*classifier, const void* img, int len, int top_n = 5);
+	Caffe_API MultiSoftmaxResult* __stdcall predictMultiSoftmax(Classifier*classifier, const void** img, int* len, int num, int top_n = 5);
 	Caffe_API BlobData* __stdcall extfeature(Classifier*classifier, const void* img, int len, const char* feature_name);
 
 	//获取特征的长度
@@ -92,8 +99,15 @@ extern "C"{
 	//获取结果的置信度
 	Caffe_API float __stdcall getResultConf(SoftmaxResult* result, int layer, int num);
 
+	//获取里面的个数
+	Caffe_API int __stdcall getMultiSoftmaxNum(MultiSoftmaxResult* multi);
+
+	//获取里面元素的指针
+	Caffe_API SoftmaxResult* __stdcall getMultiSoftmaxElement(MultiSoftmaxResult* multi, int index);
+
 	//多标签就是多个输出层，每个层取softmax，注意buf的个数是getNumOutlayers得到的数目一致
 	Caffe_API void __stdcall getMultiLabel(SoftmaxResult* result, int* buf);
+	Caffe_API void __stdcall getMultiConf(SoftmaxResult* result, float* buf);
 
 	//获取第0个输出的label
 	Caffe_API int __stdcall getSingleLabel(SoftmaxResult* result);

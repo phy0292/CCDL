@@ -61,6 +61,6 @@ private:
 
 void Caffe_API releaseFaceList(MTCNN::FaceList* flist);
 
-inline void WPtr<MTCNN::FaceList*>::release(MTCNN::FaceList* p){
+inline void WPtr<MTCNN::FaceList>::release(MTCNN::FaceList* p){
 	releaseFaceList(p);
 }

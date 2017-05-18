@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4685df62-c3f2-46cc-9180-a2825916808d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\support\mtcnn\demo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\support\mtcnn\mtcnn.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\support\network\network.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\support\mtcnn\BoundingBox.inc.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\support\mtcnn\GetRect.inc.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\support\mtcnn\mtcnn.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\support\network\network.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

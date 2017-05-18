@@ -1,14 +1,5 @@
 #pragma once
 
-#ifndef BuildStaticLib
-#include "import-caffe-staticlib.h"
-#include "import-opencv-staticlib.h"
-
-#ifndef CPU_ONLY
-#include "import-cuda-lib.h"
-#endif
-#endif
-
 #ifdef __cplusplus
 #define DllImport __declspec(dllimport)
 #define DllExport __declspec(dllexport)
@@ -18,18 +9,20 @@
 #endif
 
 #ifdef BuildDLL
-#ifdef ExportDLL
 #define Caffe_API DllExport
 #else
+
+#ifdef ImportDLL
 #define Caffe_API DllImport
-#endif
 #else
-#define Caffe_API
+#define Caffe_API 
+#endif
 #endif
 
 #ifdef __cplusplus
 template<typename Dtype>
 class WPtr{
+	typedef Dtype* DtypePtr;
 
 	template<typename T>
 	struct ptrInfo{
@@ -43,8 +36,8 @@ class WPtr{
 
 public:
 	WPtr() :ptr(0){};
-	WPtr(Dtype p){
-		ptr = new ptrInfo<Dtype>(p);
+	WPtr(DtypePtr p){
+		ptr = new ptrInfo<DtypePtr>(p);
 	}
 	WPtr(const WPtr& other){
 		operator=(other);
@@ -53,13 +46,13 @@ public:
 		releaseRef();
 	}
 
-	void release(Dtype ptr);
+	void release(DtypePtr ptr);
 
-	Dtype operator->(){
+	DtypePtr operator->(){
 		return get();
 	}
 
-	operator Dtype(){
+	operator DtypePtr(){
 		return get();
 	}
 
@@ -71,7 +64,7 @@ public:
 		return *this;
 	}
 
-	Dtype get(){
+	DtypePtr get(){
 		if (this->ptr)
 			return ptr->ptr;
 		return 0;
@@ -91,11 +84,11 @@ public:
 	}
 
 private:
-	ptrInfo<Dtype>* ptr;
+	ptrInfo<DtypePtr>* ptr;
 };
 
-template<typename Dtype>
-inline void WPtr<Dtype>::release(Dtype p){
+template<typename DtypePtr>
+inline void WPtr<DtypePtr>::release(DtypePtr p){
 	if (p) delete p;
 }
 #endif
