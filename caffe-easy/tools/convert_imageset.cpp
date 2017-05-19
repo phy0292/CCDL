@@ -112,7 +112,7 @@ int main(int argc, char** argv) {
 
   int resize_height = std::max<int>(0, FLAGS_resize_height);
   int resize_width = std::max<int>(0, FLAGS_resize_width);
-  _mkdir(argv[1]);
+  _mkdir(argv[3]);
 
   // Create new DB
   scoped_ptr<db::DB> db(db::GetDB(FLAGS_backend));
