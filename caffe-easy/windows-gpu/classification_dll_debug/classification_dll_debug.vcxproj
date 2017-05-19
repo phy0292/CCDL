@@ -35,7 +35,6 @@
   <ImportGroup Label="ExtensionSettings">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA $(CC_CUDA_VERSION).props" />
   </ImportGroup>
-
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -114,6 +113,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\support\classification\classification.cpp" />
     <ClCompile Include="..\..\support\classification\debug.cpp" />
+    <ClCompile Include="..\..\support\classification\task_pool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\support\classification\classification-c.h" />

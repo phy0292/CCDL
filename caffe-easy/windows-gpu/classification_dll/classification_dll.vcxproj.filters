@@ -19,6 +19,9 @@
     <ClCompile Include="..\..\support\model_compress\model_compress.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\support\classification\task_pool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\support\model_compress\caffe_layer_vector.h">
@@ -35,6 +38,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="def.def" />
+    <None Include="..\..\support\def.def" />
   </ItemGroup>
 </Project>

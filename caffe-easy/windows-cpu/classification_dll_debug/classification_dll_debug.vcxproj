@@ -195,6 +195,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\support\classification\classification.cpp" />
     <ClCompile Include="..\..\support\classification\debug.cpp" />
+    <ClCompile Include="..\..\support\classification\task_pool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\support\classification\classification-c.h" />

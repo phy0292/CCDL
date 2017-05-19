@@ -68,7 +68,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ModuleDefinitionFile>def.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>../../support/def.def</ModuleDefinitionFile>
       <MinimumRequiredVersion>5.04</MinimumRequiredVersion>
       <IgnoreSpecificDefaultLibraries>MSVCRTD.lib</IgnoreSpecificDefaultLibraries>
       <AdditionalDependencies>libcaffe.lib</AdditionalDependencies>
@@ -94,7 +94,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <ModuleDefinitionFile>def.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>../../support/def.def</ModuleDefinitionFile>
       <MinimumRequiredVersion>5.04</MinimumRequiredVersion>
       <IgnoreSpecificDefaultLibraries>MSVCRT.lib</IgnoreSpecificDefaultLibraries>
       <AdditionalDependencies>libcaffe.lib</AdditionalDependencies>
@@ -116,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\support\classification\classification.cpp" />
+    <ClCompile Include="..\..\support\classification\task_pool.cpp" />
     <ClCompile Include="..\..\support\classification\train.cpp" />
     <ClCompile Include="..\..\support\model_compress\model_compress.cpp" />
   </ItemGroup>
@@ -126,7 +127,7 @@
     <ClInclude Include="..\..\support\model_compress\model_compress.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="def.def" />
+    <None Include="..\..\support\def.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,6 +12,8 @@
 #include <string>
 #include <utility>
 #include <vector>
+
+//#define USE_STATIC_OPENBLAS
 #include <import-staticlib.h>
 
 using namespace caffe;
@@ -92,19 +94,10 @@ void __stdcall freeMultiSoftmaxResult(MultiSoftmaxResult** pptr){
 		MultiSoftmaxResult* ptr = *pptr;
 		if (ptr){
 			if (ptr->list){
-				for (int i = 0; i < ptr->count; ++i){
-					if (ptr->list[i].list){
-						for (int j = 0; j < ptr->list[i].count; ++j){
-							if (ptr->list[i].list[j].result){
-								delete ptr->list[i].list[j].result;
-								ptr->list[i].list[j].result = 0;
-							}
-						}
-						delete ptr->list[i].list;
-						ptr->list[i].list = 0;
-					}
-				}
-				delete ptr->list;
+				for (int i = 0; i < ptr->count; ++i)
+					freeSoftmaxResult(&ptr->list[i]);
+
+				delete[] ptr->list;
 				ptr->list = 0;
 			}
 			delete ptr;
@@ -136,7 +129,7 @@ Caffe_API int __stdcall getMultiSoftmaxNum(MultiSoftmaxResult* multi){
 //获取里面元素的指针
 Caffe_API SoftmaxResult* __stdcall getMultiSoftmaxElement(MultiSoftmaxResult* multi, int index){
 	if (multi)
-		return &multi->list[index];
+		return multi->list[index];
 
 	return 0;
 }
@@ -541,10 +534,11 @@ MultiSoftmaxResult* Classifier::predictSoftmax(const std::vector<cv::Mat>& imgs,
 	Predict(imgs, output);
 	MultiSoftmaxResult* rtn = new MultiSoftmaxResult();
 	rtn->count = imgs.size();
-	rtn->list = new SoftmaxResult[rtn->count];
+	rtn->list = new SoftmaxResult*[rtn->count];
 
 	for (int n = 0; n < rtn->count; ++n){
-		SoftmaxResult* result = &rtn->list[n];
+		rtn->list[n] = new SoftmaxResult();
+		SoftmaxResult* result = rtn->list[n];
 		result->count = output.size();
 		result->list = new SoftmaxLayerOutput[result->count];
 		for (int i = 0; i < result->count; ++i){

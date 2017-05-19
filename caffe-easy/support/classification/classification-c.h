@@ -1,11 +1,15 @@
 #pragma once
 
 #include <support-common.h>
+#include <windows.h>
 
 #ifdef __cplusplus
+#include <cv.h>
 class Classifier;
+typedef cv::Mat Image;
 #else
-typedef void* Classifier;
+typedef void Image;
+typedef void Classifier;
 #endif
 
 #ifdef __cplusplus
@@ -28,7 +32,7 @@ extern "C"{
 
 	struct MultiSoftmaxResult{
 		int count;
-		SoftmaxResult* list;
+		SoftmaxResult** list;
 	};
 
 	struct BlobData{
@@ -38,6 +42,24 @@ extern "C"{
 		int channels;
 		int height;
 		int width;
+	};
+
+	struct TaskPool{
+		Classifier* model;
+		int count_worker;
+		volatile Image* cacheImgs;
+		volatile Image* recImgs;
+		volatile int* top_n;
+		volatile int recNum;
+		volatile SoftmaxResult** recResult;
+		volatile int job_cursor;
+		HANDLE semaphoreWait;
+		HANDLE semaphoreGetResult;
+		HANDLE semaphoreGetResultFinish;
+		CRITICAL_SECTION jobCS;
+		volatile bool flag_run;
+		volatile bool flag_exit;
+		int gpu_id;
 	};
 
 	//setDecipherCallback
@@ -121,6 +143,32 @@ extern "C"{
 	Caffe_API void __stdcall enablePrintErrorToConsole();
 
 	Caffe_API void __stdcall disableErrorOutput();
-#ifdef __cplusplus
+
+	Caffe_API TaskPool* __stdcall createTaskPool(
+		const char* prototxt_file,
+		const char* caffemodel_file,
+		float scale_raw = 1,
+		const char* mean_file = 0,
+		int num_means = 0,
+		float* means = 0,
+		int gpu_id = -1,
+		int batch_size = 3);
+
+	Caffe_API TaskPool* __stdcall createTaskPoolByData(
+		const void* prototxt_data,
+		int prototxt_data_length,
+		const void* caffemodel_data,
+		int caffemodel_data_length,
+		float scale_raw = 1,
+		const char* mean_file = 0,
+		int num_means = 0,
+		float* means = 0,
+		int gpu_id = -1,
+		int batch_size = 3);
+
+	Caffe_API void __stdcall releaseTaskPool(TaskPool* taskPool);
+
+	Caffe_API SoftmaxResult* __stdcall predictSoftmaxByTaskPool(TaskPool* pool, const void* img, int len, int top_n = 5);
+#ifdef __cplusplus 
 }; 
 #endif

@@ -24,6 +24,7 @@
 #include "caffe/util/io.hpp"
 #include "caffe/util/rng.hpp"
 #include <import-staticlib.h>
+#include <direct.h>
 using namespace caffe;  // NOLINT(build/namespaces)
 using std::pair;
 using boost::scoped_ptr;
@@ -119,6 +120,8 @@ int main(int argc, char** argv) {
 
   // Storing to db
   std::string root_folder(argv[1]);
+  _mkdir(root_folder.c_str());
+
   Datum datum;
   int count = 0;
   int data_size = 0;
