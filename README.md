@@ -15,4 +15,5 @@ visual studio 2013，建议使用这个版本。目前编译全部是静态编�
 添加了调用的cpp接口、c语言接口，实现分类和其他识别任务，以实现支持例如：C#、C++、C、易语言等快速开发<br/>
 添加了[模型压缩](https://github.com/dlunion/CCDL/tree/master/caffe-easy/support/model_compress)的方法，实现对训练模型的压缩工作，目前nin网络实现5倍的压缩，精度损失极小。<br/>
 添加了[多图模式](https://github.com/dlunion/CCDL/blob/master/caffe-easy/support/classification/classification.cpp)，使得轻易就能够搭建高性能识别服务器<br/>
-添加了[任务池](https://github.com/dlunion/CCDL/blob/master/caffe-easy/support/classification/task_pool.cpp)，满载GPU很轻松<br/>
+添加了[任务池](https://github.com/dlunion/CCDL/blob/master/caffe-easy/support/classification/task_pool.cpp)，高性能服务器的神器<br/>
+添加了Socket-Server，通过socket调用caffe，这样可以支持win32的GPU调用或者其他语言的调用<br/>
