@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{1B587939-5007-4CDA-ACA6-F64D5B22AEC0}</ProjectGuid>
+    <ProjectGuid>{0C24DC2A-1F50-495E-84AF-E5A9831475F6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>get_image_size</RootNamespace>
+    <RootNamespace>ssd_call</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -105,7 +105,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>USE_LMDB;WIN32;_CRT_SECURE_NO_DEPRECATE;USE_OPENCV;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CPU_ONLY;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,7 +124,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>USE_LMDB;WIN32;_CRT_SECURE_NO_DEPRECATE;USE_OPENCV;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CPU_ONLY;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,7 +145,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>USE_LMDB;WIN32;_CRT_SECURE_NO_DEPRECATE;USE_OPENCV;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CPU_ONLY;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -168,7 +168,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>USE_LMDB;WIN32;_CRT_SECURE_NO_DEPRECATE;USE_OPENCV;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CPU_ONLY;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -193,7 +193,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\tools\get_image_size.cpp" />
+    <ClInclude Include="..\..\support\classification\classification-c.h" />
+    <ClInclude Include="..\..\support\classification\classification.h" />
+    <ClInclude Include="..\..\support\socket-server\client_context.h" />
+    <ClInclude Include="..\..\support\socket-server\context_pool.h" />
+    <ClInclude Include="..\..\support\socket-server\def.h" />
+    <ClInclude Include="..\..\support\socket-server\func.h" />
+    <ClInclude Include="..\..\support\socket-server\liaojie_server.h" />
+    <ClInclude Include="..\..\support\socket-server\server_iocp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\support\classification\classification.cpp" />
+    <ClCompile Include="..\..\support\classification\task_pool.cpp" />
+    <ClCompile Include="..\..\support\socket-server\client_context.cpp" />
+    <ClCompile Include="..\..\support\socket-server\context_pool.cpp" />
+    <ClCompile Include="..\..\support\socket-server\func.cpp" />
+    <ClCompile Include="..\..\support\socket-server\liaojie_server.cpp" />
+    <ClCompile Include="..\..\support\socket-server\main.cpp" />
+    <ClCompile Include="..\..\support\socket-server\server_iocp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

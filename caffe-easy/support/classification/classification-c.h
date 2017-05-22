@@ -1,6 +1,6 @@
 #pragma once
 
-#include <support-common.h>
+#include "support-common.h"
 #include <windows.h>
 
 #ifdef __cplusplus
@@ -168,7 +168,8 @@ extern "C"{
 
 	Caffe_API void __stdcall releaseTaskPool(TaskPool* taskPool);
 
-	Caffe_API SoftmaxResult* __stdcall predictSoftmaxByTaskPool(TaskPool* pool, const void* img, int len, int top_n = 5);
+	Caffe_API SoftmaxResult* __stdcall predictSoftmaxByTaskPool(TaskPool* pool, const void* img, int len, int top_n = 1);
+	Caffe_API SoftmaxResult* __stdcall predictSoftmaxByTaskPool2(TaskPool* pool, const Image* img, int top_n = 1);
 #ifdef __cplusplus 
 }; 
 #endif

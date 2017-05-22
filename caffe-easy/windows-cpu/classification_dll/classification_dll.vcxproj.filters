@@ -38,6 +38,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="def.def" />
+    <None Include="..\..\support\def.def" />
   </ItemGroup>
 </Project>

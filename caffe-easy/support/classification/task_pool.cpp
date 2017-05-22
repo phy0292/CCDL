@@ -142,6 +142,21 @@ Caffe_API void __stdcall releaseTaskPool(TaskPool* pool){
 }
 
 Caffe_API SoftmaxResult* __stdcall predictSoftmaxByTaskPool(TaskPool* pool, const void* img, int len, int top_n){
+	
+	if (pool == 0 || img == 0 || len < 1 || top_n < 1) return 0;
+	if (!pool->flag_run) return 0;
+
+	Mat im;
+	try{
+		im = cv::imdecode(Mat(1, len, CV_8U, (uchar*)img), pool->model->input_channels() == 3 ? 1 : 0);
+	}
+	catch (...){
+		return 0;
+	}
+
+	if (im.empty()) return 0;
+	return predictSoftmaxByTaskPool2(pool, &im, 1);
+#if 0
 	if (pool == 0 || img == 0 || len < 1 || top_n < 1) return 0;
 	if (!pool->flag_run) return 0;
 
@@ -152,6 +167,34 @@ Caffe_API SoftmaxResult* __stdcall predictSoftmaxByTaskPool(TaskPool* pool, cons
 		return 0;
 	}
 
+	if (im.empty()) return 0;
+
+	WaitForSingleObject(pool->semaphoreWait, -1);
+	if (!pool->flag_run) return 0;
+
+	EnterCriticalSection(&pool->jobCS);
+	int cursor = pool->job_cursor;
+	((Mat*)pool->cacheImgs)[cursor] = im;
+	pool->top_n[cursor] = top_n;
+	pool->job_cursor++;
+	LeaveCriticalSection(&pool->jobCS);
+
+	WaitForSingleObject(pool->semaphoreGetResult, -1);
+	SoftmaxResult* result = (SoftmaxResult*)pool->recResult[cursor];
+	ReleaseSemaphore(pool->semaphoreGetResultFinish, 1, 0);
+	return result;
+#endif
+}
+
+//Caffe_API SoftmaxResult* __stdcall predictSoftmaxByTaskPool2(TaskPool* pool, const Image* img, int len, int top_n = 5)
+Caffe_API SoftmaxResult* __stdcall predictSoftmaxByTaskPool2(TaskPool* pool, const Image* img, int top_n){
+	if (pool == 0 || img == 0 || top_n < 1) return 0;
+	if (!pool->flag_run) return 0;
+
+	if (img->empty()) return 0;
+
+	Mat im;
+	img->copyTo(im);
 	if (im.empty()) return 0;
 
 	WaitForSingleObject(pool->semaphoreWait, -1);

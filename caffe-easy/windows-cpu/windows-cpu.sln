@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "classification_dll_debug", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "model_compress", "model_compress\model_compress.vcxproj", "{D430C629-E5F5-4C10-ADEE-D2C90B875A7E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "socket-server", "socket-server\socket-server.vcxproj", "{0C24DC2A-1F50-495E-84AF-E5A9831475F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -139,6 +141,14 @@ Global
 		{D430C629-E5F5-4C10-ADEE-D2C90B875A7E}.Release|Win32.Build.0 = Release|Win32
 		{D430C629-E5F5-4C10-ADEE-D2C90B875A7E}.Release|x64.ActiveCfg = Release|x64
 		{D430C629-E5F5-4C10-ADEE-D2C90B875A7E}.Release|x64.Build.0 = Release|x64
+		{0C24DC2A-1F50-495E-84AF-E5A9831475F6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0C24DC2A-1F50-495E-84AF-E5A9831475F6}.Debug|Win32.Build.0 = Debug|Win32
+		{0C24DC2A-1F50-495E-84AF-E5A9831475F6}.Debug|x64.ActiveCfg = Debug|x64
+		{0C24DC2A-1F50-495E-84AF-E5A9831475F6}.Debug|x64.Build.0 = Debug|x64
+		{0C24DC2A-1F50-495E-84AF-E5A9831475F6}.Release|Win32.ActiveCfg = Release|Win32
+		{0C24DC2A-1F50-495E-84AF-E5A9831475F6}.Release|Win32.Build.0 = Release|Win32
+		{0C24DC2A-1F50-495E-84AF-E5A9831475F6}.Release|x64.ActiveCfg = Release|x64
+		{0C24DC2A-1F50-495E-84AF-E5A9831475F6}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

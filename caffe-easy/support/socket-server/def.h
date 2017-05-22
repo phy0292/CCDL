@@ -1,0 +1,16 @@
+
+#pragma once
+
+#define SERVER_PORT						5050
+#define SERVER_PACK_LEN					(1024*16)
+#define SERVER_WORKER_EXIT_TOKEN		0xFFFFFFFF
+#define SERVER_IDLE_WATCH_CYCLE_TIME	1000
+#define SERVER_CLIENT_IDLE_TIME_OUT		60000
+
+#define POOL_DEFAULT_SIZE				31
+#define POOL_APPEND_ACC					2
+#define POOL_NUMBER_ALLOC_BLOCK			1025
+
+//mysql队列最大容纳的请求数
+#define MYSQL_POOL_MAXQUERY				10000
+#define MYSQL_SQL_MAX_LEN				1024
