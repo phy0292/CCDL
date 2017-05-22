@@ -6,8 +6,8 @@ createClassifierByData
 releaseClassifier
 predictSoftmax
 extfeature
-getFeatureLength
-cpyFeature
+getBlobLength
+cpyBlobData
 getNumOutlayers
 getLayerNumData
 getResultLabel

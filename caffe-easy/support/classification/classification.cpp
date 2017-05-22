@@ -26,7 +26,7 @@ static volatile DecipherCallback decipherCallback = 0;
 
 #define ThisNet ((Net<float>*)net_)
 
-#define Version		2.0
+#define Version		3.0
 #define	snprintf	_snprintf
 #define vsnprintf	_vsnprintf
 #define errBegin	try{
@@ -276,12 +276,12 @@ Caffe_API BlobData* __stdcall extfeature(Classifier* Classifier, const void* img
 	errEnd(0);
 }
 
-Caffe_API int __stdcall getFeatureLength(BlobData* feature){
+Caffe_API int __stdcall getBlobLength(BlobData* feature){
 	if (!feature) return 0;
 	return feature->count;
 }
 
-Caffe_API void __stdcall cpyFeature(void* buffer, BlobData* feature){
+Caffe_API void __stdcall cpyBlobData(void* buffer, BlobData* feature){
 	if (!feature) return;
 	memcpy(buffer, feature->list, sizeof(feature->list[0])*feature->count);
 }

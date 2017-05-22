@@ -104,10 +104,10 @@ extern "C"{
 	Caffe_API BlobData* __stdcall extfeature(Classifier*classifier, const void* img, int len, const char* feature_name);
 
 	//获取特征的长度
-	Caffe_API int __stdcall getFeatureLength(BlobData* feature);
+	Caffe_API int __stdcall getBlobLength(BlobData* feature);
 
 	//将特征复制到缓存区
-	Caffe_API void __stdcall cpyFeature(void* buffer, BlobData* feature);
+	Caffe_API void __stdcall cpyBlobData(void* buffer, BlobData* feature);
 
 	//获取输出层的个数
 	Caffe_API int __stdcall getNumOutlayers(SoftmaxResult* result);
