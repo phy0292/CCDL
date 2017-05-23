@@ -17,3 +17,4 @@ SSD方面请参见：https://github.com/weiliu89/caffe/tree/ssd<br/>
 ## 编译好的包包
 [win32-cpu (24.6MB)](http://www.zifuture.com/fs/3.build/win32-cpu.rar)<br/>
 [x64-gpu-cuda8.0 (45.88MB)](http://www.zifuture.com/fs/3.build/x64-gpu-cuda8.0.rar)<br/>
+[x64-gpu-cuda7.5 (45.88MB)](http://www.zifuture.com/fs/3.build/x64-gpu-cuda7.5.rar)<br/>

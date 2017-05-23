@@ -46,15 +46,15 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>../../include;../../3rd/include/protobuf;../../3rd/include/;../../3rd/include/openblas0.2.14.1;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;../../3rd/include/opencv2.4.10;../../3rd/include/opencv2.4.10/opencv;../../3rd/include/opencv2.4.10/opencv2;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>../../3rd/staticlib/boost/$(Platform)/;../../3rd/staticlib/gflags/$(Platform)/;../../3rd/staticlib/glog/$(Platform)/;../../3rd/staticlib/protobuf/$(Platform)/;../../3rd/staticlib/openblas/$(Platform)/;../../3rd/staticlib/opencv2.4.10/$(Platform)/vc$(PlatformToolsetVersion)/staticlib;../../Build/gpu/$(Configuration)/$(Platform)/;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
-    <OutDir>../../Build/gpu/$(Configuration)/$(Platform)/</OutDir>
-    <IntDir>../../Build/gpu/outobj/$(ProjectName)/$(Configuration)/$(Platform)/</IntDir>
+    <OutDir>../../Build/gpu_cuda$(CC_CUDA_VERSION)/$(Configuration)/$(Platform)/</OutDir>
+    <IntDir>../../Build/gpu_cuda$(CC_CUDA_VERSION)/outobj/$(ProjectName)/$(Configuration)/$(Platform)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>../../include;../../3rd/include/protobuf;../../3rd/include/;../../3rd/include/openblas0.2.14.1;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;../../3rd/include/opencv2.4.10;../../3rd/include/opencv2.4.10/opencv;../../3rd/include/opencv2.4.10/opencv2;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>../../3rd/staticlib/boost/$(Platform)/;../../3rd/staticlib/gflags/$(Platform)/;../../3rd/staticlib/glog/$(Platform)/;../../3rd/staticlib/protobuf/$(Platform)/;../../3rd/staticlib/openblas/$(Platform)/;../../3rd/staticlib/opencv2.4.10/$(Platform)/vc$(PlatformToolsetVersion)/staticlib;../../Build/gpu/$(Configuration)/$(Platform)/;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
-    <OutDir>../../Build/gpu/$(Configuration)/$(Platform)/</OutDir>
-    <IntDir>../../Build/gpu/outobj/$(ProjectName)/$(Configuration)/$(Platform)/</IntDir>
+    <OutDir>../../Build/gpu_cuda$(CC_CUDA_VERSION)/$(Configuration)/$(Platform)/</OutDir>
+    <IntDir>../../Build/gpu_cuda$(CC_CUDA_VERSION)/outobj/$(ProjectName)/$(Configuration)/$(Platform)/</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
