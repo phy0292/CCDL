@@ -484,13 +484,14 @@ void Solver<Dtype>::TestClassification(const int test_net_id) {
 
 #if CCTrainControl
   int takeInfo = g_procCCTrainEventCallback != 0;
+  vector<string> all_blob_names;
   if (takeInfo){
 	  testAllScore.iterNum = iter_;
 	  testAllScore.numOutput = test_score.size();
 	  testAllScore.outputNames = new char*[testAllScore.numOutput];
 	  testAllScore.values = new float[testAllScore.numOutput];
+	  all_blob_names.resize(testAllScore.numOutput);
   }
-  vector<string> all_blob_names(testAllScore.numOutput);
 #endif
 
   for (int i = 0; i < test_score.size(); ++i) {
