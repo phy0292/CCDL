@@ -11,6 +11,35 @@
 #include "caffe/util/io.hpp"
 #include "caffe/util/upgrade_proto.hpp"
 
+
+//#define CCTrainControl
+#ifdef CCTrainControl
+typedef int(__stdcall *procCCTrainEventCallback)(int event, int param1, float param2, void* param3);
+static procCCTrainEventCallback g_procCCTrainEventCallback = 0;
+
+static const int event_initialize_network = 1;		//初始化网络
+static const int event_iniaialize_network_finish = 2; //初始化网络完毕
+static const int event_train_step = 3;
+static const int event_train_finish = 4;
+static const int event_do_snapshot = 5;
+static const int event_do_test_all = 6;
+static const int event_do_test_all_finish = 7;
+
+static const int control_snapshot = 1;
+static const int control_stop = 2;
+
+struct TestAllScore{
+	int iterNum;
+	int numOutput;
+	float* values;
+	char** outputNames;
+};
+
+void setTrainEventCallback(procCCTrainEventCallback callback){
+	g_procCCTrainEventCallback = callback;
+}
+#endif
+
 namespace caffe {
 
 template<typename Dtype>
@@ -57,6 +86,7 @@ void Solver<Dtype>::CheckType(SolverParameter* param) {
 
 template <typename Dtype>
 void Solver<Dtype>::Init(const SolverParameter& param) {
+
   CHECK(Caffe::root_solver() || root_solver_)
       << "root_solver_ needs to be set for all non-root solvers";
   LOG_IF(INFO, Caffe::root_solver()) << "Initializing solver from parameters: "
@@ -67,6 +97,12 @@ void Solver<Dtype>::Init(const SolverParameter& param) {
   if (Caffe::root_solver() && param_.random_seed() >= 0) {
     Caffe::set_random_seed(param_.random_seed());
   }
+
+#ifdef CCTrainControl
+  if (g_procCCTrainEventCallback)
+	  g_procCCTrainEventCallback(event_initialize_network, 0, 0, 0);
+#endif
+
   // Scaffolding code
   InitTrainNet();
   if (Caffe::root_solver()) {
@@ -75,6 +111,11 @@ void Solver<Dtype>::Init(const SolverParameter& param) {
   }
   iter_ = 0;
   current_step_ = 0;
+
+#ifdef CCTrainControl
+  if (g_procCCTrainEventCallback)
+	  g_procCCTrainEventCallback(event_iniaialize_network_finish, 0, 0, 0);
+#endif
 }
 
 template <typename Dtype>
@@ -238,6 +279,13 @@ void Solver<Dtype>::Step(int iters) {
     loss /= param_.iter_size();
     // average the loss across iterations for smoothed reporting
     UpdateSmoothedLoss(loss, start_iter, average_loss);
+
+#ifdef CCTrainControl
+	int control_signal = 0;
+	if (g_procCCTrainEventCallback)
+		control_signal = g_procCCTrainEventCallback(event_train_step, iter_, smoothed_loss_, (void*)display);
+#endif
+
     if (display) {
       LOG_IF(INFO, Caffe::root_solver()) << "Iteration " << iter_
           << ", loss = " << smoothed_loss_;
@@ -271,6 +319,15 @@ void Solver<Dtype>::Step(int iters) {
     ++iter_;
 
     SolverAction::Enum request = GetRequestedAction();
+
+#ifdef CCTrainControl
+	if (control_signal == control_snapshot){
+		request = SolverAction::SNAPSHOT;
+	}
+	else if (control_signal == control_stop){
+		request = SolverAction::STOP;
+	}
+#endif
 
     // Save a snapshot if needed.
     if ((param_.snapshot()
@@ -334,6 +391,11 @@ void Solver<Dtype>::Solve(const char* resume_file) {
     TestAll();
   }
   LOG(INFO) << "Optimization Done.";
+
+#ifdef CCTrainControl
+  if (g_procCCTrainEventCallback)
+	  g_procCCTrainEventCallback(event_train_finish, iter_, smoothed_loss_, 0);
+#endif
 }
 
 template <typename Dtype>
@@ -360,6 +422,13 @@ void Solver<Dtype>::TestClassification(const int test_net_id) {
       ShareTrainedLayersWith(net_.get());
   vector<Dtype> test_score;
   vector<int> test_score_output_id;
+
+#ifdef CCTrainControl
+  TestAllScore testAllScore;
+  if (g_procCCTrainEventCallback)
+	  g_procCCTrainEventCallback(event_do_test_all, test_net_id, param_.test_iter(test_net_id), 0);
+#endif
+
   const shared_ptr<Net<Dtype> >& test_net = test_nets_[test_net_id];
   Dtype loss = 0;
   for (int i = 0; i < param_.test_iter(test_net_id); ++i) {
@@ -381,6 +450,7 @@ void Solver<Dtype>::TestClassification(const int test_net_id) {
     Dtype iter_loss;
     const vector<Blob<Dtype>*>& result =
         test_net->Forward(&iter_loss);
+
     if (param_.test_compute_loss()) {
       loss += iter_loss;
     }
@@ -402,6 +472,7 @@ void Solver<Dtype>::TestClassification(const int test_net_id) {
       }
     }
   }
+
   if (requested_early_exit_) {
     LOG(INFO)     << "Test interrupted.";
     return;
@@ -410,7 +481,20 @@ void Solver<Dtype>::TestClassification(const int test_net_id) {
     loss /= param_.test_iter(test_net_id);
     LOG(INFO) << "Test loss: " << loss;
   }
+
+#if CCTrainControl
+  int takeInfo = g_procCCTrainEventCallback != 0;
+  if (takeInfo){
+	  testAllScore.iterNum = iter_;
+	  testAllScore.numOutput = test_score.size();
+	  testAllScore.outputNames = new char*[testAllScore.numOutput];
+	  testAllScore.values = new float[testAllScore.numOutput];
+  }
+  vector<string> all_blob_names(testAllScore.numOutput);
+#endif
+
   for (int i = 0; i < test_score.size(); ++i) {
+
     const int output_blob_index =
         test_net->output_blob_indices()[test_score_output_id[i]];
     const string& output_name = test_net->blob_names()[output_blob_index];
@@ -423,7 +507,25 @@ void Solver<Dtype>::TestClassification(const int test_net_id) {
     }
     LOG(INFO) << "    Test net output #" << i << ": " << output_name << " = "
               << mean_score << loss_msg_stream.str();
+
+#ifdef CCTrainControl
+	if (takeInfo){
+		all_blob_names[i] = output_name;
+		testAllScore.values[i] = mean_score;
+		testAllScore.outputNames[i] = (char*)all_blob_names[i].c_str();
+	}
+#endif
   }
+
+#ifdef CCTrainControl
+  if (g_procCCTrainEventCallback)
+	  g_procCCTrainEventCallback(event_do_test_all_finish, test_net_id, param_.test_iter(test_net_id), &testAllScore);
+
+  if (takeInfo){
+	  delete[] testAllScore.values;
+	  delete[] testAllScore.outputNames;
+  }
+#endif
 }
 
 template <typename Dtype>
@@ -563,6 +665,11 @@ void Solver<Dtype>::Snapshot() {
   }
 
   SnapshotSolverState(model_filename);
+
+#ifdef CCTrainControl
+  if (g_procCCTrainEventCallback)
+	  g_procCCTrainEventCallback(event_do_snapshot, iter_, smoothed_loss_,(void*)model_filename.c_str());
+#endif
 }
 
 template <typename Dtype>

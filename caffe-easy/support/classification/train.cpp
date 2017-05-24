@@ -477,3 +477,16 @@ extern "C" Caffe_API int __stdcall train_network(char* args) {
   //google::FlagRegisterer();
 
 }
+
+#ifdef CCTrainControl
+typedef int(__stdcall *procCCTrainEventCallback)(int event, int param1, float param2, void* param3);
+extern void setTrainEventCallback(procCCTrainEventCallback callback);
+
+extern "C" Caffe_API void __stdcall setTraindEventCallback(procCCTrainEventCallback callback){
+	setTrainEventCallback(callback);
+}
+#else
+typedef int(__stdcall *procCCTrainEventCallback)(int event, int param1, float param2, void* param3);
+extern "C" Caffe_API void __stdcall setTraindEventCallback(procCCTrainEventCallback callback){
+}
+#endif

@@ -31,3 +31,4 @@ createTaskPoolByData
 releaseTaskPool
 predictSoftmaxByTaskPool
 predictSoftmaxByTaskPool2
+setTraindEventCallback
