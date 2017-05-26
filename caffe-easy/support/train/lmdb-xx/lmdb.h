@@ -40,6 +40,9 @@
  *	corrupt the database. Of course if your application code is known to
  *	be bug-free (...) then this is not an issue.
  *
+ *	If this is your first time using a transactional embedded key/value
+ *	store, you may find the \ref starting page to be helpful.
+ *
  *	@section caveats_sec Caveats
  *	Troubleshooting the lock file, plus semaphores on BSD systems:
  *
@@ -57,7 +60,8 @@
  *	  Otherwise just make all programs using the database close it;
  *	  the lockfile is always reset on first open of the environment.
  *
- *	- On BSD systems or others configured with MDB_USE_SYSV_SEM,
+ *	- On BSD systems or others configured with MDB_USE_SYSV_SEM or
+ *	  MDB_USE_POSIX_SEM,
  *	  startup can fail due to semaphores owned by another userid.
  *
  *	  Fix: Open and close the database as the user which owns the
@@ -74,6 +78,11 @@
  *	  access to locks and lock file. Exceptions: On read-only filesystems
  *	  or with the #MDB_NOLOCK flag described under #mdb_env_open().
  *
+ *	- An LMDB configuration will often reserve considerable \b unused
+ *	  memory address space and maybe file size for future growth.
+ *	  This does not use actual memory or disk space, but users may need
+ *	  to understand the difference so they won't be scared off.
+ *
  *	- By default, in versions before 0.9.10, unused portions of the data
  *	  file might receive garbage data from memory freed by other code.
  *	  (This does not happen when using the #MDB_WRITEMAP flag.) As of
@@ -88,11 +97,12 @@
  *	  transactions.  Each transaction belongs to one thread.  See below.
  *	  The #MDB_NOTLS flag changes this for read-only transactions.
  *
- *	- Use an MDB_env* in the process which opened it, without fork()ing.
+ *	- Use an MDB_env* in the process which opened it, not after fork().
  *
  *	- Do not have open an LMDB database twice in the same process at
  *	  the same time.  Not even from a plain open() call - close()ing it
- *	  breaks flock() advisory locking.
+ *	  breaks fcntl() advisory locking.  (It is OK to reopen it after
+ *	  fork() - exec*(), since the lockfile has FD_CLOEXEC set.)
  *
  *	- Avoid long-lived transactions.  Read transactions prevent
  *	  reuse of pages freed by newer write transactions, thus the
@@ -126,7 +136,7 @@
  *
  *	@author	Howard Chu, Symas Corporation.
  *
- *	@copyright Copyright 2011-2014 Howard Chu, Symas Corp. All rights reserved.
+ *	@copyright Copyright 2011-2017 Howard Chu, Symas Corp. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted only as authorized by the OpenLDAP
@@ -156,22 +166,12 @@
 #ifndef _LMDB_H_
 #define _LMDB_H_
 
-#ifdef USE_LMDB
 #include <sys/types.h>
+#include <inttypes.h>
+#include <limits.h>
 
 #ifdef __cplusplus
 extern "C" {
-#endif
-
-/** DLLExport for Windows */
-#ifdef _WIN32
-#    ifdef LIBRARY_EXPORT
-#        define LMDB_API __declspec(dllexport)
-#    else
-#        define LMDB_API __declspec(dllimport)
-#    endif
-#elif
-#    define LMDB_API
 #endif
 
 /** Unix permissions for creating files, or dummy definition for Windows */
@@ -179,6 +179,32 @@ extern "C" {
 typedef	int	mdb_mode_t;
 #else
 typedef	mode_t	mdb_mode_t;
+#endif
+
+#ifdef _WIN32
+# define MDB_FMT_Z	"I"
+#else
+# define MDB_FMT_Z	"z"			/**< printf/scanf format modifier for size_t */
+#endif
+
+#ifndef MDB_VL32
+/** Unsigned type used for mapsize, entry counts and page/transaction IDs.
+ *
+ *	It is normally size_t, hence the name. Defining MDB_VL32 makes it
+ *	uint64_t, but do not try this unless you know what you are doing.
+ */
+typedef size_t	mdb_size_t;
+# define MDB_SIZE_MAX	SIZE_MAX	/**< max #mdb_size_t */
+/** #mdb_size_t printf formats, \b t = one of [diouxX] without quotes */
+# define MDB_PRIy(t)	MDB_FMT_Z #t
+/** #mdb_size_t scanf formats, \b t = one of [dioux] without quotes */
+# define MDB_SCNy(t)	MDB_FMT_Z #t
+#else
+typedef uint64_t	mdb_size_t;
+# define MDB_SIZE_MAX	UINT64_MAX
+# define MDB_PRIy(t)	PRI##t##64
+# define MDB_SCNy(t)	SCN##t##64
+# define mdb_env_create	mdb_env_create_vl32	/**< Prevent mixing with non-VL32 builds */
 #endif
 
 /** An abstraction for a file handle.
@@ -203,7 +229,7 @@ typedef int mdb_filehandle_t;
 /** Library minor version */
 #define MDB_VERSION_MINOR	9
 /** Library patch version */
-#define MDB_VERSION_PATCH	14
+#define MDB_VERSION_PATCH	70
 
 /** Combine args a,b,c into a single integer for easy version comparisons */
 #define MDB_VERINT(a,b,c)	(((a) << 24) | ((b) << 16) | (c))
@@ -213,7 +239,7 @@ typedef int mdb_filehandle_t;
 	MDB_VERINT(MDB_VERSION_MAJOR,MDB_VERSION_MINOR,MDB_VERSION_PATCH)
 
 /** The release date of this library version */
-#define MDB_VERSION_DATE	"September 20, 2014"
+#define MDB_VERSION_DATE	"December 19, 2015"
 
 /** A stringifier for the version info */
 #define MDB_VERSTR(a,b,c,d)	"LMDB " #a "." #b "." #c ": (" d ")"
@@ -315,12 +341,13 @@ typedef void (MDB_rel_func)(MDB_val *item, void *oldptr, void *newptr, void *rel
 #define MDB_REVERSEKEY	0x02
 	/** use sorted duplicates */
 #define MDB_DUPSORT		0x04
-	/** numeric keys in native byte order.
+	/** numeric keys in native byte order, either unsigned int or #mdb_size_t.
+	 *	(lmdb expects 32-bit int <= size_t <= 32/64-bit mdb_size_t.)
 	 *  The keys must all be of the same size. */
 #define MDB_INTEGERKEY	0x08
 	/** with #MDB_DUPSORT, sorted dup items have fixed size */
 #define MDB_DUPFIXED	0x10
-	/** with #MDB_DUPSORT, dups are numeric in native byte order */
+	/** with #MDB_DUPSORT, dups are #MDB_INTEGERKEY-style integers */
 #define MDB_INTEGERDUP	0x20
 	/** with #MDB_DUPSORT, use reverse string dups */
 #define MDB_REVERSEDUP	0x40
@@ -392,7 +419,9 @@ typedef enum MDB_cursor_op {
 	MDB_PREV_NODUP,			/**< Position at last data item of previous key */
 	MDB_SET,				/**< Position at specified key */
 	MDB_SET_KEY,			/**< Position at specified key, return key + data */
-	MDB_SET_RANGE			/**< Position at first key greater than or equal to specified key. */
+	MDB_SET_RANGE,			/**< Position at first key greater than or equal to specified key. */
+	MDB_PREV_MULTIPLE		/**< Position at previous page and return key and up to
+								a page of duplicate data items. Only for #MDB_DUPFIXED */
 } MDB_cursor_op;
 
 /** @defgroup  errors	Return Codes
@@ -432,18 +461,27 @@ typedef enum MDB_cursor_op {
 #define MDB_PAGE_FULL	(-30786)
 	/** Database contents grew beyond environment mapsize */
 #define MDB_MAP_RESIZED	(-30785)
-	/** MDB_INCOMPATIBLE: Operation and DB incompatible, or DB flags changed */
+	/** Operation and DB incompatible, or DB type changed. This can mean:
+	 *	<ul>
+	 *	<li>The operation expects an #MDB_DUPSORT / #MDB_DUPFIXED database.
+	 *	<li>Opening a named DB when the unnamed DB has #MDB_DUPSORT / #MDB_INTEGERKEY.
+	 *	<li>Accessing a data record as a database, or vice versa.
+	 *	<li>The database was dropped and recreated with different flags.
+	 *	</ul>
+	 */
 #define MDB_INCOMPATIBLE	(-30784)
 	/** Invalid reuse of reader locktable slot */
 #define MDB_BAD_RSLOT		(-30783)
-	/** Transaction cannot recover - it must be aborted */
+	/** Transaction must abort, has a child, or is invalid */
 #define MDB_BAD_TXN			(-30782)
 	/** Unsupported size of key/DB name/data, or wrong DUPFIXED size */
 #define MDB_BAD_VALSIZE		(-30781)
 	/** The specified DBI was changed unexpectedly */
 #define MDB_BAD_DBI		(-30780)
+	/** Unexpected problem - txn should abort */
+#define MDB_PROBLEM		(-30779)
 	/** The last defined error code */
-#define MDB_LAST_ERRCODE	MDB_BAD_DBI
+#define MDB_LAST_ERRCODE	MDB_PROBLEM
 /** @} */
 
 /** @brief Statistics for a database in the environment */
@@ -451,18 +489,18 @@ typedef struct MDB_stat {
 	unsigned int	ms_psize;			/**< Size of a database page.
 											This is currently the same for all databases. */
 	unsigned int	ms_depth;			/**< Depth (height) of the B-tree */
-	size_t		ms_branch_pages;	/**< Number of internal (non-leaf) pages */
-	size_t		ms_leaf_pages;		/**< Number of leaf pages */
-	size_t		ms_overflow_pages;	/**< Number of overflow pages */
-	size_t		ms_entries;			/**< Number of data items */
+	mdb_size_t		ms_branch_pages;	/**< Number of internal (non-leaf) pages */
+	mdb_size_t		ms_leaf_pages;		/**< Number of leaf pages */
+	mdb_size_t		ms_overflow_pages;	/**< Number of overflow pages */
+	mdb_size_t		ms_entries;			/**< Number of data items */
 } MDB_stat;
 
 /** @brief Information about the environment */
 typedef struct MDB_envinfo {
 	void	*me_mapaddr;			/**< Address of map, if fixed */
-	size_t	me_mapsize;				/**< Size of the data memory map */
-	size_t	me_last_pgno;			/**< ID of the last used page */
-	size_t	me_last_txnid;			/**< ID of the last committed transaction */
+	mdb_size_t	me_mapsize;				/**< Size of the data memory map */
+	mdb_size_t	me_last_pgno;			/**< ID of the last used page */
+	mdb_size_t	me_last_txnid;			/**< ID of the last committed transaction */
 	unsigned int me_maxreaders;		/**< max reader slots in the environment */
 	unsigned int me_numreaders;		/**< max reader slots used in the environment */
 } MDB_envinfo;
@@ -474,7 +512,7 @@ typedef struct MDB_envinfo {
 	 * @param[out] patch if non-NULL, the library patch version number is copied here
 	 * @retval "version string" The library version as a string
 	 */
-LMDB_API char *mdb_version(int *major, int *minor, int *patch);
+char *mdb_version(int *major, int *minor, int *patch);
 
 	/** @brief Return a string describing a given error code.
 	 *
@@ -486,7 +524,7 @@ LMDB_API char *mdb_version(int *major, int *minor, int *patch);
 	 * @param[in] err The error code
 	 * @retval "error message" The description of the error
 	 */
-LMDB_API char *mdb_strerror(int err);
+char *mdb_strerror(int err);
 
 	/** @brief Create an LMDB environment handle.
 	 *
@@ -499,7 +537,7 @@ LMDB_API char *mdb_strerror(int err);
 	 * @param[out] env The address where the new handle will be stored
 	 * @return A non-zero error value on failure and 0 on success.
 	 */
-LMDB_API int  mdb_env_create(MDB_env **env);
+int  mdb_env_create(MDB_env **env);
 
 	/** @brief Open an environment handle.
 	 *
@@ -531,9 +569,11 @@ LMDB_API int  mdb_env_create(MDB_env **env);
 	 *		allowed. LMDB will still modify the lock file - except on read-only
 	 *		filesystems, where LMDB does not use locks.
 	 *	<li>#MDB_WRITEMAP
-	 *		Use a writeable memory map unless MDB_RDONLY is set. This is faster
-	 *		and uses fewer mallocs, but loses protection from application bugs
+	 *		Use a writeable memory map unless MDB_RDONLY is set. This uses
+	 *		fewer mallocs but loses protection from application bugs
 	 *		like wild pointer writes and other bad updates into the database.
+	 *		This may be slightly faster for DBs that fit entirely in RAM, but
+	 *		is slower for DBs larger than RAM.
 	 *		Incompatible with nested transactions.
 	 *		Do not mix processes with and without MDB_WRITEMAP on the same
 	 *		environment.  This can defeat durability (#mdb_env_sync etc).
@@ -607,8 +647,8 @@ LMDB_API int  mdb_env_create(MDB_env **env);
 	 *		reserved in that case.
 	 *		This flag may be changed at any time using #mdb_env_set_flags().
 	 * </ul>
-	 * @param[in] mode The UNIX permissions to set on created files. This parameter
-	 * is ignored on Windows.
+	 * @param[in] mode The UNIX permissions to set on created files and semaphores.
+	 * This parameter is ignored on Windows.
 	 * @return A non-zero error value on failure and 0 on success. Some possible
 	 * errors are:
 	 * <ul>
@@ -620,7 +660,7 @@ LMDB_API int  mdb_env_create(MDB_env **env);
 	 *	<li>EAGAIN - the environment was locked by another process.
 	 * </ul>
 	 */
-LMDB_API int  mdb_env_open(MDB_env *env, const char *path, unsigned int flags, mdb_mode_t mode);
+int  mdb_env_open(MDB_env *env, const char *path, unsigned int flags, mdb_mode_t mode);
 
 	/** @brief Copy an LMDB environment to the specified path.
 	 *
@@ -636,7 +676,7 @@ LMDB_API int  mdb_env_open(MDB_env *env, const char *path, unsigned int flags, m
 	 * empty.
 	 * @return A non-zero error value on failure and 0 on success.
 	 */
-LMDB_API int  mdb_env_copy(MDB_env *env, const char *path);
+int  mdb_env_copy(MDB_env *env, const char *path);
 
 	/** @brief Copy an LMDB environment to the specified file descriptor.
 	 *
@@ -651,7 +691,7 @@ LMDB_API int  mdb_env_copy(MDB_env *env, const char *path);
 	 * have already been opened for Write access.
 	 * @return A non-zero error value on failure and 0 on success.
 	 */
-LMDB_API int  mdb_env_copyfd(MDB_env *env, mdb_filehandle_t fd);
+int  mdb_env_copyfd(MDB_env *env, mdb_filehandle_t fd);
 
 	/** @brief Copy an LMDB environment to the specified path, with options.
 	 *
@@ -672,10 +712,11 @@ LMDB_API int  mdb_env_copyfd(MDB_env *env, mdb_filehandle_t fd);
 	 *	<li>#MDB_CP_COMPACT - Perform compaction while copying: omit free
 	 *		pages and sequentially renumber all pages in output. This option
 	 *		consumes more CPU and runs more slowly than the default.
+	 *		Currently it fails if the environment has suffered a page leak.
 	 * </ul>
 	 * @return A non-zero error value on failure and 0 on success.
 	 */
-LMDB_API int  mdb_env_copy2(MDB_env *env, const char *path, unsigned int flags);
+int  mdb_env_copy2(MDB_env *env, const char *path, unsigned int flags);
 
 	/** @brief Copy an LMDB environment to the specified file descriptor,
 	 *	with options.
@@ -694,7 +735,7 @@ LMDB_API int  mdb_env_copy2(MDB_env *env, const char *path, unsigned int flags);
 	 * See #mdb_env_copy2() for options.
 	 * @return A non-zero error value on failure and 0 on success.
 	 */
-LMDB_API int  mdb_env_copyfd2(MDB_env *env, mdb_filehandle_t fd, unsigned int flags);
+int  mdb_env_copyfd2(MDB_env *env, mdb_filehandle_t fd, unsigned int flags);
 
 	/** @brief Return statistics about the LMDB environment.
 	 *
@@ -702,7 +743,7 @@ LMDB_API int  mdb_env_copyfd2(MDB_env *env, mdb_filehandle_t fd, unsigned int fl
 	 * @param[out] stat The address of an #MDB_stat structure
 	 * 	where the statistics will be copied
 	 */
-LMDB_API int  mdb_env_stat(MDB_env *env, MDB_stat *stat);
+int  mdb_env_stat(MDB_env *env, MDB_stat *stat);
 
 	/** @brief Return information about the LMDB environment.
 	 *
@@ -710,7 +751,7 @@ LMDB_API int  mdb_env_stat(MDB_env *env, MDB_stat *stat);
 	 * @param[out] stat The address of an #MDB_envinfo structure
 	 * 	where the information will be copied
 	 */
-LMDB_API int  mdb_env_info(MDB_env *env, MDB_envinfo *stat);
+int  mdb_env_info(MDB_env *env, MDB_envinfo *stat);
 
 	/** @brief Flush the data buffers to disk.
 	 *
@@ -731,7 +772,7 @@ LMDB_API int  mdb_env_info(MDB_env *env, MDB_envinfo *stat);
 	 *	<li>EIO - an error occurred during synchronization.
 	 * </ul>
 	 */
-LMDB_API int  mdb_env_sync(MDB_env *env, int force);
+int  mdb_env_sync(MDB_env *env, int force);
 
 	/** @brief Close the environment and release the memory map.
 	 *
@@ -741,7 +782,7 @@ LMDB_API int  mdb_env_sync(MDB_env *env, int force);
 	 * The environment handle will be freed and must not be used again after this call.
 	 * @param[in] env An environment handle returned by #mdb_env_create()
 	 */
-LMDB_API void mdb_env_close(MDB_env *env);
+void mdb_env_close(MDB_env *env);
 
 	/** @brief Set environment flags.
 	 *
@@ -757,7 +798,7 @@ LMDB_API void mdb_env_close(MDB_env *env);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_env_set_flags(MDB_env *env, unsigned int flags, int onoff);
+int  mdb_env_set_flags(MDB_env *env, unsigned int flags, int onoff);
 
 	/** @brief Get environment flags.
 	 *
@@ -769,7 +810,7 @@ LMDB_API int  mdb_env_set_flags(MDB_env *env, unsigned int flags, int onoff);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_env_get_flags(MDB_env *env, unsigned int *flags);
+int  mdb_env_get_flags(MDB_env *env, unsigned int *flags);
 
 	/** @brief Return the path that was used in #mdb_env_open().
 	 *
@@ -783,9 +824,13 @@ LMDB_API int  mdb_env_get_flags(MDB_env *env, unsigned int *flags);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_env_get_path(MDB_env *env, const char **path);
+int  mdb_env_get_path(MDB_env *env, const char **path);
 
 	/** @brief Return the filedescriptor for the given environment.
+	 *
+	 * This function may be called after fork(), so the descriptor can be
+	 * closed before exec*().  Other LMDB file descriptors have FD_CLOEXEC.
+	 * (Until LMDB 0.9.18, only the lockfile had that.)
 	 *
 	 * @param[in] env An environment handle returned by #mdb_env_create()
 	 * @param[out] fd Address of a mdb_filehandle_t to contain the descriptor.
@@ -795,7 +840,7 @@ LMDB_API int  mdb_env_get_path(MDB_env *env, const char **path);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_env_get_fd(MDB_env *env, mdb_filehandle_t *fd);
+int  mdb_env_get_fd(MDB_env *env, mdb_filehandle_t *fd);
 
 	/** @brief Set the size of the memory map to use for this environment.
 	 *
@@ -829,7 +874,7 @@ LMDB_API int  mdb_env_get_fd(MDB_env *env, mdb_filehandle_t *fd);
 	 *   	an active write transaction.
 	 * </ul>
 	 */
-LMDB_API int  mdb_env_set_mapsize(MDB_env *env, size_t size);
+int  mdb_env_set_mapsize(MDB_env *env, mdb_size_t size);
 
 	/** @brief Set the maximum number of threads/reader slots for the environment.
 	 *
@@ -848,7 +893,7 @@ LMDB_API int  mdb_env_set_mapsize(MDB_env *env, size_t size);
 	 *	<li>EINVAL - an invalid parameter was specified, or the environment is already open.
 	 * </ul>
 	 */
-LMDB_API int  mdb_env_set_maxreaders(MDB_env *env, unsigned int readers);
+int  mdb_env_set_maxreaders(MDB_env *env, unsigned int readers);
 
 	/** @brief Get the maximum number of threads/reader slots for the environment.
 	 *
@@ -860,7 +905,7 @@ LMDB_API int  mdb_env_set_maxreaders(MDB_env *env, unsigned int readers);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_env_get_maxreaders(MDB_env *env, unsigned int *readers);
+int  mdb_env_get_maxreaders(MDB_env *env, unsigned int *readers);
 
 	/** @brief Set the maximum number of named databases for the environment.
 	 *
@@ -880,7 +925,7 @@ LMDB_API int  mdb_env_get_maxreaders(MDB_env *env, unsigned int *readers);
 	 *	<li>EINVAL - an invalid parameter was specified, or the environment is already open.
 	 * </ul>
 	 */
-LMDB_API int  mdb_env_set_maxdbs(MDB_env *env, MDB_dbi dbs);
+int  mdb_env_set_maxdbs(MDB_env *env, MDB_dbi dbs);
 
 	/** @brief Get the maximum size of keys and #MDB_DUPSORT data we can write.
 	 *
@@ -889,7 +934,7 @@ LMDB_API int  mdb_env_set_maxdbs(MDB_env *env, MDB_dbi dbs);
 	 * @param[in] env An environment handle returned by #mdb_env_create()
 	 * @return The maximum size of a key we can write
 	 */
-LMDB_API int  mdb_env_get_maxkeysize(MDB_env *env);
+int  mdb_env_get_maxkeysize(MDB_env *env);
 
 	/** @brief Set application information associated with the #MDB_env.
 	 *
@@ -897,14 +942,14 @@ LMDB_API int  mdb_env_get_maxkeysize(MDB_env *env);
 	 * @param[in] ctx An arbitrary pointer for whatever the application needs.
 	 * @return A non-zero error value on failure and 0 on success.
 	 */
-LMDB_API int  mdb_env_set_userctx(MDB_env *env, void *ctx);
+int  mdb_env_set_userctx(MDB_env *env, void *ctx);
 
 	/** @brief Get the application information associated with the #MDB_env.
 	 *
 	 * @param[in] env An environment handle returned by #mdb_env_create()
 	 * @return The pointer set by #mdb_env_set_userctx().
 	 */
-LMDB_API void *mdb_env_get_userctx(MDB_env *env);
+void *mdb_env_get_userctx(MDB_env *env);
 
 	/** @brief A callback function for most LMDB assert() failures,
 	 * called before printing the message and aborting.
@@ -912,7 +957,7 @@ LMDB_API void *mdb_env_get_userctx(MDB_env *env);
 	 * @param[in] env An environment handle returned by #mdb_env_create().
 	 * @param[in] msg The assertion message, not including newline.
 	 */
-LMDB_API typedef void MDB_assert_func(MDB_env *env, const char *msg);
+typedef void MDB_assert_func(MDB_env *env, const char *msg);
 
 	/** Set or reset the assert() callback of the environment.
 	 * Disabled if liblmdb is buillt with NDEBUG.
@@ -921,7 +966,7 @@ LMDB_API typedef void MDB_assert_func(MDB_env *env, const char *msg);
 	 * @param[in] func An #MDB_assert_func function, or 0.
 	 * @return A non-zero error value on failure and 0 on success.
 	 */
-LMDB_API int  mdb_env_set_assert(MDB_env *env, MDB_assert_func *func);
+int  mdb_env_set_assert(MDB_env *env, MDB_assert_func *func);
 
 	/** @brief Create a transaction for use with the environment.
 	 *
@@ -944,6 +989,8 @@ LMDB_API int  mdb_env_set_assert(MDB_env *env, MDB_assert_func *func);
 	 *		This transaction will not perform any write operations.
 	 *	<li>#MDB_NOSYNC
 	 *		Don't flush system buffers to disk when committing this transaction.
+	 *	<li>#MDB_NOMETASYNC
+	 *		Flush system buffers but omit metadata flush when committing this transaction.
 	 * </ul>
 	 * @param[out] txn Address where the new #MDB_txn handle will be stored
 	 * @return A non-zero error value on failure and 0 on success. Some possible
@@ -959,13 +1006,13 @@ LMDB_API int  mdb_env_set_assert(MDB_env *env, MDB_assert_func *func);
 	 *	<li>ENOMEM - out of memory.
 	 * </ul>
 	 */
-LMDB_API int  mdb_txn_begin(MDB_env *env, MDB_txn *parent, unsigned int flags, MDB_txn **txn);
+int  mdb_txn_begin(MDB_env *env, MDB_txn *parent, unsigned int flags, MDB_txn **txn);
 
 	/** @brief Returns the transaction's #MDB_env
 	 *
 	 * @param[in] txn A transaction handle returned by #mdb_txn_begin()
 	 */
-LMDB_API MDB_env *mdb_txn_env(MDB_txn *txn);
+MDB_env *mdb_txn_env(MDB_txn *txn);
 
 	/** @brief Return the transaction's ID.
 	 *
@@ -976,7 +1023,7 @@ LMDB_API MDB_env *mdb_txn_env(MDB_txn *txn);
 	 * @param[in] txn A transaction handle returned by #mdb_txn_begin()
 	 * @return A transaction ID, valid if input is an active transaction.
 	 */
-LMDB_API size_t mdb_txn_id(MDB_txn *txn);
+mdb_size_t mdb_txn_id(MDB_txn *txn);
 
 	/** @brief Commit all the operations of a transaction into the database.
 	 *
@@ -994,7 +1041,7 @@ LMDB_API size_t mdb_txn_id(MDB_txn *txn);
 	 *	<li>ENOMEM - out of memory.
 	 * </ul>
 	 */
-LMDB_API int  mdb_txn_commit(MDB_txn *txn);
+int  mdb_txn_commit(MDB_txn *txn);
 
 	/** @brief Abandon all the operations of the transaction instead of saving them.
 	 *
@@ -1004,7 +1051,7 @@ LMDB_API int  mdb_txn_commit(MDB_txn *txn);
 	 * Only write-transactions free cursors.
 	 * @param[in] txn A transaction handle returned by #mdb_txn_begin()
 	 */
-LMDB_API void mdb_txn_abort(MDB_txn *txn);
+void mdb_txn_abort(MDB_txn *txn);
 
 	/** @brief Reset a read-only transaction.
 	 *
@@ -1023,7 +1070,7 @@ LMDB_API void mdb_txn_abort(MDB_txn *txn);
 	 * the database size may grow much more rapidly than otherwise.
 	 * @param[in] txn A transaction handle returned by #mdb_txn_begin()
 	 */
-LMDB_API void mdb_txn_reset(MDB_txn *txn);
+void mdb_txn_reset(MDB_txn *txn);
 
 	/** @brief Renew a read-only transaction.
 	 *
@@ -1039,7 +1086,7 @@ LMDB_API void mdb_txn_reset(MDB_txn *txn);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_txn_renew(MDB_txn *txn);
+int  mdb_txn_renew(MDB_txn *txn);
 
 /** Compat with version <= 0.9.4, avoid clash with libmdb from MDB Tools project */
 #define mdb_open(txn,name,flags,dbi)	mdb_dbi_open(txn,name,flags,dbi)
@@ -1053,19 +1100,22 @@ LMDB_API int  mdb_txn_renew(MDB_txn *txn);
 	 * The database handle may be discarded by calling #mdb_dbi_close().
 	 * The old database handle is returned if the database was already open.
 	 * The handle may only be closed once.
+	 *
 	 * The database handle will be private to the current transaction until
 	 * the transaction is successfully committed. If the transaction is
 	 * aborted the handle will be closed automatically.
-	 * After a successful commit the
-	 * handle will reside in the shared environment, and may be used
-	 * by other transactions. This function must not be called from
-	 * multiple concurrent transactions in the same process. A transaction
-	 * that uses this function must finish (either commit or abort) before
+	 * After a successful commit the handle will reside in the shared
+	 * environment, and may be used by other transactions.
+	 *
+	 * This function must not be called from multiple concurrent
+	 * transactions in the same process. A transaction that uses
+	 * this function must finish (either commit or abort) before
 	 * any other transaction in the process may use this function.
 	 *
 	 * To use named databases (with name != NULL), #mdb_env_set_maxdbs()
-	 * must be called before opening the environment.  Database names
-	 * are kept as keys in the unnamed database.
+	 * must be called before opening the environment.  Database names are
+	 * keys in the unnamed database, and may be read but not written.
+	 *
 	 * @param[in] txn A transaction handle returned by #mdb_txn_begin()
 	 * @param[in] name The name of the database to open. If only a single
 	 * 	database is needed in the environment, this value may be NULL.
@@ -1082,18 +1132,20 @@ LMDB_API int  mdb_txn_renew(MDB_txn *txn);
 	 *		keys may have multiple data items, stored in sorted order.) By default
 	 *		keys must be unique and may have only a single data item.
 	 *	<li>#MDB_INTEGERKEY
-	 *		Keys are binary integers in native byte order. Setting this option
-	 *		requires all keys to be the same size, typically sizeof(int)
-	 *		or sizeof(size_t).
+	 *		Keys are binary integers in native byte order, either unsigned int
+	 *		or #mdb_size_t, and will be sorted as such.
+	 *		(lmdb expects 32-bit int <= size_t <= 32/64-bit mdb_size_t.)
+	 *		The keys must all be of the same size.
 	 *	<li>#MDB_DUPFIXED
 	 *		This flag may only be used in combination with #MDB_DUPSORT. This option
 	 *		tells the library that the data items for this database are all the same
 	 *		size, which allows further optimizations in storage and retrieval. When
-	 *		all data items are the same size, the #MDB_GET_MULTIPLE and #MDB_NEXT_MULTIPLE
-	 *		cursor operations may be used to retrieve multiple items at once.
+	 *		all data items are the same size, the #MDB_GET_MULTIPLE, #MDB_NEXT_MULTIPLE
+	 *		and #MDB_PREV_MULTIPLE cursor operations may be used to retrieve multiple
+	 *		items at once.
 	 *	<li>#MDB_INTEGERDUP
-	 *		This option specifies that duplicate data items are also integers, and
-	 *		should be sorted as such.
+	 *		This option specifies that duplicate data items are binary integers,
+	 *		similar to #MDB_INTEGERKEY keys.
 	 *	<li>#MDB_REVERSEDUP
 	 *		This option specifies that duplicate data items should be compared as
 	 *		strings in reverse order.
@@ -1110,7 +1162,7 @@ LMDB_API int  mdb_txn_renew(MDB_txn *txn);
 	 *	<li>#MDB_DBS_FULL - too many databases have been opened. See #mdb_env_set_maxdbs().
 	 * </ul>
 	 */
-LMDB_API int  mdb_dbi_open(MDB_txn *txn, const char *name, unsigned int flags, MDB_dbi *dbi);
+int  mdb_dbi_open(MDB_txn *txn, const char *name, unsigned int flags, MDB_dbi *dbi);
 
 	/** @brief Retrieve statistics for a database.
 	 *
@@ -1124,7 +1176,7 @@ LMDB_API int  mdb_dbi_open(MDB_txn *txn, const char *name, unsigned int flags, M
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_stat(MDB_txn *txn, MDB_dbi dbi, MDB_stat *stat);
+int  mdb_stat(MDB_txn *txn, MDB_dbi dbi, MDB_stat *stat);
 
 	/** @brief Retrieve the DB flags for a database handle.
 	 *
@@ -1133,7 +1185,7 @@ LMDB_API int  mdb_stat(MDB_txn *txn, MDB_dbi dbi, MDB_stat *stat);
 	 * @param[out] flags Address where the flags will be returned.
 	 * @return A non-zero error value on failure and 0 on success.
 	 */
-LMDB_API int mdb_dbi_flags(MDB_txn *txn, MDB_dbi dbi, unsigned int *flags);
+int mdb_dbi_flags(MDB_txn *txn, MDB_dbi dbi, unsigned int *flags);
 
 	/** @brief Close a database handle. Normally unnecessary. Use with care:
 	 *
@@ -1151,7 +1203,7 @@ LMDB_API int mdb_dbi_flags(MDB_txn *txn, MDB_dbi dbi, unsigned int *flags);
 	 * @param[in] env An environment handle returned by #mdb_env_create()
 	 * @param[in] dbi A database handle returned by #mdb_dbi_open()
 	 */
-LMDB_API void mdb_dbi_close(MDB_env *env, MDB_dbi dbi);
+void mdb_dbi_close(MDB_env *env, MDB_dbi dbi);
 
 	/** @brief Empty or delete+close a database.
 	 *
@@ -1162,7 +1214,7 @@ LMDB_API void mdb_dbi_close(MDB_env *env, MDB_dbi dbi);
 	 * environment and close the DB handle.
 	 * @return A non-zero error value on failure and 0 on success.
 	 */
-LMDB_API int  mdb_drop(MDB_txn *txn, MDB_dbi dbi, int del);
+int  mdb_drop(MDB_txn *txn, MDB_dbi dbi, int del);
 
 	/** @brief Set a custom key comparison function for a database.
 	 *
@@ -1183,7 +1235,7 @@ LMDB_API int  mdb_drop(MDB_txn *txn, MDB_dbi dbi, int del);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_set_compare(MDB_txn *txn, MDB_dbi dbi, MDB_cmp_func *cmp);
+int  mdb_set_compare(MDB_txn *txn, MDB_dbi dbi, MDB_cmp_func *cmp);
 
 	/** @brief Set a custom data comparison function for a #MDB_DUPSORT database.
 	 *
@@ -1206,7 +1258,7 @@ LMDB_API int  mdb_set_compare(MDB_txn *txn, MDB_dbi dbi, MDB_cmp_func *cmp);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_set_dupsort(MDB_txn *txn, MDB_dbi dbi, MDB_cmp_func *cmp);
+int  mdb_set_dupsort(MDB_txn *txn, MDB_dbi dbi, MDB_cmp_func *cmp);
 
 	/** @brief Set a relocation function for a #MDB_FIXEDMAP database.
 	 *
@@ -1226,7 +1278,7 @@ LMDB_API int  mdb_set_dupsort(MDB_txn *txn, MDB_dbi dbi, MDB_cmp_func *cmp);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_set_relfunc(MDB_txn *txn, MDB_dbi dbi, MDB_rel_func *rel);
+int  mdb_set_relfunc(MDB_txn *txn, MDB_dbi dbi, MDB_rel_func *rel);
 
 	/** @brief Set a context pointer for a #MDB_FIXEDMAP database's relocation function.
 	 *
@@ -1242,7 +1294,7 @@ LMDB_API int  mdb_set_relfunc(MDB_txn *txn, MDB_dbi dbi, MDB_rel_func *rel);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_set_relctx(MDB_txn *txn, MDB_dbi dbi, void *ctx);
+int  mdb_set_relctx(MDB_txn *txn, MDB_dbi dbi, void *ctx);
 
 	/** @brief Get items from a database.
 	 *
@@ -1270,7 +1322,7 @@ LMDB_API int  mdb_set_relctx(MDB_txn *txn, MDB_dbi dbi, void *ctx);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_get(MDB_txn *txn, MDB_dbi dbi, MDB_val *key, MDB_val *data);
+int  mdb_get(MDB_txn *txn, MDB_dbi dbi, MDB_val *key, MDB_val *data);
 
 	/** @brief Store items into a database.
 	 *
@@ -1302,7 +1354,8 @@ LMDB_API int  mdb_get(MDB_txn *txn, MDB_dbi dbi, MDB_val *key, MDB_val *data);
 	 *		the next update operation or the transaction ends. This saves
 	 *		an extra memcpy if the data is being generated later.
 	 *		LMDB does nothing else with this memory, the caller is expected
-	 *		to modify all of the space requested.
+	 *		to modify all of the space requested. This flag must not be
+	 *		specified if the database was opened with #MDB_DUPSORT.
 	 *	<li>#MDB_APPEND - append the given key/data pair to the end of the
 	 *		database. This option allows fast bulk loading when keys are
 	 *		already known to be in the correct order. Loading unsorted keys
@@ -1318,7 +1371,7 @@ LMDB_API int  mdb_get(MDB_txn *txn, MDB_dbi dbi, MDB_val *key, MDB_val *data);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_put(MDB_txn *txn, MDB_dbi dbi, MDB_val *key, MDB_val *data,
+int  mdb_put(MDB_txn *txn, MDB_dbi dbi, MDB_val *key, MDB_val *data,
 			    unsigned int flags);
 
 	/** @brief Delete items from a database.
@@ -1343,7 +1396,7 @@ LMDB_API int  mdb_put(MDB_txn *txn, MDB_dbi dbi, MDB_val *key, MDB_val *data,
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_del(MDB_txn *txn, MDB_dbi dbi, MDB_val *key, MDB_val *data);
+int  mdb_del(MDB_txn *txn, MDB_dbi dbi, MDB_val *key, MDB_val *data);
 
 	/** @brief Create a cursor handle.
 	 *
@@ -1367,7 +1420,7 @@ LMDB_API int  mdb_del(MDB_txn *txn, MDB_dbi dbi, MDB_val *key, MDB_val *data);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_cursor_open(MDB_txn *txn, MDB_dbi dbi, MDB_cursor **cursor);
+int  mdb_cursor_open(MDB_txn *txn, MDB_dbi dbi, MDB_cursor **cursor);
 
 	/** @brief Close a cursor handle.
 	 *
@@ -1375,7 +1428,7 @@ LMDB_API int  mdb_cursor_open(MDB_txn *txn, MDB_dbi dbi, MDB_cursor **cursor);
 	 * Its transaction must still be live if it is a write-transaction.
 	 * @param[in] cursor A cursor handle returned by #mdb_cursor_open()
 	 */
-LMDB_API void mdb_cursor_close(MDB_cursor *cursor);
+void mdb_cursor_close(MDB_cursor *cursor);
 
 	/** @brief Renew a cursor handle.
 	 *
@@ -1393,19 +1446,19 @@ LMDB_API void mdb_cursor_close(MDB_cursor *cursor);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_cursor_renew(MDB_txn *txn, MDB_cursor *cursor);
+int  mdb_cursor_renew(MDB_txn *txn, MDB_cursor *cursor);
 
 	/** @brief Return the cursor's transaction handle.
 	 *
 	 * @param[in] cursor A cursor handle returned by #mdb_cursor_open()
 	 */
-LMDB_API MDB_txn *mdb_cursor_txn(MDB_cursor *cursor);
+MDB_txn *mdb_cursor_txn(MDB_cursor *cursor);
 
 	/** @brief Return the cursor's database handle.
 	 *
 	 * @param[in] cursor A cursor handle returned by #mdb_cursor_open()
 	 */
-LMDB_API MDB_dbi mdb_cursor_dbi(MDB_cursor *cursor);
+MDB_dbi mdb_cursor_dbi(MDB_cursor *cursor);
 
 	/** @brief Retrieve by cursor.
 	 *
@@ -1426,7 +1479,7 @@ LMDB_API MDB_dbi mdb_cursor_dbi(MDB_cursor *cursor);
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_cursor_get(MDB_cursor *cursor, MDB_val *key, MDB_val *data,
+int  mdb_cursor_get(MDB_cursor *cursor, MDB_val *key, MDB_val *data,
 			    MDB_cursor_op op);
 
 	/** @brief Store by cursor.
@@ -1458,13 +1511,15 @@ LMDB_API int  mdb_cursor_get(MDB_cursor *cursor, MDB_val *key, MDB_val *data,
 	 *		the database supports duplicates (#MDB_DUPSORT).
 	 *	<li>#MDB_RESERVE - reserve space for data of the given size, but
 	 *		don't copy the given data. Instead, return a pointer to the
-	 *		reserved space, which the caller can fill in later. This saves
-	 *		an extra memcpy if the data is being generated later.
+	 *		reserved space, which the caller can fill in later - before
+	 *		the next update operation or the transaction ends. This saves
+	 *		an extra memcpy if the data is being generated later. This flag
+	 *		must not be specified if the database was opened with #MDB_DUPSORT.
 	 *	<li>#MDB_APPEND - append the given key/data pair to the end of the
 	 *		database. No key comparisons are performed. This option allows
 	 *		fast bulk loading when keys are already known to be in the
 	 *		correct order. Loading unsorted keys with this flag will cause
-	 *		data corruption.
+	 *		a #MDB_KEYEXIST error.
 	 *	<li>#MDB_APPENDDUP - as above, but for sorted dup data.
 	 *	<li>#MDB_MULTIPLE - store multiple contiguous data elements in a
 	 *		single request. This flag may only be specified if the database
@@ -1486,7 +1541,7 @@ LMDB_API int  mdb_cursor_get(MDB_cursor *cursor, MDB_val *key, MDB_val *data,
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_cursor_put(MDB_cursor *cursor, MDB_val *key, MDB_val *data,
+int  mdb_cursor_put(MDB_cursor *cursor, MDB_val *key, MDB_val *data,
 				unsigned int flags);
 
 	/** @brief Delete current key/data pair
@@ -1506,7 +1561,7 @@ LMDB_API int  mdb_cursor_put(MDB_cursor *cursor, MDB_val *key, MDB_val *data,
 	 *	<li>EINVAL - an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_cursor_del(MDB_cursor *cursor, unsigned int flags);
+int  mdb_cursor_del(MDB_cursor *cursor, unsigned int flags);
 
 	/** @brief Return count of duplicates for current key.
 	 *
@@ -1520,7 +1575,7 @@ LMDB_API int  mdb_cursor_del(MDB_cursor *cursor, unsigned int flags);
 	 *	<li>EINVAL - cursor is not initialized, or an invalid parameter was specified.
 	 * </ul>
 	 */
-LMDB_API int  mdb_cursor_count(MDB_cursor *cursor, size_t *countp);
+int  mdb_cursor_count(MDB_cursor *cursor, mdb_size_t *countp);
 
 	/** @brief Compare two data items according to a particular database.
 	 *
@@ -1532,7 +1587,7 @@ LMDB_API int  mdb_cursor_count(MDB_cursor *cursor, size_t *countp);
 	 * @param[in] b The second item to compare
 	 * @return < 0 if a < b, 0 if a == b, > 0 if a > b
 	 */
-LMDB_API int  mdb_cmp(MDB_txn *txn, MDB_dbi dbi, const MDB_val *a, const MDB_val *b);
+int  mdb_cmp(MDB_txn *txn, MDB_dbi dbi, const MDB_val *a, const MDB_val *b);
 
 	/** @brief Compare two data items according to a particular database.
 	 *
@@ -1544,7 +1599,7 @@ LMDB_API int  mdb_cmp(MDB_txn *txn, MDB_dbi dbi, const MDB_val *a, const MDB_val
 	 * @param[in] b The second item to compare
 	 * @return < 0 if a < b, 0 if a == b, > 0 if a > b
 	 */
-LMDB_API int  mdb_dcmp(MDB_txn *txn, MDB_dbi dbi, const MDB_val *a, const MDB_val *b);
+int  mdb_dcmp(MDB_txn *txn, MDB_dbi dbi, const MDB_val *a, const MDB_val *b);
 
 	/** @brief A callback function used to print a message from the library.
 	 *
@@ -1561,7 +1616,7 @@ typedef int (MDB_msg_func)(const char *msg, void *ctx);
 	 * @param[in] ctx Anything the message function needs
 	 * @return < 0 on failure, >= 0 on success.
 	 */
-LMDB_API int	mdb_reader_list(MDB_env *env, MDB_msg_func *func, void *ctx);
+int	mdb_reader_list(MDB_env *env, MDB_msg_func *func, void *ctx);
 
 	/** @brief Check for stale entries in the reader lock table.
 	 *
@@ -1569,7 +1624,7 @@ LMDB_API int	mdb_reader_list(MDB_env *env, MDB_msg_func *func, void *ctx);
 	 * @param[out] dead Number of stale slots that were cleared
 	 * @return 0 on success, non-zero on failure.
 	 */
-LMDB_API int	mdb_reader_check(MDB_env *env, int *dead);
+int	mdb_reader_check(MDB_env *env, int *dead);
 /**	@} */
 
 #ifdef __cplusplus
@@ -1583,5 +1638,4 @@ LMDB_API int	mdb_reader_check(MDB_env *env, int *dead);
 	\li \ref mdb_stat_1
 */
 
-#endif /*USE_LMDB*/
 #endif /* _LMDB_H_ */

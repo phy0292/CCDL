@@ -384,9 +384,6 @@
     <ClInclude Include="..\..\support\train\lmdb\lmdb.h">
       <Filter>support\train</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\support\train\lmdb\midl.h">
-      <Filter>support\train</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\caffe\layers\absval_layer.cpp">
@@ -727,12 +724,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\caffe\layers\predict_box_layer.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\support\train\lmdb\mdb.c">
-      <Filter>support\train</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\support\train\lmdb\midl.c">
-      <Filter>support\train</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

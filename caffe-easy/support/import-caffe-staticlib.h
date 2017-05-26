@@ -5,6 +5,9 @@
 #pragma comment(lib, "shlwapi.lib")
 
 #ifdef _DEBUG
+#ifdef USE_LMDB
+	#pragma comment(lib, "lmdbd.lib")
+#endif
 	#pragma comment(lib, "gflags_staticd.lib")
 	#pragma comment(lib, "libprotobufd.lib")
 	#pragma comment(lib, "libglog_staticd.lib")
@@ -16,6 +19,9 @@
 #	endif
 
 #else
+#ifdef USE_LMDB
+	#pragma comment(lib, "lmdb.lib")
+#endif
 	#pragma comment(lib, "gflags_static.lib")
 	#pragma comment(lib, "libprotobuf.lib")
 	#pragma comment(lib, "libglog_static.lib")
