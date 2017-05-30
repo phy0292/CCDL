@@ -28,12 +28,15 @@ static const int event_do_test_all_finish = 7;
 static const int control_snapshot = 1;
 static const int control_stop = 2;
 
+#pragma push(pack)
+#pragma pack(1)
 struct TestAllScore{
 	int iterNum;
 	int numOutput;
 	float* values;
 	char** outputNames;
 };
+#pragma pop(pack)
 
 void setTrainEventCallback(procCCTrainEventCallback callback){
 	g_procCCTrainEventCallback = callback;

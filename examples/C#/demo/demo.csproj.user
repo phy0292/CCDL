@@ -3,4 +3,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartWorkingDirectory>E:\project\3.github\CCDL2\CCDL\examples\C#\demo\</StartWorkingDirectory>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <StartWorkingDirectory>E:\project\3.github\CCDL2\CCDL\examples\C#\demo\</StartWorkingDirectory>
+  </PropertyGroup>
 </Project>

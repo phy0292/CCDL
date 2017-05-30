@@ -4,6 +4,7 @@
 *.pyc
 *.exp
 *.rar
+*.lib
 *.dll
 *.caffemodel
 *.opensdf

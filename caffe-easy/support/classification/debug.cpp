@@ -37,6 +37,7 @@ void recThread(void* param){
 	}
 }
 
+#if 0
 void main(int argc, char** argv){
 
 #if 0
@@ -90,4 +91,27 @@ void main(int argc, char** argv){
 	releaseTaskPool(pool);
 	printf("ÒÑ¾­Í£Ö¹...\n");
 	Sleep(3000);
+}
+#endif
+
+typedef int(__stdcall *procCCTrainEventCallback)(int event, int param1, float param2, void* param3);
+extern void setTrainEventCallback(procCCTrainEventCallback callback);
+extern "C" Caffe_API void __stdcall setTraindEventCallback(procCCTrainEventCallback callback);
+extern "C" Caffe_API int __stdcall train_network(char* args);
+
+int __stdcall testx(int event, int param1, float param2, void* param3){
+	printf("event %d:\n", event);
+	if (event == 7){
+		char* p = (char*)param3;
+		p += 16;
+		char** ptr = *(char***)p;
+		printf("%s\n", ptr[0]);
+	}
+	return 0;
+}
+void main(){
+	setTraindEventCallback(testx);
+
+	string info = "train --solver=solver.prototxt";
+	train_network((char*)info.c_str());
 }

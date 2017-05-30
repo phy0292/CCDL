@@ -36,5 +36,16 @@ namespace demo
 
         [DllImport("classification_dll.dll", EntryPoint = "releaseSoftmaxResult", CallingConvention = CallingConvention.StdCall)]
         public static extern void releaseSoftmaxResult(IntPtr softmax);
+
+
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public unsafe delegate int TraindEventCallback(int eventFlag, int param1, float param2, void* param3);
+
+
+        [DllImport("classification_dll.dll", EntryPoint = "setTraindEventCallback", CallingConvention = CallingConvention.StdCall)]
+        public static extern void setTraindEventCallback(TraindEventCallback callback);
+
+        [DllImport("classification_dll.dll", EntryPoint = "train_network", CallingConvention = CallingConvention.StdCall)]
+        public static extern int train_network(string param);
     }
 }

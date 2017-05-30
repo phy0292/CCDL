@@ -19,6 +19,9 @@
     <ClCompile Include="..\..\support\classification\task_pool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\support\classification\train.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\support\classification\classification.h">

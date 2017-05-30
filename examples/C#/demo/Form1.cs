@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Collections;
+using System.Diagnostics;
+using System.Threading;
 
 namespace demo
 {
@@ -59,6 +61,75 @@ namespace demo
 
             CC.releaseSoftmaxResult(softmax);
             CC.releaseClassifier(model);
+        }
+
+
+        public struct TrainValInfo
+        {
+            public int iterNum;
+            public int numOutput;
+            public float[] values;
+            public string[] outputNames;
+            public override string ToString()
+            {
+                string ot = "iterNum: " + iterNum + ", numOutput: " + numOutput + ", values: [";
+                for (int i = 0; i < numOutput; ++i)
+                    ot += values[i] + (i == numOutput-1 ? "" : ", ");
+                ot += "], outputNames: [";
+
+                for (int i = 0; i < numOutput; ++i)
+                    ot += outputNames[i] + (i == numOutput - 1 ? "" : ", ");
+                ot += "]";
+                return ot;
+            }
+        }
+
+        public unsafe TrainValInfo getInfo(void* param)
+        {
+            TrainValInfo info = new TrainValInfo();
+            sbyte* p = (sbyte*)param;
+            info.iterNum = *(int*)p; p += 4;
+            info.numOutput = *(int*)p; p += 4;
+
+            float* values = *(float**)p; p+=sizeof(void*);
+            if (info.numOutput > 0)
+            {
+                info.values = new float[info.numOutput];
+                for (int i = 0; i < info.numOutput; ++i)
+                    info.values[i] = values[i];
+
+                sbyte** names = *(sbyte***)(p);
+                info.outputNames = new string[info.numOutput];
+                for (int i = 0; i < info.numOutput; ++i)
+                    info.outputNames[i] = new string(names[i]);
+            }
+            return info;
+        }
+
+        //下面是训练的代码
+        public unsafe int trainCallback(int eventFlag, int param1, float param2, void* param3)
+        {
+            if (eventFlag == 7)
+            {
+                TrainValInfo info = getInfo(param3);
+                Debug.WriteLine(info);
+            }
+            Debug.WriteLine("{0}, {1}, {2}", eventFlag, param1, param2);
+            return 0;
+        }
+
+        private unsafe void button2_Click(object sender, EventArgs e)
+        {
+            CC.TraindEventCallback func = new CC.TraindEventCallback(trainCallback);
+            CC.setTraindEventCallback(func);
+
+            Thread t = new Thread(new ThreadStart(run));
+            t.Start();
+        }
+
+        public void run()
+        {
+            CC.train_network("train --solver=solver.prototxt");
         }
     }
 }
