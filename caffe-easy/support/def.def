@@ -32,3 +32,4 @@ releaseTaskPool
 predictSoftmaxByTaskPool
 predictSoftmaxByTaskPool2
 setTraindEventCallback
+convert_imageset

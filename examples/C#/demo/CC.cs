@@ -47,5 +47,13 @@ namespace demo
 
         [DllImport("classification_dll.dll", EntryPoint = "train_network", CallingConvention = CallingConvention.StdCall)]
         public static extern int train_network(string param);
+
+
+
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public unsafe delegate int ConvertImageSetEventCallback(int eventFlag, int param1, float param2, void* param3);
+
+        [DllImport("classification_dll.dll", EntryPoint = "convert_imageset", CallingConvention = CallingConvention.StdCall)]
+        public static extern int convert_imageset(string param, ConvertImageSetEventCallback callback);
     }
 }

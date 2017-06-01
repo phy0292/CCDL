@@ -462,7 +462,7 @@ extern "C" Caffe_API int __stdcall train_network(char* args) {
     try {
 #endif
       int ret = GetBrewFunction(caffe::string(argv[1]))();
-	  delete []argv;
+	  //delete []argv;
 	  return ret;
 #ifdef WITH_PYTHON_LAYER
     } catch (bp::error_already_set) {

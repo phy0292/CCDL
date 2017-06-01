@@ -109,6 +109,9 @@ namespace demo
         //下面是训练的代码
         public unsafe int trainCallback(int eventFlag, int param1, float param2, void* param3)
         {
+            if (eventFlag == 3 && param1 > 10)
+                return 2;
+
             if (eventFlag == 7)
             {
                 TrainValInfo info = getInfo(param3);
@@ -130,6 +133,56 @@ namespace demo
         public void run()
         {
             CC.train_network("train --solver=solver.prototxt");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Thread t = new Thread(new ThreadStart(convertImageSet));
+            t.Start();
+        }
+
+
+        const int event_readlabel = 1;
+        const int event_shuffle = 2;
+        const int event_initdb = 3;
+        const int event_put_one = 4;
+        const int event_err_one = 5;
+        const int event_finish = 6;
+        public unsafe int convertImageSetCallback(int eventFlag, int param1, float param2, void* param3)
+        {
+            switch (eventFlag)
+            {
+                case event_readlabel:
+                    Debug.WriteLine("读了标签文件啦，总共有{0}个", param1);
+                    break;
+
+                case event_shuffle:
+                    Debug.WriteLine("做了随机打乱了哟~");
+                    break;
+
+                case event_initdb:
+                    Debug.WriteLine("开始初始化lmdb啦，宽度是{0}，高度是{1}，目录路径是：{2}", param1, (int)param2, new string((sbyte*)param3));
+                    break;
+
+                case event_put_one:
+                    Debug.WriteLine("处理了一个，共处理了{0}个，当前处理到了第{1}个", param1, (int)param2);
+                    break;
+
+                case event_err_one:
+                    Debug.WriteLine("错误了一个，已经处理了{0}个，当前处理到了第{1}个，错误的文件路径：{2}", param1, (int)param2, new string((sbyte*)param3));
+                    break;
+
+                case event_finish:
+                    Debug.WriteLine("转换完毕啦，总共处理了{0}个文件", param1);
+                    break;
+            }
+            //Debug.WriteLine("{0}, {1}, {2}", eventFlag, param1, param2);
+            return 0;
+        }
+
+        public unsafe void convertImageSet()
+        {
+            CC.convert_imageset("./ label-train.txt train_lmdb --shuffle=true --resize_width=224 --resize_height=224", new CC.ConvertImageSetEventCallback(convertImageSetCallback));
         }
     }
 }

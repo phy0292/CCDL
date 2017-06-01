@@ -122,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\support\classification\classification.cpp" />
+    <ClCompile Include="..\..\support\classification\convert_imageset.cpp" />
     <ClCompile Include="..\..\support\classification\task_pool.cpp" />
     <ClCompile Include="..\..\support\classification\train.cpp" />
     <ClCompile Include="..\..\support\model_compress\model_compress.cpp" />
