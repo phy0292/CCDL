@@ -315,6 +315,7 @@ void execute(cmd* c, vector<param>& ps){
 	}
 	else if (c->name == "predictSoftmax"){
 		int modelID = getParamInt(c, "model_id");
+		int top_n = getParamInt(c, "top_n", 1);
 		if (modelID < 1 || modelID > classifiers.size()){
 			error(ps, "错误的模型id");
 			return;
@@ -339,7 +340,7 @@ void execute(cmd* c, vector<param>& ps){
 		}
 
 		Classifier* cf = classifiers[modelID];
-		SoftmaxResult* result = cf->predictSoftmax(im, 1);
+		SoftmaxResult* result = cf->predictSoftmax(im, top_n);
 		if (!result){
 			error(ps, "发生错误");
 			return;
@@ -348,8 +349,10 @@ void execute(cmd* c, vector<param>& ps){
 		vector<int> labs;
 		vector<float> confs;
 		for (int i = 0; i < result->count; ++i){
-			labs.push_back(result->list[i].result[0].label);
-			confs.push_back(result->list[i].result[0].conf);
+			for (int j = 0; j < result->list[i].count; ++j){
+				labs.push_back(result->list[i].result[j].label);
+				confs.push_back(result->list[i].result[j].conf);
+			}
 		}
 
 		ps.push_back(param("labs", &labs[0], labs.size()*sizeof(labs[0])));
@@ -380,6 +383,7 @@ void execute(cmd* c, vector<param>& ps){
 	}
 	else if (c->name == "predictSoftmaxByPool"){
 		int modelID = getParamInt(c, "model_id");
+		int top_n = getParamInt(c, "top_n", 1);
 		if (modelID < 1 || modelID > pools.size()){
 			error(ps, "错误的模型id");
 			return;
@@ -404,7 +408,7 @@ void execute(cmd* c, vector<param>& ps){
 		}
 
 		TaskPool* pool = pools[modelID];
-		SoftmaxResult* result = predictSoftmaxByTaskPool2(pool, &im, 1);
+		SoftmaxResult* result = predictSoftmaxByTaskPool2(pool, &im, top_n);
 		if (!result){
 			error(ps, "发生错误");
 			return;
@@ -413,8 +417,10 @@ void execute(cmd* c, vector<param>& ps){
 		vector<int> labs;
 		vector<float> confs;
 		for (int i = 0; i < result->count; ++i){
-			labs.push_back(result->list[i].result[0].label);
-			confs.push_back(result->list[i].result[0].conf);
+			for (int j = 0; j < result->list[i].count; ++j){
+				labs.push_back(result->list[i].result[j].label);
+				confs.push_back(result->list[i].result[j].conf);
+			}
 		}
 
 		ps.push_back(param("labs", &labs[0], labs.size()*sizeof(labs[0])));
