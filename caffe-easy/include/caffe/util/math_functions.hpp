@@ -105,6 +105,10 @@ Dtype caffe_cpu_strided_dot(const int n, const Dtype* x, const int incx,
 template <typename Dtype>
 Dtype caffe_cpu_asum(const int n, const Dtype* x);
 
+template <typename Dtype>
+void caffe_bound(const int n, const Dtype* a, const Dtype min,
+	const Dtype max, Dtype* y);
+
 // the branchless, type-safe version from
 // http://stackoverflow.com/questions/1903954/is-there-a-standard-sign-function-signum-sgn-in-c-c
 template<typename Dtype>
@@ -205,6 +209,10 @@ void caffe_gpu_exp(const int n, const Dtype* a, Dtype* y);
 
 template <typename Dtype>
 void caffe_gpu_log(const int n, const Dtype* a, Dtype* y);
+
+template <typename Dtype>
+void caffe_gpu_bound(const int n, const Dtype* a, const Dtype min, 
+	const Dtype max, Dtype* y);
 
 template <typename Dtype>
 void caffe_gpu_powx(const int n, const Dtype* a, const Dtype b, Dtype* y);

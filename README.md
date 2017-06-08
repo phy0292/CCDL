@@ -8,7 +8,7 @@ visual studio 2013，建议使用这个版本。目前编译全部是静态编�
 
 ## 特性：
 添加了[Center Loss](https://github.com/ydwen/caffe-face)，以支持人脸识别的训练<br/>
-添加了[MTCNN](https://github.com/happynear/MTCNN_face_detection_alignment)，以支持人脸检测的实现<br/>
+~~添加了[MTCNN](https://github.com/happynear/MTCNN_face_detection_alignment)，以支持人脸检测的实现[注意，该实现被实测并不稳定]~~<br/>
 添加了[SSD](https://github.com/weiliu89/caffe/tree/ssd)，以支持对目标检测的支持<br/>
 添加了多标签支持，以实现多任务或OCR、验证码类的识别任务<br/>
 添加了Win32、x64，CPU、GPU的支持，方便应用到各个领域上<br/>
@@ -17,3 +17,4 @@ visual studio 2013，建议使用这个版本。目前编译全部是静态编�
 添加了[多图模式](https://github.com/dlunion/CCDL/blob/master/caffe-easy/support/classification/classification.cpp)，使得轻易就能够搭建高性能识别服务器<br/>
 添加了[任务池](https://github.com/dlunion/CCDL/blob/master/caffe-easy/support/classification/task_pool.cpp)，高性能服务器的神器<br/>
 添加了Socket-Server，通过socket调用caffe，这样可以支持win32的GPU调用或者其他语言的调用<br/>
+添加了LSTM的支持，以备后续对序列方面训练的支持<br/>

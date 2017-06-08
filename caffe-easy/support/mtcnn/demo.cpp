@@ -25,7 +25,7 @@ vector<char> readAtFile(const char* filename){
 
 int main(int argc, char** argv){
 	int gpu_id = -1;		//-1为使用CPU模式，大于-1为GPU的编号
-	int min_face = 80;
+	int min_face = 40;
 	const char* package = "../../../../../demo-data/mtcnn.package";
 	if (argc > 1) package = argv[1];
 	if (argc > 2) min_face = atoi(argv[2]);
@@ -39,43 +39,56 @@ int main(int argc, char** argv){
 	}
 
 	MTCNN mtcnn(data, gpu_id);
+
+	//"rtmp://live.hkstv.hk.lxdns.com/live/hks"
 	VideoCapture cap(0); 
 	Mat frame;
 	double fps = 0;
 	double countTimes = 0;
 	int fs = 0;
+	double lastFrameTime = 0;
 
 	printf("使用的GPUid是%d，最小人脸%d，模型文件：%s\n", gpu_id, min_face, package);
 
 	cap >> frame;
-	while (!frame.empty()){
-		double tmp = cv::getTickCount();
-		vector<vector<Point2d>> keys;
-		vector<Rect> boxs = mtcnn.detect(frame, min_face, 0.7, true, 0.7, true, keys);
-		for (int i = 0; i < boxs.size(); ++i){
-			rectangle(frame, boxs[i], Scalar(0, 255), 2);
+	while (true){
+		if (!frame.empty()){
+			lastFrameTime = getTickCount();
+			double tmp = cv::getTickCount();
+			vector<vector<Point2d>> keys;
+			vector<Rect> boxs = mtcnn.detect(frame, min_face, 0.7, true, 0.7, true, keys);
+			for (int i = 0; i < boxs.size(); ++i){
+				rectangle(frame, boxs[i], Scalar(0, 255), 2);
 
-			for (int k = 0; k < keys[i].size(); ++k){
-				circle(frame, keys[i][k], 3, Scalar(0, 0, 255), -1);
+				for (int k = 0; k < keys[i].size(); ++k){
+					circle(frame, keys[i][k], 3, Scalar(0, 0, 255), -1);
+				}
 			}
+
+			tmp = (cv::getTickCount() - tmp) / cv::getTickFrequency() * 1000.0;
+			//printf("耗时：%.2f ms\n", tmp);
+			countTimes += tmp;
+			fs++;
+
+			if (countTimes >= 1000){
+				fps = countTimes / fs;
+
+				countTimes = 0;
+				fs = 0;
+			}
+			putText(frame, format("%.2f fps", fps), Point(10, 30), 1, 1, Scalar(0, 255), 1);
+			imshow("esc to exit.", frame);
+
+			//ESC
+			if (waitKey(1) == 0x1B) break;
 		}
+		else{
+			double tme = (getTickCount() - lastFrameTime) / getTickFrequency() * 1000;
+			if (tme >= 20 * 1000)
+				break;
 
-		tmp = (cv::getTickCount() - tmp) / cv::getTickFrequency() * 1000.0;
-		//printf("耗时：%.2f ms\n", tmp);
-		countTimes += tmp;
-		fs++;
-
-		if (countTimes >= 1000){
-			fps = countTimes / fs;
-
-			countTimes = 0;
-			fs = 0;
+			printf("empty frame.\n");
 		}
-		putText(frame, format("%.2f fps", fps), Point(10, 30), 1, 1, Scalar(0, 255), 1);
-		imshow("esc to exit.", frame);
-
-		//ESC
-		if (waitKey(1) == 0x1B) break;
 		cap >> frame;
 	}
 	return 0;

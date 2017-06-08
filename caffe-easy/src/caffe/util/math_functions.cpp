@@ -373,4 +373,20 @@ void caffe_cpu_scale<double>(const int n, const double alpha, const double *x,
   cblas_dscal(n, alpha, y, 1);
 }
 
+template <>
+void caffe_bound(const int N, const float* a, const float min,
+	const float max, float* y) {
+	for (int i = 0; i < N; ++i) {
+		y[i] = std::min(std::max(a[i], min), max);
+	}
+}
+
+template <>
+void caffe_bound(const int N, const double* a, const double min,
+	const double max, double* y) {
+	for (int i = 0; i < N; ++i) {
+		y[i] = std::min(std::max(a[i], min), max);
+	}
+}
+
 }  // namespace caffe

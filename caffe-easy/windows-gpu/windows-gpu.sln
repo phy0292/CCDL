@@ -31,6 +31,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "model_compress", "model_com
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "socket-server", "socket-server\socket-server.vcxproj", "{47A27BF5-D4C8-4C7E-80BF-BC3D510C852E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pycaffe", "pycaffe\pycaffe.vcxproj", "{E3520075-31CE-4ECC-ACBD-F4DD3AAD722C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -92,6 +94,10 @@ Global
 		{47A27BF5-D4C8-4C7E-80BF-BC3D510C852E}.Debug|x64.Build.0 = Debug|x64
 		{47A27BF5-D4C8-4C7E-80BF-BC3D510C852E}.Release|x64.ActiveCfg = Release|x64
 		{47A27BF5-D4C8-4C7E-80BF-BC3D510C852E}.Release|x64.Build.0 = Release|x64
+		{E3520075-31CE-4ECC-ACBD-F4DD3AAD722C}.Debug|x64.ActiveCfg = Debug|x64
+		{E3520075-31CE-4ECC-ACBD-F4DD3AAD722C}.Debug|x64.Build.0 = Debug|x64
+		{E3520075-31CE-4ECC-ACBD-F4DD3AAD722C}.Release|x64.ActiveCfg = Release|x64
+		{E3520075-31CE-4ECC-ACBD-F4DD3AAD722C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

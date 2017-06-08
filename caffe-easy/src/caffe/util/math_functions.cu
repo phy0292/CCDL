@@ -425,4 +425,28 @@ void caffe_gpu_rng_gaussian(const int n, const double mu, const double sigma,
       curandGenerateNormalDouble(Caffe::curand_generator(), r, n, mu, sigma));
 }
 
+template <typename Dtype>
+__global__ void bound_kernel(const int n, const Dtype* a, const Dtype min_val,
+	const Dtype max_val, Dtype* y) {
+	CUDA_KERNEL_LOOP(index, n) {
+		y[index] = min(max(a[index], min_val), max_val);
+	}
+}
+
+template <>
+void caffe_gpu_bound<float>(const int N, const float* a, const float min_val,
+	const float max_val, float* y) {
+	bound_kernel<float> << <CAFFE_GET_BLOCKS(N), CAFFE_CUDA_NUM_THREADS >> >(
+		N, a, min_val, max_val, y);
+	CUDA_POST_KERNEL_CHECK;
+}
+
+template <>
+void caffe_gpu_bound<double>(const int N, const double* a, const double min_val,
+	const double max_val, double* y) {
+	bound_kernel<double> << <CAFFE_GET_BLOCKS(N), CAFFE_CUDA_NUM_THREADS >> >(
+		N, a, min_val, max_val, y);
+	CUDA_POST_KERNEL_CHECK;
+}
+
 }  // namespace caffe

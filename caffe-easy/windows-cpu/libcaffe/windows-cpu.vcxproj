@@ -73,7 +73,8 @@
     <ClInclude Include="..\..\include\caffe\layers\log_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\lrn_layer.hpp" />
-    <ClInclude Include="..\..\include\caffe\layers\lstm_layer.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\lstm_common_layers.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\lstm_LSTM_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\memory_data_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\multibox_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\multinomial_logistic_loss_layer.hpp" />
@@ -190,7 +191,8 @@
     <ClCompile Include="..\..\src\caffe\layers\loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\lrn_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\lstm_layer.cpp" />
-    <ClCompile Include="..\..\src\caffe\layers\lstm_unit_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\lstm_LSTM_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\lstm_LSTM_unit_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\memory_data_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\multibox_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\multinomial_logistic_loss_layer.cpp" />
@@ -208,6 +210,7 @@
     <ClCompile Include="..\..\src\caffe\layers\reduction_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\relu_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\reshape_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\reverse_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\rnn_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\scale_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\sigmoid_cross_entropy_loss_layer.cpp" />
@@ -222,6 +225,7 @@
     <ClCompile Include="..\..\src\caffe\layers\tanh_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\threshold_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\tile_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\transpose_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\window_data_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layer_factory.cpp" />
     <ClCompile Include="..\..\src\caffe\net.cpp" />
@@ -287,7 +291,8 @@
     <None Include="..\..\src\caffe\layers\inner_product_layer.cu" />
     <None Include="..\..\src\caffe\layers\log_layer.cu" />
     <None Include="..\..\src\caffe\layers\lrn_layer.cu" />
-    <None Include="..\..\src\caffe\layers\lstm_unit_layer.cu" />
+    <None Include="..\..\src\caffe\layers\lstm_layer.cu" />
+    <None Include="..\..\src\caffe\layers\lstm_LSTM_unit_layer.cu" />
     <None Include="..\..\src\caffe\layers\mvn_layer.cu" />
     <None Include="..\..\src\caffe\layers\normalize_layer.cu" />
     <None Include="..\..\src\caffe\layers\permute_layer.cu" />
@@ -298,6 +303,7 @@
     <None Include="..\..\src\caffe\layers\recurrent_layer.cu" />
     <None Include="..\..\src\caffe\layers\reduction_layer.cu" />
     <None Include="..\..\src\caffe\layers\relu_layer.cu" />
+    <None Include="..\..\src\caffe\layers\reverse_layer.cu" />
     <None Include="..\..\src\caffe\layers\roi_pooling_layer.cu" />
     <None Include="..\..\src\caffe\layers\scale_layer.cu" />
     <None Include="..\..\src\caffe\layers\sigmoid_cross_entropy_loss_layer.cu" />
@@ -311,6 +317,7 @@
     <None Include="..\..\src\caffe\layers\tanh_layer.cu" />
     <None Include="..\..\src\caffe\layers\threshold_layer.cu" />
     <None Include="..\..\src\caffe\layers\tile_layer.cu" />
+    <None Include="..\..\src\caffe\layers\transpose_layer.cu" />
     <None Include="..\..\src\caffe\solvers\adadelta_solver.cu" />
     <None Include="..\..\src\caffe\solvers\adagrad_solver.cu" />
     <None Include="..\..\src\caffe\solvers\adam_solver.cu" />
@@ -376,28 +383,28 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>../../include;../../3rd/include/protobuf;../../3rd/include/;../../3rd/include/openblas0.2.14.1;../../3rd/include/lmdb;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;../../3rd/include/opencv2.4.10;../../3rd/include/opencv2.4.10/opencv;../../3rd/include/opencv2.4.10/opencv2;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>../../include;../../3rd/include/protobuf;../../3rd/include/;../../3rd/include/openblas0.2.14.1;../../3rd/include/lmdb;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;../../3rd/include/opencv2.4.10;../../3rd/include/opencv2.4.10/opencv;../../3rd/include/opencv2.4.10/opencv2;../../3rd/include/python2.7;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>../../3rd/staticlib/boost/$(Platform)/;../../3rd/staticlib/gflags/$(Platform)/;../../3rd/staticlib/glog/$(Platform)/;../../3rd/staticlib/protobuf/$(Platform)/;../../3rd/staticlib/openblas/$(Platform)/;../../3rd/staticlib/lmdb/$(Platform)/;../../3rd/staticlib/opencv2.4.10/$(Platform)/vc$(PlatformToolsetVersion)/staticlib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
     <IntDir>../../Build/cpu/outobj/$(ProjectName)/$(Configuration)/$(Platform)/</IntDir>
     <OutDir>../../Build/cpu/$(Configuration)/$(Platform)/</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>../../include;../../3rd/include/protobuf;../../3rd/include/;../../3rd/include/openblas0.2.14.1;../../3rd/include/lmdb;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;../../3rd/include/opencv2.4.10;../../3rd/include/opencv2.4.10/opencv;../../3rd/include/opencv2.4.10/opencv2;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>../../include;../../3rd/include/protobuf;../../3rd/include/;../../3rd/include/openblas0.2.14.1;../../3rd/include/lmdb;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;../../3rd/include/opencv2.4.10;../../3rd/include/opencv2.4.10/opencv;../../3rd/include/opencv2.4.10/opencv2;../../3rd/include/python2.7;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>../../3rd/staticlib/boost/$(Platform)/;../../3rd/staticlib/gflags/$(Platform)/;../../3rd/staticlib/glog/$(Platform)/;../../3rd/staticlib/protobuf/$(Platform)/;../../3rd/staticlib/openblas/$(Platform)/;../../3rd/staticlib/lmdb/$(Platform)/;../../3rd/staticlib/opencv2.4.10/$(Platform)/vc$(PlatformToolsetVersion)/staticlib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
     <IntDir>../../Build/cpu/outobj/$(ProjectName)/$(Configuration)/$(Platform)/</IntDir>
     <OutDir>../../Build/cpu/$(Configuration)/$(Platform)/</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>../../include;../../3rd/include/protobuf;../../3rd/include/;../../3rd/include/openblas0.2.14.1;../../3rd/include/lmdb;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;../../3rd/include/opencv2.4.10;../../3rd/include/opencv2.4.10/opencv;../../3rd/include/opencv2.4.10/opencv2;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>../../include;../../3rd/include/protobuf;../../3rd/include/;../../3rd/include/openblas0.2.14.1;../../3rd/include/lmdb;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;../../3rd/include/opencv2.4.10;../../3rd/include/opencv2.4.10/opencv;../../3rd/include/opencv2.4.10/opencv2;../../3rd/include/python2.7;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>../../3rd/staticlib/boost/$(Platform)/;../../3rd/staticlib/gflags/$(Platform)/;../../3rd/staticlib/glog/$(Platform)/;../../3rd/staticlib/protobuf/$(Platform)/;../../3rd/staticlib/openblas/$(Platform)/;../../3rd/staticlib/lmdb/$(Platform)/;../../3rd/staticlib/opencv2.4.10/$(Platform)/vc$(PlatformToolsetVersion)/staticlib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
     <OutDir>../../Build/cpu/$(Configuration)/$(Platform)/</OutDir>
     <IntDir>../../Build/cpu/outobj/$(ProjectName)/$(Configuration)/$(Platform)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>../../include;../../3rd/include/protobuf;../../3rd/include/;../../3rd/include/openblas0.2.14.1;../../3rd/include/lmdb;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;../../3rd/include/opencv2.4.10;../../3rd/include/opencv2.4.10/opencv;../../3rd/include/opencv2.4.10/opencv2;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>../../include;../../3rd/include/protobuf;../../3rd/include/;../../3rd/include/openblas0.2.14.1;../../3rd/include/lmdb;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;../../3rd/include/opencv2.4.10;../../3rd/include/opencv2.4.10/opencv;../../3rd/include/opencv2.4.10/opencv2;../../3rd/include/python2.7;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>../../3rd/staticlib/boost/$(Platform)/;../../3rd/staticlib/gflags/$(Platform)/;../../3rd/staticlib/glog/$(Platform)/;../../3rd/staticlib/protobuf/$(Platform)/;../../3rd/staticlib/openblas/$(Platform)/;../../3rd/staticlib/lmdb/$(Platform)/;../../3rd/staticlib/opencv2.4.10/$(Platform)/vc$(PlatformToolsetVersion)/staticlib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
     <IntDir>../../Build/cpu/outobj/$(ProjectName)/$(Configuration)/$(Platform)/</IntDir>
     <OutDir>../../Build/cpu/$(Configuration)/$(Platform)/</OutDir>

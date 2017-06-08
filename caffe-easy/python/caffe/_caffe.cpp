@@ -18,6 +18,7 @@
 #include "caffe/layers/memory_data_layer.hpp"
 #include "caffe/layers/python_layer.hpp"
 #include "caffe/sgd_solvers.hpp"
+#include "import-staticlib.h"
 
 // Temporary solution for numpy < 1.7 versions: old macro, no promises.
 // You're strongly advised to upgrade to >= 1.7.

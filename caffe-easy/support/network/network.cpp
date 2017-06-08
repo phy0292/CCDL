@@ -104,12 +104,14 @@ void Network::SetDevice(int gpu_id) {
 }
 
 Network::~Network() {
-  for (auto net : nets_) {
-    try {
-      delete net;
-    }
-    catch (...) {
+	if (nets_.size()> 0){
+		for (auto net : nets_) {
+			try {
+				delete net;
+			}
+			catch (...) {
 
-    }
-  }
+			}
+		}
+	}
 }

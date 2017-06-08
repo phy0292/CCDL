@@ -65,7 +65,8 @@
     <ClInclude Include="..\..\include\caffe\layers\log_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\lrn_layer.hpp" />
-    <ClInclude Include="..\..\include\caffe\layers\lstm_layer.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\lstm_common_layers.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\lstm_LSTM_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\memory_data_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\multibox_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\multinomial_logistic_loss_layer.hpp" />
@@ -182,7 +183,8 @@
     <ClCompile Include="..\..\src\caffe\layers\loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\lrn_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\lstm_layer.cpp" />
-    <ClCompile Include="..\..\src\caffe\layers\lstm_unit_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\lstm_LSTM_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\lstm_LSTM_unit_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\memory_data_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\multibox_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\multinomial_logistic_loss_layer.cpp" />
@@ -277,7 +279,8 @@
     <CudaCompile Include="..\..\src\caffe\layers\inner_product_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\log_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\lrn_layer.cu" />
-    <CudaCompile Include="..\..\src\caffe\layers\lstm_unit_layer.cu" />
+    <CudaCompile Include="..\..\src\caffe\layers\lstm_layer.cu" />
+    <CudaCompile Include="..\..\src\caffe\layers\lstm_LSTM_unit_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\mvn_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\normalize_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\permute_layer.cu" />

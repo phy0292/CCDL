@@ -89,6 +89,7 @@ bool fileExists(const char* file){
 	return true;
 }
 
+#if 0
 int main(int argc, char** argv){
 	//disableErrorOutput();
 	char caffemodel[260] = "../../../../../demo-data/SSD_300x300/VGG_coco_SSD_300x300_iter_400000.caffemodel";
@@ -134,3 +135,57 @@ int main(int argc, char** argv){
 	waitKey();
 	return 0;
 }
+#endif
+
+#if 1
+int main(int argc, char** argv){
+	//disableErrorOutput();
+	char caffemodel[260] = "../../../../../demo-data/SSD_300x300/VGG_coco_SSD_300x300_iter_400000.caffemodel";
+	char prototxt[260] = "../../../../../demo-data/SSD_300x300/deploy.prototxt";
+	char labels[260] = "../../../../../demo-data/SSD_300x300/labels.txt";
+	char test_image[260] = "../../../../../demo-data/test.jpg";
+	if (argc > 1){
+		const char* demoDataDir = argv[1];
+		sprintf(caffemodel, "%s/SSD_300x300/VGG_coco_SSD_300x300_iter_400000.caffemodel", demoDataDir);
+		sprintf(prototxt, "%s/SSD_300x300/deploy.prototxt", demoDataDir);
+		sprintf(labels, "%s/SSD_300x300/labels.txt", demoDataDir);
+		sprintf(test_image, "%s/test.jpg", demoDataDir);
+	}
+
+	if (!fileExists(caffemodel)){
+		printf(
+			"使用方法：ssd_call demo-data\n\n"
+			"无法载入模型文件：%s\n"
+			"请到这里下载模型：http://www.zifuture.com/fs/2.ssd/VGG_coco_SSD_300x300_iter_400000.caffemodel\n"
+			"或者压缩过的模型：http://www.zifuture.com/fs/2.ssd/VGG_coco_SSD_300x300_iter_400000.ys.rar\n"
+			"其他相关，请参考ssd章节的介绍：https://github.com/weiliu89/caffe/tree/ssd\n"
+			, caffemodel);
+		return 0;
+	}
+
+	vector<string> labelMap = loadLabels(labels);
+	float means[] = { 104.0f, 117.0f, 123.0f };
+	Classifier cc(prototxt, caffemodel, 1, 0, 3, means, 0);
+	VideoCapture cap(0);
+	Mat frame;
+
+	cap >> frame;
+	while (!frame.empty()){
+		WPtr<BlobData> fr = cc.extfeature(frame, "detection_out");
+		vector<DetectObjectInfo> objs = toDetInfo(fr, frame.cols, frame.rows);
+
+		for (int i = 0; i < objs.size(); ++i){
+			auto obj = objs[i];
+			if (obj.score > 0.25){
+				rectangle(frame, obj.rect(), getColor(obj.label), 2);
+				paDrawString(frame, labelMap[obj.label].c_str(), Point(obj.xmin, obj.ymin - 20), getColor(obj.label), 20, true);
+				//printf("%s: %f\n", labelMap[obj.label].c_str(), obj.score);
+			}
+		}
+		imshow("demo", frame);
+		waitKey(1);
+		cap >> frame;
+	}
+	return 0;
+}
+#endif

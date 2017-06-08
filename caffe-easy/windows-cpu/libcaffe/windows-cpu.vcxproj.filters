@@ -174,9 +174,6 @@
     <ClInclude Include="..\..\include\caffe\layers\lrn_layer.hpp">
       <Filter>include\layers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\caffe\layers\lstm_layer.hpp">
-      <Filter>include\layers</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\caffe\layers\memory_data_layer.hpp">
       <Filter>include\layers</Filter>
     </ClInclude>
@@ -384,6 +381,12 @@
     <ClInclude Include="..\..\support\train\lmdb\lmdb.h">
       <Filter>support\lmdb</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\caffe\layers\lstm_LSTM_layer.hpp">
+      <Filter>include\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\caffe\layers\lstm_common_layers.hpp">
+      <Filter>include\layers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\caffe\layers\absval_layer.cpp">
@@ -522,12 +525,6 @@
       <Filter>src\layers</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\caffe\layers\lrn_layer.cpp">
-      <Filter>src\layers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\caffe\layers\lstm_layer.cpp">
-      <Filter>src\layers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\caffe\layers\lstm_unit_layer.cpp">
       <Filter>src\layers</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\caffe\layers\memory_data_layer.cpp">
@@ -725,6 +722,21 @@
     <ClCompile Include="..\..\src\caffe\layers\predict_box_layer.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\caffe\layers\lstm_LSTM_layer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\caffe\layers\lstm_LSTM_unit_layer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\caffe\layers\lstm_layer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\caffe\layers\transpose_layer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\caffe\layers\reverse_layer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\caffe\layers\absval_layer.cu">
@@ -832,9 +844,6 @@
     <None Include="..\..\src\caffe\layers\lrn_layer.cu">
       <Filter>src\layers</Filter>
     </None>
-    <None Include="..\..\src\caffe\layers\lstm_unit_layer.cu">
-      <Filter>src\layers</Filter>
-    </None>
     <None Include="..\..\src\caffe\layers\mvn_layer.cu">
       <Filter>src\layers</Filter>
     </None>
@@ -930,6 +939,18 @@
     </None>
     <None Include="..\..\src\caffe\solvers\sgd_solver.cu">
       <Filter>src\solvers</Filter>
+    </None>
+    <None Include="..\..\src\caffe\layers\lstm_LSTM_unit_layer.cu">
+      <Filter>src\layers</Filter>
+    </None>
+    <None Include="..\..\src\caffe\layers\lstm_layer.cu">
+      <Filter>src\layers</Filter>
+    </None>
+    <None Include="..\..\src\caffe\layers\transpose_layer.cu">
+      <Filter>src\layers</Filter>
+    </None>
+    <None Include="..\..\src\caffe\layers\reverse_layer.cu">
+      <Filter>src\layers</Filter>
     </None>
   </ItemGroup>
 </Project>
