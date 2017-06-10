@@ -731,6 +731,15 @@
     <ClCompile Include="..\..\src\caffe\layers\lstm_LSTM_unit_layer.cpp">
       <Filter>src\layers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\caffe\layers\reverse_layer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\caffe\layers\transpose_layer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\caffe\layers\video_data_layer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CudaCOmpile Include="..\..\src\caffe\layers\absval_layer.cu">
@@ -895,9 +904,6 @@
     <CudaCOmpile Include="..\..\src\caffe\layers\tanh_layer.cu">
       <Filter>src\layers</Filter>
     </CudaCOmpile>
-    <CudaCOmpile Include="..\..\src\caffe\layers\threshold_layer.cu">
-      <Filter>src\layers</Filter>
-    </CudaCOmpile>
     <CudaCOmpile Include="..\..\src\caffe\layers\tile_layer.cu">
       <Filter>src\layers</Filter>
     </CudaCOmpile>
@@ -933,6 +939,15 @@
     </CudaCompile>
     <CudaCompile Include="..\..\src\caffe\layers\lstm_LSTM_unit_layer.cu">
       <Filter>src\layers</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\caffe\layers\reverse_layer.cu">
+      <Filter>src\layers</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\caffe\layers\transpose_layer.cu">
+      <Filter>src\layers</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\caffe\layers\threshold_layer.cu">
+      <Filter>src</Filter>
     </CudaCompile>
   </ItemGroup>
 </Project>
