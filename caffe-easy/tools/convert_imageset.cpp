@@ -34,7 +34,7 @@ DEFINE_bool(gray, false,
 DEFINE_bool(shuffle, false,
     "Randomly shuffle the order of images and their labels");
 DEFINE_string(backend, "lmdb",
-        "The backend {lmdb, leveldb} for storing the result");
+        "The backend {lmdb, anydata} for storing the result");
 DEFINE_int32(resize_width, 0, "Width images are resized to");
 DEFINE_int32(resize_height, 0, "Height images are resized to");
 DEFINE_bool(check_size, false,
@@ -42,7 +42,7 @@ DEFINE_bool(check_size, false,
 DEFINE_bool(encoded, false,
     "When this option is on, the encoded image will be save in datum");
 DEFINE_string(encode_type, "",
-    "Optional: What type should we encode the image as ('png','jpg',...).");
+	"Optional: What type should we encode the image as ('png','jpg',...).");
 
 int main(int argc, char** argv) {
 #ifdef USE_OPENCV
@@ -114,6 +114,10 @@ int main(int argc, char** argv) {
   int resize_width = std::max<int>(0, FLAGS_resize_width);
   _mkdir(argv[3]);
 
+  bool isAnyData = FLAGS_backend == "anydata";
+  if (isAnyData)
+	  FLAGS_backend = "lmdb";
+
   // Create new DB
   scoped_ptr<db::DB> db(db::GetDB(FLAGS_backend));
   db->Open(argv[3], db::NEW);
@@ -130,7 +134,7 @@ int main(int argc, char** argv) {
   for (int line_id = 0; line_id < lines.size(); ++line_id) {
     bool status;
     std::string enc = encode_type;
-    if (encoded && !enc.size()) {
+	if (encoded && !enc.size() && !isAnyData) {
       // Guess the encoding type from the file name
       string fn = lines[line_id].first;
       size_t p = fn.rfind('.');
@@ -139,9 +143,15 @@ int main(int argc, char** argv) {
       enc = fn.substr(p);
       std::transform(enc.begin(), enc.end(), enc.begin(), ::tolower);
     }
-    status = ReadImageToDatum(root_folder + lines[line_id].first,
-        lines[line_id].second, resize_height, resize_width, is_color,
-        enc, &datum);
+
+	if (isAnyData)
+		status = ReadAnyDataFileToDatum(root_folder + lines[line_id].first,
+			lines[line_id].second, resize_height, resize_width, is_color,
+			&datum);
+	else
+		status = ReadImageToDatum(root_folder + lines[line_id].first,
+			lines[line_id].second, resize_height, resize_width, is_color,
+			enc, &datum);
     if (status == false) continue;
     if (check_size) {
       if (!data_size_initialized) {

@@ -33,3 +33,7 @@ predictSoftmaxByTaskPool
 predictSoftmaxByTaskPool2
 setTraindEventCallback
 convert_imageset
+predictSoftmaxAny
+predictMultiSoftmaxAny
+extfeatureAny
+predictSoftmaxAnyByTaskPool

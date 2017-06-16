@@ -447,7 +447,7 @@ message PredictBoxParameter {
 // NOTE
 // Update the next available ID when you add a new LayerParameter field.
 //
-// LayerParameter next available layer-specific ID: 151 (last added: center_loss_param)
+// LayerParameter next available layer-specific ID: 155 (last added: labelsequence_accuracy_param)
 message LayerParameter {
   optional string name = 1; // the layer name
   optional string type = 2; // the layer type
@@ -559,6 +559,9 @@ message LayerParameter {
   optional CTCParameter ctc_param = 149;
   optional TransposeParameter transpose_param=150;
   optional ReverseParameter reverse_param=151;
+  optional CtcLossParameter ctc_loss_param = 152;
+  optional ContinuationIndicatorParameter continuation_indicator_param = 153;
+  optional LabelsequenceAccuracyParameter labelsequence_accuracy_param = 154;
 }
 
 message FlipParameter {
@@ -1986,4 +1989,18 @@ message CenterLossParameter {
   // all preceding axes are retained in the output.
   // May be negative to index from the end (e.g., -1 for the last axis).
   optional int32 axis = 3 [default = 1];
+}
+
+message CtcLossParameter {
+    optional uint32 alphabet_size = 1 [default = 0];
+    optional uint32 time_step = 3 [default = 0];
+    optional int32 blank_label = 4 [default = 0];
+}
+message ContinuationIndicatorParameter {
+    optional uint32 time_step = 1 [default = 0];
+    optional uint32 batch_size = 2 [default = 0];
+}
+
+message LabelsequenceAccuracyParameter {
+  optional int32 blank_label = 1 [default = 0];
 }

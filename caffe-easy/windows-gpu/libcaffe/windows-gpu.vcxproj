@@ -11,6 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\caffe\3rdparty\ctc.h" />
+    <ClInclude Include="..\..\include\caffe\3rdparty\detail\cpu_ctc.cuh" />
+    <ClInclude Include="..\..\include\caffe\3rdparty\detail\ctc_helper.h" />
+    <ClInclude Include="..\..\include\caffe\3rdparty\detail\gpu_ctc.cuh" />
+    <ClInclude Include="..\..\include\caffe\3rdparty\detail\gpu_ctc_kernels.cuh" />
+    <ClInclude Include="..\..\include\caffe\3rdparty\detail\hostdevice.cuh" />
+    <ClInclude Include="..\..\include\caffe\3rdparty\detail\reduce.cuh" />
     <ClInclude Include="..\..\include\caffe\blob.hpp" />
     <ClInclude Include="..\..\include\caffe\caffe.hpp" />
     <ClInclude Include="..\..\include\caffe\common.hpp" />
@@ -31,9 +38,11 @@
     <ClInclude Include="..\..\include\caffe\layers\bnll_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\center_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\concat_layer.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\continuation_indicator_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\contrastive_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\conv_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\crop_layer.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\ctc_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\cudnn_conv_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\cudnn_lcn_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\cudnn_lrn_layer.hpp" />
@@ -56,17 +65,21 @@
     <ClInclude Include="..\..\include\caffe\layers\filter_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\flatten_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\flip_layer.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\hdf5_data_layer.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\hdf5_output_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\hinge_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\im2col_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\image_data_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\infogain_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\inner_product_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\input_layer.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\labelsequence_accuracy_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\log_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\lrn_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\lstm_common_layers.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\lstm_LSTM_layer.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\memory_data_layer-old.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\memory_data_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\multibox_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\multinomial_logistic_loss_layer.hpp" />
@@ -86,6 +99,7 @@
     <ClInclude Include="..\..\include\caffe\layers\relu_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\reshape_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\rnn_layer.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\roi_pooling_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\scale_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\sigmoid_cross_entropy_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\sigmoid_layer.hpp" />
@@ -93,12 +107,14 @@
     <ClInclude Include="..\..\include\caffe\layers\slice_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\smooth_L1_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\softmax_layer.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\softmax_loss_layer-old.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\softmax_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\split_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\spp_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\tanh_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\threshold_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\tile_layer.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\video_data_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\window_data_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layer_factory.hpp" />
     <ClInclude Include="..\..\include\caffe\net.hpp" />
@@ -130,6 +146,7 @@
     <ClInclude Include="..\..\support\train\lmdb\lmdb.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\caffe\3rdparty\ctc_entrypoint.cpp" />
     <ClCompile Include="..\..\src\caffe\blob.cpp" />
     <ClCompile Include="..\..\src\caffe\common.cpp" />
     <ClCompile Include="..\..\src\caffe\data_reader.cpp" />
@@ -148,9 +165,11 @@
     <ClCompile Include="..\..\src\caffe\layers\bnll_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\center_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\concat_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\continuation_indicator_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\contrastive_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\conv_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\crop_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\ctc_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\cudnn_conv_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\cudnn_lcn_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\cudnn_lrn_layer.cpp" />
@@ -179,6 +198,7 @@
     <ClCompile Include="..\..\src\caffe\layers\infogain_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\inner_product_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\input_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\labelsequence_accuracy_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\log_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\lrn_layer.cpp" />
@@ -249,6 +269,8 @@
     <ClCompile Include="..\..\src\caffe\util\upgrade_proto.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <CudaCompile Include="..\..\src\caffe\3rdparty\ctc_entrypoint.cu" />
+    <CudaCompile Include="..\..\src\caffe\3rdparty\reduce.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\absval_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\base_data_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\batch_norm_layer.cu" />
@@ -257,9 +279,11 @@
     <CudaCompile Include="..\..\src\caffe\layers\bnll_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\center_loss_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\concat_layer.cu" />
+    <CudaCompile Include="..\..\src\caffe\layers\continuation_indicator_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\contrastive_loss_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\conv_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\crop_layer.cu" />
+    <CudaCompile Include="..\..\src\caffe\layers\ctc_loss_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\cudnn_conv_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\cudnn_lcn_layer.cu" />
     <CudaCompile Include="..\..\src\caffe\layers\cudnn_lrn_layer.cu" />
@@ -414,7 +438,7 @@ copy ..\..\3rd\staticlib\lmdb\$(Platform)\*.dll ..\..\Build\gpu_cuda$(CC_CUDA_VE
 copy ..\..\3rd\staticlib\lmdb\$(Platform)\*.dll ..\..\Build\gpu_cuda$(CC_CUDA_VERSION)\$(Configuration)\$(Platform)\</Command>
     </PostBuildEvent>
     <CudaCompile>
-      <CodeGeneration>compute_20,sm_20;compute_20,sm_21;compute_30,sm_30;compute_35,sm_35;compute_50,sm_50;compute_50,compute_50</CodeGeneration>
+      <CodeGeneration>compute_30,sm_30;compute_35,sm_35;compute_50,sm_50;compute_50,compute_50</CodeGeneration>
       <TargetMachinePlatform>64</TargetMachinePlatform>
     </CudaCompile>
   </ItemDefinitionGroup>

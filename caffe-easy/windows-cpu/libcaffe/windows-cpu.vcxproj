@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\caffe\3rdparty\ctc.h" />
+    <ClInclude Include="..\..\include\caffe\3rdparty\detail\ctc_helper.h" />
     <ClInclude Include="..\..\include\caffe\blob.hpp" />
     <ClInclude Include="..\..\include\caffe\caffe.hpp" />
     <ClInclude Include="..\..\include\caffe\common.hpp" />
@@ -39,6 +41,7 @@
     <ClInclude Include="..\..\include\caffe\layers\bnll_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\center_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\concat_layer.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\continuation_indicator_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\contrastive_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\conv_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\crop_layer.hpp" />
@@ -138,6 +141,7 @@
     <ClInclude Include="..\..\support\train\lmdb\lmdb.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\caffe\3rdparty\ctc_entrypoint.cpp" />
     <ClCompile Include="..\..\src\caffe\blob.cpp" />
     <ClCompile Include="..\..\src\caffe\common.cpp" />
     <ClCompile Include="..\..\src\caffe\data_reader.cpp" />
@@ -156,9 +160,11 @@
     <ClCompile Include="..\..\src\caffe\layers\bnll_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\center_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\concat_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\continuation_indicator_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\contrastive_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\conv_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\crop_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\ctc_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\cudnn_conv_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\cudnn_lcn_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\cudnn_lrn_layer.cpp" />
@@ -187,6 +193,7 @@
     <ClCompile Include="..\..\src\caffe\layers\infogain_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\inner_product_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\input_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\labelsequence_accuracy_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\log_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\lrn_layer.cpp" />
@@ -256,6 +263,13 @@
     <ClCompile Include="..\..\src\caffe\util\upgrade_proto.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\include\caffe\3rdparty\detail\cpu_ctc.cuh" />
+    <None Include="..\..\include\caffe\3rdparty\detail\gpu_ctc.cuh" />
+    <None Include="..\..\include\caffe\3rdparty\detail\gpu_ctc_kernels.cuh" />
+    <None Include="..\..\include\caffe\3rdparty\detail\hostdevice.cuh" />
+    <None Include="..\..\include\caffe\3rdparty\detail\reduce.cuh" />
+    <None Include="..\..\src\caffe\3rdparty\ctc_entrypoint.cu" />
+    <None Include="..\..\src\caffe\3rdparty\reduce.cu" />
     <None Include="..\..\src\caffe\layers\absval_layer.cu" />
     <None Include="..\..\src\caffe\layers\base_data_layer.cu" />
     <None Include="..\..\src\caffe\layers\batch_norm_layer.cu" />
@@ -264,9 +278,11 @@
     <None Include="..\..\src\caffe\layers\bnll_layer.cu" />
     <None Include="..\..\src\caffe\layers\center_loss_layer.cu" />
     <None Include="..\..\src\caffe\layers\concat_layer.cu" />
+    <None Include="..\..\src\caffe\layers\continuation_indicator_layer.cu" />
     <None Include="..\..\src\caffe\layers\contrastive_loss_layer.cu" />
     <None Include="..\..\src\caffe\layers\conv_layer.cu" />
     <None Include="..\..\src\caffe\layers\crop_layer.cu" />
+    <None Include="..\..\src\caffe\layers\ctc_loss_layer.cu" />
     <None Include="..\..\src\caffe\layers\cudnn_conv_layer.cu" />
     <None Include="..\..\src\caffe\layers\cudnn_lcn_layer.cu" />
     <None Include="..\..\src\caffe\layers\cudnn_lrn_layer.cu" />
@@ -285,8 +301,6 @@
     <None Include="..\..\src\caffe\layers\exp_layer.cu" />
     <None Include="..\..\src\caffe\layers\filter_layer.cu" />
     <None Include="..\..\src\caffe\layers\flip_layer.cu" />
-    <None Include="..\..\src\caffe\layers\hdf5_data_layer.cu" />
-    <None Include="..\..\src\caffe\layers\hdf5_output_layer.cu" />
     <None Include="..\..\src\caffe\layers\im2col_layer.cu" />
     <None Include="..\..\src\caffe\layers\inner_product_layer.cu" />
     <None Include="..\..\src\caffe\layers\log_layer.cu" />

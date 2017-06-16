@@ -212,6 +212,46 @@ namespace caffe {
 		return ReadImageToCVMat(filename, 0, 0, true);
 	}
 
+	bool ReadAnyDataFileToDatum(const string& filename, const vector<float>& label,
+		const int height, const int width, const bool is_color, Datum* datum){
+		//格式约定
+		//head 4字节
+		//dims 3 x int    channels, height, width
+		//data*           float
+		const int head = 0xCCAADD00;
+
+		FILE* f = fopen(filename.c_str(), "rb");
+		if (f == 0) return false;
+
+		int r_head = 0;
+		fread(&r_head, 1, sizeof(r_head), f);
+
+		if (r_head != head){
+			fclose(f);
+			return false;
+		}
+
+		int dims[3] = { 0 };
+		if (sizeof(dims) != fread(dims, 1, sizeof(dims), f)){
+			fclose(f);
+			return false;
+		}
+
+		cv::Mat cv_img(dims[1], dims[2], CV_32FC(dims[0]));
+		int r_len = cv_img.size[0] * cv_img.step.p[0];
+		if (r_len != fread(cv_img.data, 1, r_len, f)){
+			fclose(f);
+			return false;
+		}
+
+		CVMatFloatToDatum(cv_img, datum);
+		datum->clear_labels();
+		for (int k = 0; k < label.size(); ++k)
+			datum->add_labels(label[k]);
+		fclose(f);
+		return true;
+	}
+
 	// Do the file extension and encoding match?
 	static bool matchExt(const std::string & fn,
 		std::string en) {
@@ -248,7 +288,7 @@ namespace caffe {
 				return true;
 			}
 			CVMatToDatum(cv_img, datum);
-			//datum->set_label(label);
+			//datum->set_label(0);
 			datum->clear_labels();
 			for (int k = 0; k < label.size(); ++k)
 				datum->add_labels(label[k]);
@@ -800,6 +840,22 @@ namespace caffe {
 		datum->set_height(cv_img.rows);
 		datum->set_width(cv_img.cols);
 		datum->set_encoded(true);
+	}
+
+	void CVMatFloatToDatum(const cv::Mat& cv_img, Datum* datum) {
+		CHECK(cv_img.depth() == CV_32F) << "Image data type must be unsigned byte";
+		datum->set_channels(cv_img.channels());
+		datum->set_height(cv_img.rows);
+		datum->set_width(cv_img.cols);
+		datum->clear_data();
+		datum->clear_float_data();
+		datum->set_encoded(false);
+		int datum_channels = datum->channels();
+		int datum_height = datum->height();
+		int datum_width = datum->width();
+		int datum_size = datum_channels * datum_height * datum_width;
+		datum->mutable_float_data()->Resize(datum_size, 0);
+		memcpy(datum->mutable_float_data()->mutable_data(), cv_img.data, datum_size*sizeof(float));
 	}
 
 	void CVMatToDatum(const cv::Mat& cv_img, Datum* datum) {

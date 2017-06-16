@@ -26,7 +26,7 @@ static volatile DecipherCallback decipherCallback = 0;
 
 #define ThisNet ((Net<float>*)net_)
 
-#define Version		3.0
+#define Version		3.1
 #define	snprintf	_snprintf
 #define vsnprintf	_vsnprintf
 #define errBegin	try{
@@ -34,6 +34,10 @@ static volatile DecipherCallback decipherCallback = 0;
 #define errmsg(...) setError(__FILE__, __LINE__,__FUNCTION__, __VA_ARGS__)
 
 Caffe_API void __stdcall disableErrorOutput(){
+	static volatile int flag = 0;
+	if (flag) return;
+
+	flag = 1;
 	google::InitGoogleLogging("aa");
 }
 
@@ -273,6 +277,46 @@ Caffe_API BlobData* __stdcall extfeature(Classifier* Classifier, const void* img
 	if (im.empty()) return 0;
 
 	return Classifier->extfeature(im, feature_name);
+	errEnd(0);
+}
+
+Caffe_API SoftmaxResult* __stdcall predictSoftmaxAny(Classifier* classifier, const float* data, const int* dims, int top_n){
+	if (classifier == 0 || dims == 0 || data == 0) return 0;
+
+	//dims: channels height width
+	Mat im(dims[1], dims[2], CV_32FC(dims[0]), (uchar*)data);
+	if (im.empty()) return 0;
+
+	errBegin;
+	return classifier->predictSoftmax(im, top_n);
+	errEnd(0);
+}
+
+Caffe_API MultiSoftmaxResult* __stdcall predictMultiSoftmaxAny(Classifier* classifier, const float** data, const int* dims, int num, int top_n){
+	errBegin;
+	if (classifier == 0 || data == 0 || dims == 0 || num < 1) return 0;
+
+	vector<Mat> ims;
+	try{
+		for (int i = 0; i < num; ++i){
+			Mat im(dims[1], dims[2], CV_32FC(dims[0]), (uchar*)data[i]);
+			if (im.empty()) return 0;
+			ims.push_back(im);
+		}
+	}
+	catch (...){}
+	if (ims.empty()) return 0;
+
+	return classifier->predictSoftmax(ims, top_n);
+	errEnd(0);
+}
+
+Caffe_API BlobData* __stdcall extfeatureAny(Classifier* classifier, const float* data, const int* dims, const char* feature_name){
+	if (classifier == 0 || data == 0 || dims == 0) return 0;
+
+	errBegin;
+	Mat im(dims[1], dims[2], CV_32FC(dims[0]), (uchar*)data);
+	return classifier->extfeature(im, feature_name);
 	errEnd(0);
 }
 

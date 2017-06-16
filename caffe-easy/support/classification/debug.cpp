@@ -1,9 +1,13 @@
+#include <Windows.h>
 #include "classification.h"
 #include <highgui.h>
 #include <process.h>
 #define RootDir "../../../../../demo-data/veriCode/"
+#include <map>
+//#define RootDir
 
 using namespace cv;
+using namespace std;
 
 vector<char> readAtFile(const char* filename){
 	FILE* f = fopen(filename, "rb");
@@ -19,25 +23,46 @@ vector<char> readAtFile(const char* filename){
 	return buf;
 }
 
+map<int, int> mp;
+CRITICAL_SECTION gcs;
 void recThread(void* param){
 	TaskPool* pool = (TaskPool*)param;
 	vector<char> imd = readAtFile(RootDir "samples/00W0_27c86a8b9ce8d0b1fe1d3d47b4040a28.png");
 
-	for(int i = 0; i < 1000; ++i){
+	double time = getTickCount();
+	for(int i = 0; i < 1000000; ++i){
 		int labels[4];
 		float confs[4];
+		time = getTickCount();
 		SoftmaxResult* val = predictSoftmaxByTaskPool(pool, &imd[0], imd.size(), 1);
+		time = (getTickCount() - time) / getTickFrequency() * 1000.0;
 		getMultiLabel(val, labels);
 		getMultiConf(val, confs);
+#if 1
 		if (i % 50 == 0){
 			printf("labels = %d, %d, %d, %d\n", labels[0], labels[1], labels[2], labels[3]);
 			printf("confs = %f, %f, %f, %f\n", confs[0], confs[1], confs[2], confs[3]);
 		}
+		printf("%.2f, ºÄÊ±£º%.2f ms\n", getTickCount() / getTickFrequency(), time);
+#endif
+
+		//printf("%d\n", val);
 		releaseSoftmaxResult(val);
+
+#if 0
+		EnterCriticalSection(&gcs);
+		if (mp.find((int)val) != mp.end()){
+			printf("error.\n");
+			assert(false);
+			exit(0);
+		}
+		mp[(int)val] = 1;
+		LeaveCriticalSection(&gcs);
+#endif
 	}
 }
 
-#if 0
+#if 1
 void main(int argc, char** argv){
 
 #if 0
@@ -81,12 +106,14 @@ void main(int argc, char** argv){
 #endif
 #endif
 
+	InitializeCriticalSection(&gcs);
+
 	//²âÊÔÈÎÎñ³Ø
-	TaskPool* pool = createTaskPool(RootDir "deploy.prototxt", RootDir "nin_iter_16000.caffemodel", 1.0, "", 0, 0, 0, 100);
-	for (int i = 0; i < 8; ++i){
+	TaskPool* pool = createTaskPool(RootDir "deploy.prototxt", RootDir "nin_iter_16000.caffemodel", 1.0, "", 0, 0, 0, 5);
+	for (int i = 0; i < 160; ++i){
 		_beginthread(recThread, 0, pool);
 	}
-	Sleep(100 * 1000);
+	Sleep(1000 * 10);
 	printf("Í£Ö¹...\n");
 	releaseTaskPool(pool);
 	printf("ÒÑ¾­Í£Ö¹...\n");
@@ -94,6 +121,7 @@ void main(int argc, char** argv){
 }
 #endif
 
+#if 0
 typedef int(__stdcall *procCCTrainEventCallback)(int event, int param1, float param2, void* param3);
 extern void setTrainEventCallback(procCCTrainEventCallback callback);
 extern "C" Caffe_API void __stdcall setTraindEventCallback(procCCTrainEventCallback callback);
@@ -115,3 +143,4 @@ void main(){
 	string info = "train --solver=solver.prototxt";
 	train_network((char*)info.c_str());
 }
+#endif

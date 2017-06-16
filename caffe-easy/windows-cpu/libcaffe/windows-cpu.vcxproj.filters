@@ -34,6 +34,15 @@
     <Filter Include="support\lmdb">
       <UniqueIdentifier>{a59e950c-9deb-4a81-82e0-ad08c41e14f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\3rdparty">
+      <UniqueIdentifier>{83e7821b-c82a-47de-a664-f117a41f8760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\3rdparty\detail">
+      <UniqueIdentifier>{b805c59e-db7f-4ae2-aab6-64b5f3bfe93f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\3rdparty">
+      <UniqueIdentifier>{5c6195fc-7007-466b-9d0d-d1f414141d76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\caffe\layers\absval_layer.hpp">
@@ -387,6 +396,15 @@
     <ClInclude Include="..\..\include\caffe\layers\lstm_common_layers.hpp">
       <Filter>include\layers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\caffe\3rdparty\ctc.h">
+      <Filter>include\3rdparty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\caffe\3rdparty\detail\ctc_helper.h">
+      <Filter>include\3rdparty\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\caffe\layers\continuation_indicator_layer.hpp">
+      <Filter>include\layers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\caffe\layers\absval_layer.cpp">
@@ -737,6 +755,18 @@
     <ClCompile Include="..\..\src\caffe\layers\reverse_layer.cpp">
       <Filter>src\layers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\caffe\layers\ctc_loss_layer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\caffe\3rdparty\ctc_entrypoint.cpp">
+      <Filter>src\3rdparty</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\caffe\layers\continuation_indicator_layer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\caffe\layers\labelsequence_accuracy_layer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\caffe\layers\absval_layer.cu">
@@ -824,12 +854,6 @@
       <Filter>src\layers</Filter>
     </None>
     <None Include="..\..\src\caffe\layers\flip_layer.cu">
-      <Filter>src\layers</Filter>
-    </None>
-    <None Include="..\..\src\caffe\layers\hdf5_data_layer.cu">
-      <Filter>src\layers</Filter>
-    </None>
-    <None Include="..\..\src\caffe\layers\hdf5_output_layer.cu">
       <Filter>src\layers</Filter>
     </None>
     <None Include="..\..\src\caffe\layers\im2col_layer.cu">
@@ -950,6 +974,33 @@
       <Filter>src\layers</Filter>
     </None>
     <None Include="..\..\src\caffe\layers\reverse_layer.cu">
+      <Filter>src\layers</Filter>
+    </None>
+    <None Include="..\..\include\caffe\3rdparty\detail\cpu_ctc.cuh">
+      <Filter>include\3rdparty\detail</Filter>
+    </None>
+    <None Include="..\..\include\caffe\3rdparty\detail\gpu_ctc.cuh">
+      <Filter>include\3rdparty\detail</Filter>
+    </None>
+    <None Include="..\..\include\caffe\3rdparty\detail\gpu_ctc_kernels.cuh">
+      <Filter>include\3rdparty\detail</Filter>
+    </None>
+    <None Include="..\..\include\caffe\3rdparty\detail\hostdevice.cuh">
+      <Filter>include\3rdparty\detail</Filter>
+    </None>
+    <None Include="..\..\include\caffe\3rdparty\detail\reduce.cuh">
+      <Filter>include\3rdparty\detail</Filter>
+    </None>
+    <None Include="..\..\src\caffe\layers\ctc_loss_layer.cu">
+      <Filter>src\layers</Filter>
+    </None>
+    <None Include="..\..\src\caffe\3rdparty\ctc_entrypoint.cu">
+      <Filter>src\3rdparty</Filter>
+    </None>
+    <None Include="..\..\src\caffe\3rdparty\reduce.cu">
+      <Filter>src\3rdparty</Filter>
+    </None>
+    <None Include="..\..\src\caffe\layers\continuation_indicator_layer.cu">
       <Filter>src\layers</Filter>
     </None>
   </ItemGroup>

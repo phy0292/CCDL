@@ -156,6 +156,10 @@ namespace caffe {
 			encoding, datum);
 	}
 
+	//read data by anydata
+	bool ReadAnyDataFileToDatum(const string& filename, const vector<float>& label,
+		const int height, const int width, const bool is_color, Datum* datum);
+
 	inline bool ReadImageToDatum(const string& filename, const vector<float>& label,
 		const int height, const int width, const bool is_color, Datum* datum) {
 		return ReadImageToDatum(filename, label, height, width, is_color,
@@ -276,6 +280,7 @@ namespace caffe {
 	void EncodeCVMatToDatum(const cv::Mat& cv_img, const string& encoding,
 		Datum* datum);
 
+	void CVMatFloatToDatum(const cv::Mat& cv_img, Datum* datum);
 	void CVMatToDatum(const cv::Mat& cv_img, Datum* datum);
 #endif  // USE_OPENCV
 

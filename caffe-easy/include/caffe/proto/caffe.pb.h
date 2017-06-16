@@ -77,6 +77,9 @@ extern CenterLossParameterDefaultTypeInternal _CenterLossParameter_default_insta
 class ConcatParameter;
 class ConcatParameterDefaultTypeInternal;
 extern ConcatParameterDefaultTypeInternal _ConcatParameter_default_instance_;
+class ContinuationIndicatorParameter;
+class ContinuationIndicatorParameterDefaultTypeInternal;
+extern ContinuationIndicatorParameterDefaultTypeInternal _ContinuationIndicatorParameter_default_instance_;
 class ContrastiveLossParameter;
 class ContrastiveLossParameterDefaultTypeInternal;
 extern ContrastiveLossParameterDefaultTypeInternal _ContrastiveLossParameter_default_instance_;
@@ -86,6 +89,9 @@ extern ConvolutionParameterDefaultTypeInternal _ConvolutionParameter_default_ins
 class CropParameter;
 class CropParameterDefaultTypeInternal;
 extern CropParameterDefaultTypeInternal _CropParameter_default_instance_;
+class CtcLossParameter;
+class CtcLossParameterDefaultTypeInternal;
+extern CtcLossParameterDefaultTypeInternal _CtcLossParameter_default_instance_;
 class DataParameter;
 class DataParameterDefaultTypeInternal;
 extern DataParameterDefaultTypeInternal _DataParameter_default_instance_;
@@ -167,6 +173,9 @@ extern LabelMapDefaultTypeInternal _LabelMap_default_instance_;
 class LabelMapItem;
 class LabelMapItemDefaultTypeInternal;
 extern LabelMapItemDefaultTypeInternal _LabelMapItem_default_instance_;
+class LabelsequenceAccuracyParameter;
+class LabelsequenceAccuracyParameterDefaultTypeInternal;
+extern LabelsequenceAccuracyParameterDefaultTypeInternal _LabelsequenceAccuracyParameter_default_instance_;
 class LayerParameter;
 class LayerParameterDefaultTypeInternal;
 extern LayerParameterDefaultTypeInternal _LayerParameter_default_instance_;
@@ -5456,6 +5465,33 @@ class LayerParameter : public ::google::protobuf::Message /* @@protoc_insertion_
   ::caffe::ReverseParameter* release_reverse_param();
   void set_allocated_reverse_param(::caffe::ReverseParameter* reverse_param);
 
+  // optional .caffe.CtcLossParameter ctc_loss_param = 152;
+  bool has_ctc_loss_param() const;
+  void clear_ctc_loss_param();
+  static const int kCtcLossParamFieldNumber = 152;
+  const ::caffe::CtcLossParameter& ctc_loss_param() const;
+  ::caffe::CtcLossParameter* mutable_ctc_loss_param();
+  ::caffe::CtcLossParameter* release_ctc_loss_param();
+  void set_allocated_ctc_loss_param(::caffe::CtcLossParameter* ctc_loss_param);
+
+  // optional .caffe.ContinuationIndicatorParameter continuation_indicator_param = 153;
+  bool has_continuation_indicator_param() const;
+  void clear_continuation_indicator_param();
+  static const int kContinuationIndicatorParamFieldNumber = 153;
+  const ::caffe::ContinuationIndicatorParameter& continuation_indicator_param() const;
+  ::caffe::ContinuationIndicatorParameter* mutable_continuation_indicator_param();
+  ::caffe::ContinuationIndicatorParameter* release_continuation_indicator_param();
+  void set_allocated_continuation_indicator_param(::caffe::ContinuationIndicatorParameter* continuation_indicator_param);
+
+  // optional .caffe.LabelsequenceAccuracyParameter labelsequence_accuracy_param = 154;
+  bool has_labelsequence_accuracy_param() const;
+  void clear_labelsequence_accuracy_param();
+  static const int kLabelsequenceAccuracyParamFieldNumber = 154;
+  const ::caffe::LabelsequenceAccuracyParameter& labelsequence_accuracy_param() const;
+  ::caffe::LabelsequenceAccuracyParameter* mutable_labelsequence_accuracy_param();
+  ::caffe::LabelsequenceAccuracyParameter* release_labelsequence_accuracy_param();
+  void set_allocated_labelsequence_accuracy_param(::caffe::LabelsequenceAccuracyParameter* labelsequence_accuracy_param);
+
   // optional .caffe.AnnotatedDataParameter annotated_data_param = 200;
   bool has_annotated_data_param() const;
   void clear_annotated_data_param();
@@ -5685,6 +5721,12 @@ class LayerParameter : public ::google::protobuf::Message /* @@protoc_insertion_
   void clear_has_transpose_param();
   void set_has_reverse_param();
   void clear_has_reverse_param();
+  void set_has_ctc_loss_param();
+  void clear_has_ctc_loss_param();
+  void set_has_continuation_indicator_param();
+  void clear_has_continuation_indicator_param();
+  void set_has_labelsequence_accuracy_param();
+  void clear_has_labelsequence_accuracy_param();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<3> _has_bits_;
@@ -5751,6 +5793,9 @@ class LayerParameter : public ::google::protobuf::Message /* @@protoc_insertion_
   ::caffe::CTCParameter* ctc_param_;
   ::caffe::TransposeParameter* transpose_param_;
   ::caffe::ReverseParameter* reverse_param_;
+  ::caffe::CtcLossParameter* ctc_loss_param_;
+  ::caffe::ContinuationIndicatorParameter* continuation_indicator_param_;
+  ::caffe::LabelsequenceAccuracyParameter* labelsequence_accuracy_param_;
   ::caffe::AnnotatedDataParameter* annotated_data_param_;
   ::caffe::MultiBoxLossParameter* multibox_loss_param_;
   ::caffe::PermuteParameter* permute_param_;
@@ -16950,6 +16995,312 @@ class CenterLossParameter : public ::google::protobuf::Message /* @@protoc_inser
   ::google::protobuf::int32 axis_;
   friend struct protobuf_caffe_2eproto::TableStruct;
 };
+// -------------------------------------------------------------------
+
+class CtcLossParameter : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:caffe.CtcLossParameter) */ {
+ public:
+  CtcLossParameter();
+  virtual ~CtcLossParameter();
+
+  CtcLossParameter(const CtcLossParameter& from);
+
+  inline CtcLossParameter& operator=(const CtcLossParameter& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CtcLossParameter& default_instance();
+
+  static inline const CtcLossParameter* internal_default_instance() {
+    return reinterpret_cast<const CtcLossParameter*>(
+               &_CtcLossParameter_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    93;
+
+  void Swap(CtcLossParameter* other);
+
+  // implements Message ----------------------------------------------
+
+  inline CtcLossParameter* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  CtcLossParameter* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const CtcLossParameter& from);
+  void MergeFrom(const CtcLossParameter& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(CtcLossParameter* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 alphabet_size = 1 [default = 0];
+  bool has_alphabet_size() const;
+  void clear_alphabet_size();
+  static const int kAlphabetSizeFieldNumber = 1;
+  ::google::protobuf::uint32 alphabet_size() const;
+  void set_alphabet_size(::google::protobuf::uint32 value);
+
+  // optional uint32 time_step = 3 [default = 0];
+  bool has_time_step() const;
+  void clear_time_step();
+  static const int kTimeStepFieldNumber = 3;
+  ::google::protobuf::uint32 time_step() const;
+  void set_time_step(::google::protobuf::uint32 value);
+
+  // optional int32 blank_label = 4 [default = 0];
+  bool has_blank_label() const;
+  void clear_blank_label();
+  static const int kBlankLabelFieldNumber = 4;
+  ::google::protobuf::int32 blank_label() const;
+  void set_blank_label(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:caffe.CtcLossParameter)
+ private:
+  void set_has_alphabet_size();
+  void clear_has_alphabet_size();
+  void set_has_time_step();
+  void clear_has_time_step();
+  void set_has_blank_label();
+  void clear_has_blank_label();
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 alphabet_size_;
+  ::google::protobuf::uint32 time_step_;
+  ::google::protobuf::int32 blank_label_;
+  friend struct protobuf_caffe_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class ContinuationIndicatorParameter : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:caffe.ContinuationIndicatorParameter) */ {
+ public:
+  ContinuationIndicatorParameter();
+  virtual ~ContinuationIndicatorParameter();
+
+  ContinuationIndicatorParameter(const ContinuationIndicatorParameter& from);
+
+  inline ContinuationIndicatorParameter& operator=(const ContinuationIndicatorParameter& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ContinuationIndicatorParameter& default_instance();
+
+  static inline const ContinuationIndicatorParameter* internal_default_instance() {
+    return reinterpret_cast<const ContinuationIndicatorParameter*>(
+               &_ContinuationIndicatorParameter_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    94;
+
+  void Swap(ContinuationIndicatorParameter* other);
+
+  // implements Message ----------------------------------------------
+
+  inline ContinuationIndicatorParameter* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  ContinuationIndicatorParameter* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const ContinuationIndicatorParameter& from);
+  void MergeFrom(const ContinuationIndicatorParameter& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(ContinuationIndicatorParameter* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 time_step = 1 [default = 0];
+  bool has_time_step() const;
+  void clear_time_step();
+  static const int kTimeStepFieldNumber = 1;
+  ::google::protobuf::uint32 time_step() const;
+  void set_time_step(::google::protobuf::uint32 value);
+
+  // optional uint32 batch_size = 2 [default = 0];
+  bool has_batch_size() const;
+  void clear_batch_size();
+  static const int kBatchSizeFieldNumber = 2;
+  ::google::protobuf::uint32 batch_size() const;
+  void set_batch_size(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:caffe.ContinuationIndicatorParameter)
+ private:
+  void set_has_time_step();
+  void clear_has_time_step();
+  void set_has_batch_size();
+  void clear_has_batch_size();
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 time_step_;
+  ::google::protobuf::uint32 batch_size_;
+  friend struct protobuf_caffe_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class LabelsequenceAccuracyParameter : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:caffe.LabelsequenceAccuracyParameter) */ {
+ public:
+  LabelsequenceAccuracyParameter();
+  virtual ~LabelsequenceAccuracyParameter();
+
+  LabelsequenceAccuracyParameter(const LabelsequenceAccuracyParameter& from);
+
+  inline LabelsequenceAccuracyParameter& operator=(const LabelsequenceAccuracyParameter& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const LabelsequenceAccuracyParameter& default_instance();
+
+  static inline const LabelsequenceAccuracyParameter* internal_default_instance() {
+    return reinterpret_cast<const LabelsequenceAccuracyParameter*>(
+               &_LabelsequenceAccuracyParameter_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    95;
+
+  void Swap(LabelsequenceAccuracyParameter* other);
+
+  // implements Message ----------------------------------------------
+
+  inline LabelsequenceAccuracyParameter* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  LabelsequenceAccuracyParameter* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const LabelsequenceAccuracyParameter& from);
+  void MergeFrom(const LabelsequenceAccuracyParameter& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(LabelsequenceAccuracyParameter* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 blank_label = 1 [default = 0];
+  bool has_blank_label() const;
+  void clear_blank_label();
+  static const int kBlankLabelFieldNumber = 1;
+  ::google::protobuf::int32 blank_label() const;
+  void set_blank_label(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:caffe.LabelsequenceAccuracyParameter)
+ private:
+  void set_has_blank_label();
+  void clear_has_blank_label();
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable int _cached_size_;
+  ::google::protobuf::int32 blank_label_;
+  friend struct protobuf_caffe_2eproto::TableStruct;
+};
 // ===================================================================
 
 
@@ -21806,13 +22157,13 @@ LayerParameter::mutable_top() {
 
 // optional .caffe.Phase phase = 10;
 inline bool LayerParameter::has_phase() const {
-  return (_has_bits_[2] & 0x00000001u) != 0;
+  return (_has_bits_[2] & 0x00000008u) != 0;
 }
 inline void LayerParameter::set_has_phase() {
-  _has_bits_[2] |= 0x00000001u;
+  _has_bits_[2] |= 0x00000008u;
 }
 inline void LayerParameter::clear_has_phase() {
-  _has_bits_[2] &= ~0x00000001u;
+  _has_bits_[2] &= ~0x00000008u;
 }
 inline void LayerParameter::clear_phase() {
   phase_ = 0;
@@ -22146,13 +22497,13 @@ inline void LayerParameter::set_allocated_accuracy_param(::caffe::AccuracyParame
 
 // optional .caffe.AnnotatedDataParameter annotated_data_param = 200;
 inline bool LayerParameter::has_annotated_data_param() const {
-  return (_has_bits_[1] & 0x00400000u) != 0;
+  return (_has_bits_[1] & 0x02000000u) != 0;
 }
 inline void LayerParameter::set_has_annotated_data_param() {
-  _has_bits_[1] |= 0x00400000u;
+  _has_bits_[1] |= 0x02000000u;
 }
 inline void LayerParameter::clear_has_annotated_data_param() {
-  _has_bits_[1] &= ~0x00400000u;
+  _has_bits_[1] &= ~0x02000000u;
 }
 inline void LayerParameter::clear_annotated_data_param() {
   if (annotated_data_param_ != NULL) annotated_data_param_->::caffe::AnnotatedDataParameter::Clear();
@@ -22596,13 +22947,13 @@ inline void LayerParameter::set_allocated_data_param(::caffe::DataParameter* dat
 
 // optional .caffe.DetectionEvaluateParameter detection_evaluate_param = 205;
 inline bool LayerParameter::has_detection_evaluate_param() const {
-  return (_has_bits_[1] & 0x08000000u) != 0;
+  return (_has_bits_[1] & 0x40000000u) != 0;
 }
 inline void LayerParameter::set_has_detection_evaluate_param() {
-  _has_bits_[1] |= 0x08000000u;
+  _has_bits_[1] |= 0x40000000u;
 }
 inline void LayerParameter::clear_has_detection_evaluate_param() {
-  _has_bits_[1] &= ~0x08000000u;
+  _has_bits_[1] &= ~0x40000000u;
 }
 inline void LayerParameter::clear_detection_evaluate_param() {
   if (detection_evaluate_param_ != NULL) detection_evaluate_param_->::caffe::DetectionEvaluateParameter::Clear();
@@ -22641,13 +22992,13 @@ inline void LayerParameter::set_allocated_detection_evaluate_param(::caffe::Dete
 
 // optional .caffe.DetectionOutputParameter detection_output_param = 204;
 inline bool LayerParameter::has_detection_output_param() const {
-  return (_has_bits_[1] & 0x04000000u) != 0;
+  return (_has_bits_[1] & 0x20000000u) != 0;
 }
 inline void LayerParameter::set_has_detection_output_param() {
-  _has_bits_[1] |= 0x04000000u;
+  _has_bits_[1] |= 0x20000000u;
 }
 inline void LayerParameter::clear_has_detection_output_param() {
-  _has_bits_[1] &= ~0x04000000u;
+  _has_bits_[1] &= ~0x20000000u;
 }
 inline void LayerParameter::clear_detection_output_param() {
   if (detection_output_param_ != NULL) detection_output_param_->::caffe::DetectionOutputParameter::Clear();
@@ -23451,13 +23802,13 @@ inline void LayerParameter::set_allocated_memory_data_param(::caffe::MemoryDataP
 
 // optional .caffe.MultiBoxLossParameter multibox_loss_param = 201;
 inline bool LayerParameter::has_multibox_loss_param() const {
-  return (_has_bits_[1] & 0x00800000u) != 0;
+  return (_has_bits_[1] & 0x04000000u) != 0;
 }
 inline void LayerParameter::set_has_multibox_loss_param() {
-  _has_bits_[1] |= 0x00800000u;
+  _has_bits_[1] |= 0x04000000u;
 }
 inline void LayerParameter::clear_has_multibox_loss_param() {
-  _has_bits_[1] &= ~0x00800000u;
+  _has_bits_[1] &= ~0x04000000u;
 }
 inline void LayerParameter::clear_multibox_loss_param() {
   if (multibox_loss_param_ != NULL) multibox_loss_param_->::caffe::MultiBoxLossParameter::Clear();
@@ -23541,13 +23892,13 @@ inline void LayerParameter::set_allocated_mvn_param(::caffe::MVNParameter* mvn_p
 
 // optional .caffe.NormalizeParameter norm_param = 206;
 inline bool LayerParameter::has_norm_param() const {
-  return (_has_bits_[1] & 0x10000000u) != 0;
+  return (_has_bits_[1] & 0x80000000u) != 0;
 }
 inline void LayerParameter::set_has_norm_param() {
-  _has_bits_[1] |= 0x10000000u;
+  _has_bits_[1] |= 0x80000000u;
 }
 inline void LayerParameter::clear_has_norm_param() {
-  _has_bits_[1] &= ~0x10000000u;
+  _has_bits_[1] &= ~0x80000000u;
 }
 inline void LayerParameter::clear_norm_param() {
   if (norm_param_ != NULL) norm_param_->::caffe::NormalizeParameter::Clear();
@@ -23586,13 +23937,13 @@ inline void LayerParameter::set_allocated_norm_param(::caffe::NormalizeParameter
 
 // optional .caffe.PredictBoxParameter predict_box_param = 209;
 inline bool LayerParameter::has_predict_box_param() const {
-  return (_has_bits_[1] & 0x40000000u) != 0;
+  return (_has_bits_[2] & 0x00000002u) != 0;
 }
 inline void LayerParameter::set_has_predict_box_param() {
-  _has_bits_[1] |= 0x40000000u;
+  _has_bits_[2] |= 0x00000002u;
 }
 inline void LayerParameter::clear_has_predict_box_param() {
-  _has_bits_[1] &= ~0x40000000u;
+  _has_bits_[2] &= ~0x00000002u;
 }
 inline void LayerParameter::clear_predict_box_param() {
   if (predict_box_param_ != NULL) predict_box_param_->::caffe::PredictBoxParameter::Clear();
@@ -23676,13 +24027,13 @@ inline void LayerParameter::set_allocated_parameter_param(::caffe::ParameterPara
 
 // optional .caffe.PermuteParameter permute_param = 202;
 inline bool LayerParameter::has_permute_param() const {
-  return (_has_bits_[1] & 0x01000000u) != 0;
+  return (_has_bits_[1] & 0x08000000u) != 0;
 }
 inline void LayerParameter::set_has_permute_param() {
-  _has_bits_[1] |= 0x01000000u;
+  _has_bits_[1] |= 0x08000000u;
 }
 inline void LayerParameter::clear_has_permute_param() {
-  _has_bits_[1] &= ~0x01000000u;
+  _has_bits_[1] &= ~0x08000000u;
 }
 inline void LayerParameter::clear_permute_param() {
   if (permute_param_ != NULL) permute_param_->::caffe::PermuteParameter::Clear();
@@ -23856,13 +24207,13 @@ inline void LayerParameter::set_allocated_prelu_param(::caffe::PReLUParameter* p
 
 // optional .caffe.PriorBoxParameter prior_box_param = 203;
 inline bool LayerParameter::has_prior_box_param() const {
-  return (_has_bits_[1] & 0x02000000u) != 0;
+  return (_has_bits_[1] & 0x10000000u) != 0;
 }
 inline void LayerParameter::set_has_prior_box_param() {
-  _has_bits_[1] |= 0x02000000u;
+  _has_bits_[1] |= 0x10000000u;
 }
 inline void LayerParameter::clear_has_prior_box_param() {
-  _has_bits_[1] &= ~0x02000000u;
+  _has_bits_[1] &= ~0x10000000u;
 }
 inline void LayerParameter::clear_prior_box_param() {
   if (prior_box_param_ != NULL) prior_box_param_->::caffe::PriorBoxParameter::Clear();
@@ -24486,13 +24837,13 @@ inline void LayerParameter::set_allocated_tile_param(::caffe::TileParameter* til
 
 // optional .caffe.VideoDataParameter video_data_param = 207;
 inline bool LayerParameter::has_video_data_param() const {
-  return (_has_bits_[1] & 0x20000000u) != 0;
+  return (_has_bits_[2] & 0x00000001u) != 0;
 }
 inline void LayerParameter::set_has_video_data_param() {
-  _has_bits_[1] |= 0x20000000u;
+  _has_bits_[2] |= 0x00000001u;
 }
 inline void LayerParameter::clear_has_video_data_param() {
-  _has_bits_[1] &= ~0x20000000u;
+  _has_bits_[2] &= ~0x00000001u;
 }
 inline void LayerParameter::clear_video_data_param() {
   if (video_data_param_ != NULL) video_data_param_->::caffe::VideoDataParameter::Clear();
@@ -24576,13 +24927,13 @@ inline void LayerParameter::set_allocated_window_data_param(::caffe::WindowDataP
 
 // optional .caffe.FlipParameter flip_param = 212;
 inline bool LayerParameter::has_flip_param() const {
-  return (_has_bits_[1] & 0x80000000u) != 0;
+  return (_has_bits_[2] & 0x00000004u) != 0;
 }
 inline void LayerParameter::set_has_flip_param() {
-  _has_bits_[1] |= 0x80000000u;
+  _has_bits_[2] |= 0x00000004u;
 }
 inline void LayerParameter::clear_has_flip_param() {
-  _has_bits_[1] &= ~0x80000000u;
+  _has_bits_[2] &= ~0x00000004u;
 }
 inline void LayerParameter::clear_flip_param() {
   if (flip_param_ != NULL) flip_param_->::caffe::FlipParameter::Clear();
@@ -24797,6 +25148,141 @@ inline void LayerParameter::set_allocated_reverse_param(::caffe::ReverseParamete
     clear_has_reverse_param();
   }
   // @@protoc_insertion_point(field_set_allocated:caffe.LayerParameter.reverse_param)
+}
+
+// optional .caffe.CtcLossParameter ctc_loss_param = 152;
+inline bool LayerParameter::has_ctc_loss_param() const {
+  return (_has_bits_[1] & 0x00400000u) != 0;
+}
+inline void LayerParameter::set_has_ctc_loss_param() {
+  _has_bits_[1] |= 0x00400000u;
+}
+inline void LayerParameter::clear_has_ctc_loss_param() {
+  _has_bits_[1] &= ~0x00400000u;
+}
+inline void LayerParameter::clear_ctc_loss_param() {
+  if (ctc_loss_param_ != NULL) ctc_loss_param_->::caffe::CtcLossParameter::Clear();
+  clear_has_ctc_loss_param();
+}
+inline const ::caffe::CtcLossParameter& LayerParameter::ctc_loss_param() const {
+  // @@protoc_insertion_point(field_get:caffe.LayerParameter.ctc_loss_param)
+  return ctc_loss_param_ != NULL ? *ctc_loss_param_
+                         : *::caffe::CtcLossParameter::internal_default_instance();
+}
+inline ::caffe::CtcLossParameter* LayerParameter::mutable_ctc_loss_param() {
+  set_has_ctc_loss_param();
+  if (ctc_loss_param_ == NULL) {
+    ctc_loss_param_ = new ::caffe::CtcLossParameter;
+  }
+  // @@protoc_insertion_point(field_mutable:caffe.LayerParameter.ctc_loss_param)
+  return ctc_loss_param_;
+}
+inline ::caffe::CtcLossParameter* LayerParameter::release_ctc_loss_param() {
+  // @@protoc_insertion_point(field_release:caffe.LayerParameter.ctc_loss_param)
+  clear_has_ctc_loss_param();
+  ::caffe::CtcLossParameter* temp = ctc_loss_param_;
+  ctc_loss_param_ = NULL;
+  return temp;
+}
+inline void LayerParameter::set_allocated_ctc_loss_param(::caffe::CtcLossParameter* ctc_loss_param) {
+  delete ctc_loss_param_;
+  ctc_loss_param_ = ctc_loss_param;
+  if (ctc_loss_param) {
+    set_has_ctc_loss_param();
+  } else {
+    clear_has_ctc_loss_param();
+  }
+  // @@protoc_insertion_point(field_set_allocated:caffe.LayerParameter.ctc_loss_param)
+}
+
+// optional .caffe.ContinuationIndicatorParameter continuation_indicator_param = 153;
+inline bool LayerParameter::has_continuation_indicator_param() const {
+  return (_has_bits_[1] & 0x00800000u) != 0;
+}
+inline void LayerParameter::set_has_continuation_indicator_param() {
+  _has_bits_[1] |= 0x00800000u;
+}
+inline void LayerParameter::clear_has_continuation_indicator_param() {
+  _has_bits_[1] &= ~0x00800000u;
+}
+inline void LayerParameter::clear_continuation_indicator_param() {
+  if (continuation_indicator_param_ != NULL) continuation_indicator_param_->::caffe::ContinuationIndicatorParameter::Clear();
+  clear_has_continuation_indicator_param();
+}
+inline const ::caffe::ContinuationIndicatorParameter& LayerParameter::continuation_indicator_param() const {
+  // @@protoc_insertion_point(field_get:caffe.LayerParameter.continuation_indicator_param)
+  return continuation_indicator_param_ != NULL ? *continuation_indicator_param_
+                         : *::caffe::ContinuationIndicatorParameter::internal_default_instance();
+}
+inline ::caffe::ContinuationIndicatorParameter* LayerParameter::mutable_continuation_indicator_param() {
+  set_has_continuation_indicator_param();
+  if (continuation_indicator_param_ == NULL) {
+    continuation_indicator_param_ = new ::caffe::ContinuationIndicatorParameter;
+  }
+  // @@protoc_insertion_point(field_mutable:caffe.LayerParameter.continuation_indicator_param)
+  return continuation_indicator_param_;
+}
+inline ::caffe::ContinuationIndicatorParameter* LayerParameter::release_continuation_indicator_param() {
+  // @@protoc_insertion_point(field_release:caffe.LayerParameter.continuation_indicator_param)
+  clear_has_continuation_indicator_param();
+  ::caffe::ContinuationIndicatorParameter* temp = continuation_indicator_param_;
+  continuation_indicator_param_ = NULL;
+  return temp;
+}
+inline void LayerParameter::set_allocated_continuation_indicator_param(::caffe::ContinuationIndicatorParameter* continuation_indicator_param) {
+  delete continuation_indicator_param_;
+  continuation_indicator_param_ = continuation_indicator_param;
+  if (continuation_indicator_param) {
+    set_has_continuation_indicator_param();
+  } else {
+    clear_has_continuation_indicator_param();
+  }
+  // @@protoc_insertion_point(field_set_allocated:caffe.LayerParameter.continuation_indicator_param)
+}
+
+// optional .caffe.LabelsequenceAccuracyParameter labelsequence_accuracy_param = 154;
+inline bool LayerParameter::has_labelsequence_accuracy_param() const {
+  return (_has_bits_[1] & 0x01000000u) != 0;
+}
+inline void LayerParameter::set_has_labelsequence_accuracy_param() {
+  _has_bits_[1] |= 0x01000000u;
+}
+inline void LayerParameter::clear_has_labelsequence_accuracy_param() {
+  _has_bits_[1] &= ~0x01000000u;
+}
+inline void LayerParameter::clear_labelsequence_accuracy_param() {
+  if (labelsequence_accuracy_param_ != NULL) labelsequence_accuracy_param_->::caffe::LabelsequenceAccuracyParameter::Clear();
+  clear_has_labelsequence_accuracy_param();
+}
+inline const ::caffe::LabelsequenceAccuracyParameter& LayerParameter::labelsequence_accuracy_param() const {
+  // @@protoc_insertion_point(field_get:caffe.LayerParameter.labelsequence_accuracy_param)
+  return labelsequence_accuracy_param_ != NULL ? *labelsequence_accuracy_param_
+                         : *::caffe::LabelsequenceAccuracyParameter::internal_default_instance();
+}
+inline ::caffe::LabelsequenceAccuracyParameter* LayerParameter::mutable_labelsequence_accuracy_param() {
+  set_has_labelsequence_accuracy_param();
+  if (labelsequence_accuracy_param_ == NULL) {
+    labelsequence_accuracy_param_ = new ::caffe::LabelsequenceAccuracyParameter;
+  }
+  // @@protoc_insertion_point(field_mutable:caffe.LayerParameter.labelsequence_accuracy_param)
+  return labelsequence_accuracy_param_;
+}
+inline ::caffe::LabelsequenceAccuracyParameter* LayerParameter::release_labelsequence_accuracy_param() {
+  // @@protoc_insertion_point(field_release:caffe.LayerParameter.labelsequence_accuracy_param)
+  clear_has_labelsequence_accuracy_param();
+  ::caffe::LabelsequenceAccuracyParameter* temp = labelsequence_accuracy_param_;
+  labelsequence_accuracy_param_ = NULL;
+  return temp;
+}
+inline void LayerParameter::set_allocated_labelsequence_accuracy_param(::caffe::LabelsequenceAccuracyParameter* labelsequence_accuracy_param) {
+  delete labelsequence_accuracy_param_;
+  labelsequence_accuracy_param_ = labelsequence_accuracy_param;
+  if (labelsequence_accuracy_param) {
+    set_has_labelsequence_accuracy_param();
+  } else {
+    clear_has_labelsequence_accuracy_param();
+  }
+  // @@protoc_insertion_point(field_set_allocated:caffe.LayerParameter.labelsequence_accuracy_param)
 }
 
 // -------------------------------------------------------------------
@@ -37730,7 +38216,169 @@ inline void CenterLossParameter::set_axis(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:caffe.CenterLossParameter.axis)
 }
 
+// -------------------------------------------------------------------
+
+// CtcLossParameter
+
+// optional uint32 alphabet_size = 1 [default = 0];
+inline bool CtcLossParameter::has_alphabet_size() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void CtcLossParameter::set_has_alphabet_size() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void CtcLossParameter::clear_has_alphabet_size() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void CtcLossParameter::clear_alphabet_size() {
+  alphabet_size_ = 0u;
+  clear_has_alphabet_size();
+}
+inline ::google::protobuf::uint32 CtcLossParameter::alphabet_size() const {
+  // @@protoc_insertion_point(field_get:caffe.CtcLossParameter.alphabet_size)
+  return alphabet_size_;
+}
+inline void CtcLossParameter::set_alphabet_size(::google::protobuf::uint32 value) {
+  set_has_alphabet_size();
+  alphabet_size_ = value;
+  // @@protoc_insertion_point(field_set:caffe.CtcLossParameter.alphabet_size)
+}
+
+// optional uint32 time_step = 3 [default = 0];
+inline bool CtcLossParameter::has_time_step() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void CtcLossParameter::set_has_time_step() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void CtcLossParameter::clear_has_time_step() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void CtcLossParameter::clear_time_step() {
+  time_step_ = 0u;
+  clear_has_time_step();
+}
+inline ::google::protobuf::uint32 CtcLossParameter::time_step() const {
+  // @@protoc_insertion_point(field_get:caffe.CtcLossParameter.time_step)
+  return time_step_;
+}
+inline void CtcLossParameter::set_time_step(::google::protobuf::uint32 value) {
+  set_has_time_step();
+  time_step_ = value;
+  // @@protoc_insertion_point(field_set:caffe.CtcLossParameter.time_step)
+}
+
+// optional int32 blank_label = 4 [default = 0];
+inline bool CtcLossParameter::has_blank_label() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void CtcLossParameter::set_has_blank_label() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void CtcLossParameter::clear_has_blank_label() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void CtcLossParameter::clear_blank_label() {
+  blank_label_ = 0;
+  clear_has_blank_label();
+}
+inline ::google::protobuf::int32 CtcLossParameter::blank_label() const {
+  // @@protoc_insertion_point(field_get:caffe.CtcLossParameter.blank_label)
+  return blank_label_;
+}
+inline void CtcLossParameter::set_blank_label(::google::protobuf::int32 value) {
+  set_has_blank_label();
+  blank_label_ = value;
+  // @@protoc_insertion_point(field_set:caffe.CtcLossParameter.blank_label)
+}
+
+// -------------------------------------------------------------------
+
+// ContinuationIndicatorParameter
+
+// optional uint32 time_step = 1 [default = 0];
+inline bool ContinuationIndicatorParameter::has_time_step() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ContinuationIndicatorParameter::set_has_time_step() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ContinuationIndicatorParameter::clear_has_time_step() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ContinuationIndicatorParameter::clear_time_step() {
+  time_step_ = 0u;
+  clear_has_time_step();
+}
+inline ::google::protobuf::uint32 ContinuationIndicatorParameter::time_step() const {
+  // @@protoc_insertion_point(field_get:caffe.ContinuationIndicatorParameter.time_step)
+  return time_step_;
+}
+inline void ContinuationIndicatorParameter::set_time_step(::google::protobuf::uint32 value) {
+  set_has_time_step();
+  time_step_ = value;
+  // @@protoc_insertion_point(field_set:caffe.ContinuationIndicatorParameter.time_step)
+}
+
+// optional uint32 batch_size = 2 [default = 0];
+inline bool ContinuationIndicatorParameter::has_batch_size() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ContinuationIndicatorParameter::set_has_batch_size() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ContinuationIndicatorParameter::clear_has_batch_size() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ContinuationIndicatorParameter::clear_batch_size() {
+  batch_size_ = 0u;
+  clear_has_batch_size();
+}
+inline ::google::protobuf::uint32 ContinuationIndicatorParameter::batch_size() const {
+  // @@protoc_insertion_point(field_get:caffe.ContinuationIndicatorParameter.batch_size)
+  return batch_size_;
+}
+inline void ContinuationIndicatorParameter::set_batch_size(::google::protobuf::uint32 value) {
+  set_has_batch_size();
+  batch_size_ = value;
+  // @@protoc_insertion_point(field_set:caffe.ContinuationIndicatorParameter.batch_size)
+}
+
+// -------------------------------------------------------------------
+
+// LabelsequenceAccuracyParameter
+
+// optional int32 blank_label = 1 [default = 0];
+inline bool LabelsequenceAccuracyParameter::has_blank_label() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void LabelsequenceAccuracyParameter::set_has_blank_label() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void LabelsequenceAccuracyParameter::clear_has_blank_label() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void LabelsequenceAccuracyParameter::clear_blank_label() {
+  blank_label_ = 0;
+  clear_has_blank_label();
+}
+inline ::google::protobuf::int32 LabelsequenceAccuracyParameter::blank_label() const {
+  // @@protoc_insertion_point(field_get:caffe.LabelsequenceAccuracyParameter.blank_label)
+  return blank_label_;
+}
+inline void LabelsequenceAccuracyParameter::set_blank_label(::google::protobuf::int32 value) {
+  set_has_blank_label();
+  blank_label_ = value;
+  // @@protoc_insertion_point(field_set:caffe.LabelsequenceAccuracyParameter.blank_label)
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
