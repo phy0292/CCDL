@@ -2,6 +2,12 @@
 // to avoid _POSIX_C_SOURCE redefinition
 #ifdef WITH_PYTHON_LAYER
 #include <boost/python.hpp>
+#include <boost/make_shared.hpp>
+#include <boost/python.hpp>
+#include <boost/python/raw_function.hpp>
+#include <boost/python/suite/indexing/vector_indexing_suite.hpp>
+#include <numpy/arrayobject.h>
+#include "caffe/layers/python_layer.hpp"
 #endif
 #include <string>
 
@@ -246,12 +252,14 @@ shared_ptr<Layer<Dtype> > GetTanHLayer(const LayerParameter& param) {
 REGISTER_LAYER_CREATOR(TanH, GetTanHLayer);
 
 #ifdef WITH_PYTHON_LAYER
+/* Fix to avoid registration warnings in pycaffe (#3960) */
 template <typename Dtype>
 shared_ptr<Layer<Dtype> > GetPythonLayer(const LayerParameter& param) {
   Py_Initialize();
   try {
+	//bp::class_<caffe::LayerParameter>("LayerParameter", bp::no_init);
     bp::object module = bp::import(param.python_param().module().c_str());
-    bp::object layer = module.attr(param.python_param().layer().c_str())(param);
+	bp::object layer = module.attr(param.python_param().layer().c_str())(param);
     return bp::extract<shared_ptr<PythonLayer<Dtype> > >(layer)();
   } catch (bp::error_already_set) {
     PyErr_Print();

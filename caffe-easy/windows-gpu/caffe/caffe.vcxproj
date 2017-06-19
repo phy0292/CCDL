@@ -51,8 +51,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>../../include;../../3rd/include/protobuf;../../3rd/include/;../../3rd/include/openblas0.2.14.1;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;../../3rd/include/opencv2.4.10;../../3rd/include/opencv2.4.10/opencv;../../3rd/include/opencv2.4.10/opencv2;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <LibraryPath>../../3rd/staticlib/boost/$(Platform)/;../../3rd/staticlib/gflags/$(Platform)/;../../3rd/staticlib/glog/$(Platform)/;../../3rd/staticlib/protobuf/$(Platform)/;../../3rd/staticlib/openblas/$(Platform)/;../../3rd/staticlib/opencv2.4.10/$(Platform)/vc$(PlatformToolsetVersion)/staticlib;../../3rd/staticlib/lmdb/$(Platform)/;../../Build/gpu_cuda$(CC_CUDA_VERSION)/$(Configuration)/$(Platform)/;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+    <IncludePath>../../include;../../3rd/include/protobuf;../../3rd/include/;../../3rd/include/openblas0.2.14.1;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;../../3rd/include/opencv2.4.10;../../3rd/include/opencv2.4.10/opencv;../../3rd/include/opencv2.4.10/opencv2;../../3rd/include/python2.7;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>../../3rd/staticlib/boost/$(Platform)/;../../3rd/staticlib/gflags/$(Platform)/;../../3rd/staticlib/glog/$(Platform)/;../../3rd/staticlib/protobuf/$(Platform)/;../../3rd/staticlib/openblas/$(Platform)/;../../3rd/staticlib/opencv2.4.10/$(Platform)/vc$(PlatformToolsetVersion)/staticlib;../../3rd/staticlib/lmdb/$(Platform)/;../../Build/gpu_cuda$(CC_CUDA_VERSION)/$(Configuration)/$(Platform)/;../../3rd/staticlib/python2.7/$(Platform)/;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
     <OutDir>../../Build/gpu_cuda$(CC_CUDA_VERSION)/$(Configuration)/$(Platform)/</OutDir>
     <IntDir>../../Build/gpu_cuda$(CC_CUDA_VERSION)/outobj/$(ProjectName)/$(Configuration)/$(Platform)/</IntDir>
   </PropertyGroup>
@@ -87,7 +87,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>USE_LMDB;WIN32;_CRT_SECURE_NO_DEPRECATE;USE_OPENCV;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>USE_LMDB;BOOST_PYTHON_STATIC_LIB;WITH_PYTHON_LAYER;WIN32;_CRT_SECURE_NO_DEPRECATE;USE_OPENCV;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>

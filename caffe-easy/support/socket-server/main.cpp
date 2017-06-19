@@ -431,7 +431,7 @@ void execute(cmd* c, vector<param>& ps){
 
 void doAction(clientContext* client){
 	cmd* c = parseCmd(&client->package->at(0));
-	fcLog("execmd: %s[%d]", c->name.c_str(), c->params.size());
+	//fcLog("execmd: %s[%d]", c->name.c_str(), c->params.size());
 
 	vector<param> ps;
 	execute(c, ps);

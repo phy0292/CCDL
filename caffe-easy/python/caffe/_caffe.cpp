@@ -17,6 +17,7 @@
 #include "caffe/caffe.hpp"
 #include "caffe/layers/memory_data_layer.hpp"
 #include "caffe/layers/python_layer.hpp"
+#include "caffe/layer_factory.hpp"
 #include "caffe/sgd_solvers.hpp"
 #include "import-staticlib.h"
 
@@ -132,6 +133,13 @@ shared_ptr<Net<Dtype> > Net_Init_Load(
       static_cast<Phase>(phase)));
   net->CopyTrainedLayersFrom(pretrained_param_file);
   return net;
+}
+
+shared_ptr<Layer<Dtype> > Layer_Init_Load(
+	caffe::LayerParameter* param) {
+	
+	shared_ptr<Layer<Dtype> > layer(caffe::LayerRegistry<Dtype>::CreateLayer(*param));
+	return layer;
 }
 
 void Net_Save(const Net<Dtype>& net, string filename) {
@@ -333,6 +341,7 @@ BOOST_PYTHON_MODULE(_caffe) {
     .def("save_hdf5", &Net_SaveHDF5)
     .def("load_hdf5", &Net_LoadHDF5);
   BP_REGISTER_SHARED_PTR_TO_PYTHON(Net<Dtype>);
+  //BP_REGISTER_SHARED_PTR_TO_PYTHON(LayerParameter);
 
   bp::class_<Blob<Dtype>, shared_ptr<Blob<Dtype> >, boost::noncopyable>(
     "Blob", bp::no_init)
@@ -353,9 +362,12 @@ BOOST_PYTHON_MODULE(_caffe) {
     .add_property("diff",     bp::make_function(&Blob<Dtype>::mutable_cpu_diff,
           NdarrayCallPolicies()));
   BP_REGISTER_SHARED_PTR_TO_PYTHON(Blob<Dtype>);
-
+  
   bp::class_<Layer<Dtype>, shared_ptr<PythonLayer<Dtype> >,
-    boost::noncopyable>("Layer", bp::init<const LayerParameter&>())
+    boost::noncopyable>("Layer", 
+	bp::init<const LayerParameter&>())
+	//bp::no_init)
+	//.def("__init__", bp::make_constructor(&Layer_Init_Load))
     .add_property("blobs", bp::make_function(&Layer<Dtype>::blobs,
           bp::return_internal_reference<>()))
     .def("setup", &Layer<Dtype>::LayerSetUp)
