@@ -212,6 +212,25 @@ namespace caffe {
 		return ReadImageToCVMat(filename, 0, 0, true);
 	}
 
+	bool ReadImageToMTCNNDatum(const string& filename, const vector<float>& label,
+		const int height, const int width, const bool is_color,
+		const std::string & encoding, MTCNNDatum* datum){
+
+		//label, roi_minx, roi_miny, roi_maxx, roi_maxy, pts
+		bool succ = ReadImageToDatum(filename, { label[0] }, height, width, is_color, encoding, datum->mutable_datum());
+		if (succ){
+			datum->mutable_roi()->set_xmin(label[1]);
+			datum->mutable_roi()->set_ymin(label[2]);
+			datum->mutable_roi()->set_xmax(label[3]);
+			datum->mutable_roi()->set_ymax(label[4]);
+			auto pts = datum->mutable_pts();
+			pts->Clear();
+			for (int i = 5; i < label.size(); ++i)
+				pts->Add(label[i]);
+		}
+		return succ;
+	}
+
 	bool ReadAnyDataFileToDatum(const string& filename, const vector<float>& label,
 		const int height, const int width, const bool is_color, Datum* datum){
 		//格式约定
@@ -221,26 +240,40 @@ namespace caffe {
 		const int head = 0xCCAADD00;
 
 		FILE* f = fopen(filename.c_str(), "rb");
-		if (f == 0) return false;
+		if (f == 0){
+			LOG(ERROR) << "Could not open or find file " << filename;
+			return false;
+		}
 
 		int r_head = 0;
 		fread(&r_head, 1, sizeof(r_head), f);
 
 		if (r_head != head){
 			fclose(f);
+			char buf[1000];
+			sprintf(buf, "Invalid anyfile format, file hand missmatch( 0x%X vs. 0x%X ): ", r_head, head);
+			LOG(ERROR) << buf << filename;
 			return false;
 		}
 
 		int dims[3] = { 0 };
-		if (sizeof(dims) != fread(dims, 1, sizeof(dims), f)){
+		int readsize = fread(dims, 1, sizeof(dims), f);
+		if (sizeof(dims) != readsize){
 			fclose(f);
+			char buf[1000];
+			sprintf(buf, "Invalid anyfile format, read error( %d vs. %d ): ", readsize, sizeof(dims));
+			LOG(ERROR) << buf << filename;
 			return false;
 		}
 
 		cv::Mat cv_img(dims[1], dims[2], CV_32FC(dims[0]));
 		int r_len = cv_img.size[0] * cv_img.step.p[0];
-		if (r_len != fread(cv_img.data, 1, r_len, f)){
+		readsize = fread(cv_img.data, 1, r_len, f);
+		if (r_len != readsize){
 			fclose(f);
+			char buf[1000];
+			sprintf(buf, "Invalid anyfile format, read error( %d vs. %d ): ", readsize, r_len);
+			LOG(ERROR) << buf << filename;
 			return false;
 		}
 

@@ -34,7 +34,7 @@ DEFINE_bool(gray, false,
 DEFINE_bool(shuffle, false,
     "Randomly shuffle the order of images and their labels");
 DEFINE_string(backend, "lmdb",
-        "The backend {lmdb, anydata} for storing the result");
+        "The backend {lmdb, anydata, mtcnn} for storing the result");
 DEFINE_int32(resize_width, 0, "Width images are resized to");
 DEFINE_int32(resize_height, 0, "Height images are resized to");
 DEFINE_bool(check_size, false,
@@ -87,8 +87,9 @@ int main(int argc, char** argv) {
 		  labels.push_back(label);
 		  //printf("%f ", label);
 	  }
-	  //printf("\n");
-	  
+
+	  //label, roi_minx, roi_miny, roi_maxx, roi_maxy, pts
+	  CHECK_GE(labels.size(), 5) << "Incorrect label size " << filename;
 	  lines.push_back(std::make_pair(filename, labels));
   }
 
@@ -115,8 +116,8 @@ int main(int argc, char** argv) {
   _mkdir(argv[3]);
 
   bool isAnyData = FLAGS_backend == "anydata";
-  if (isAnyData)
-	  FLAGS_backend = "lmdb";
+  bool isMTCNN = FLAGS_backend == "mtcnn";
+  FLAGS_backend = "lmdb";
 
   // Create new DB
   scoped_ptr<db::DB> db(db::GetDB(FLAGS_backend));
@@ -127,6 +128,7 @@ int main(int argc, char** argv) {
   std::string root_folder(argv[1]);
 
   Datum datum;
+  MTCNNDatum mtcnndatum;
   int count = 0;
   int data_size = 0;
   bool data_size_initialized = false;
@@ -148,27 +150,38 @@ int main(int argc, char** argv) {
 		status = ReadAnyDataFileToDatum(root_folder + lines[line_id].first,
 			lines[line_id].second, resize_height, resize_width, is_color,
 			&datum);
+	else if (isMTCNN)
+		status = ReadImageToMTCNNDatum(root_folder + lines[line_id].first,
+			lines[line_id].second, resize_height, resize_width, is_color,
+			enc, &mtcnndatum);
 	else
 		status = ReadImageToDatum(root_folder + lines[line_id].first,
 			lines[line_id].second, resize_height, resize_width, is_color,
 			enc, &datum);
     if (status == false) continue;
     if (check_size) {
-      if (!data_size_initialized) {
-        data_size = datum.channels() * datum.height() * datum.width();
-        data_size_initialized = true;
-      } else {
-        const std::string& data = datum.data();
-        CHECK_EQ(data.size(), data_size) << "Incorrect data field size "
-            << data.size();
-      }
+		int channels = isMTCNN ? mtcnndatum.datum().channels() : datum.channels();
+		int height = isMTCNN ? mtcnndatum.datum().height() : datum.height();
+		int width = isMTCNN ? mtcnndatum.datum().width() : datum.width();
+		const std::string& data = isMTCNN ? mtcnndatum.datum().data() : datum.data();
+
+		if (!data_size_initialized) {
+			data_size = channels * height * width;
+			data_size_initialized = true;
+		} else {
+			CHECK_EQ(data.size(), data_size) << "Incorrect data field size "
+			<< data.size();
+		}
     }
     // sequential
     string key_str = caffe::format_int(line_id, 8) + "_" + lines[line_id].first;
 
     // Put in db
     string out;
-    CHECK(datum.SerializeToString(&out));
+	if (isMTCNN)
+		CHECK(mtcnndatum.SerializeToString(&out));
+	else
+		CHECK(datum.SerializeToString(&out));
     txn->Put(key_str, out);
 
     if (++count % 1000 == 0) {

@@ -41,6 +41,19 @@ message Datum {
   repeated float labels = 8; 
 }
 
+message MTCNNBBox {
+  optional float xmin = 1;
+  optional float ymin = 2;
+  optional float xmax = 3;
+  optional float ymax = 4;
+}
+
+message MTCNNDatum {
+  optional Datum datum = 1;
+  optional MTCNNBBox roi = 2;
+  repeated float pts = 3; 
+}
+
 // The label (display) name and label id.
 message LabelMapItem {
   // Both name and label are required.

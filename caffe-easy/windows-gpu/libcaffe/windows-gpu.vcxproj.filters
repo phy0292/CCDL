@@ -444,6 +444,12 @@
     <ClInclude Include="..\..\include\caffe\layers\video_data_layer.hpp">
       <Filter>include\layers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\caffe\layers\mtcnn_data_layer.hpp">
+      <Filter>include\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\caffe\layers\mtcnn_euclidean_loss_layer.hpp">
+      <Filter>include\layers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\caffe\layers\absval_layer.cpp">
@@ -809,6 +815,12 @@
     <ClCompile Include="..\..\src\caffe\layers\labelsequence_accuracy_layer.cpp">
       <Filter>src\layers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\caffe\layers\mtcnn_data_layer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\caffe\layers\mtcnn_euclidean_loss_layer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CudaCOmpile Include="..\..\src\caffe\layers\absval_layer.cu">
@@ -1028,6 +1040,12 @@
       <Filter>src\layers</Filter>
     </CudaCompile>
     <CudaCompile Include="..\..\src\caffe\layers\ctc_loss_layer.cu">
+      <Filter>src\layers</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\caffe\layers\mtcnn_euclidean_loss_layer.cu">
+      <Filter>src\layers</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\src\caffe\layers\mtcnn_data_layer.cu">
       <Filter>src\layers</Filter>
     </CudaCompile>
   </ItemGroup>

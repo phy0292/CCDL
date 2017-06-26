@@ -237,6 +237,12 @@ void DataTransformer<Dtype>::Transform(const vector<Datum> & datum_vector,
 
 template<typename Dtype>
 void DataTransformer<Dtype>::Transform(
+	const MTCNNDatum& mtcnn_datum, Blob<Dtype>* transformed_blob) {
+	Transform(mtcnn_datum.datum(), transformed_blob);
+}
+
+template<typename Dtype>
+void DataTransformer<Dtype>::Transform(
     const AnnotatedDatum& anno_datum, Blob<Dtype>* transformed_blob,
     RepeatedPtrField<AnnotationGroup>* transformed_anno_group_all,
     bool* do_mirror) {

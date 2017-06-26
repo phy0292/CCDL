@@ -13,9 +13,14 @@
 #include <string>
 #include <vector>
 
+#define DLL_EXPORT_SYM __declspec(dllexport)
 #include "mex.h"
 
 #include "caffe/caffe.hpp"
+#include "import-staticlib.h"
+#pragma comment(lib, "libmx.lib")
+#pragma comment(lib, "libmex.lib")
+#pragma comment(lib, "libmat.lib")
 
 #define MEX_ARGS int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs
 

@@ -20,11 +20,18 @@ BaseDataLayer<Dtype>::BaseDataLayer(const LayerParameter& param)
 template <typename Dtype>
 void BaseDataLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& bottom,
       const vector<Blob<Dtype>*>& top) {
+	output_labels_ = top.size() > 1;
+	output_roi_ = top.size() > 2;
+	output_pts_ = top.size() > 3;
+
+	/*
   if (top.size() == 1) {
     output_labels_ = false;
   } else {
     output_labels_ = true;
   }
+  */
+
   data_transformer_.reset(
       new DataTransformer<Dtype>(transform_param_, this->phase_));
   data_transformer_->InitRand();
@@ -52,17 +59,27 @@ void BasePrefetchingDataLayer<Dtype>::LayerSetUp(
   // seems to cause failures if we do not so.
   for (int i = 0; i < PREFETCH_COUNT; ++i) {
     prefetch_[i].data_.mutable_cpu_data();
-    if (this->output_labels_) {
+    if (this->output_labels_) 
       prefetch_[i].label_.mutable_cpu_data();
-    }
+    
+	if (this->output_pts_)
+		prefetch_[i].pts_.mutable_cpu_data();
+
+	if (this->output_roi_)
+		prefetch_[i].roi_.mutable_cpu_data();
   }
 #ifndef CPU_ONLY
   if (Caffe::mode() == Caffe::GPU) {
     for (int i = 0; i < PREFETCH_COUNT; ++i) {
       prefetch_[i].data_.mutable_gpu_data();
-      if (this->output_labels_) {
+      if (this->output_labels_)
         prefetch_[i].label_.mutable_gpu_data();
-      }
+      
+	  if (this->output_pts_)
+		  prefetch_[i].pts_.mutable_gpu_data();
+
+	  if (this->output_roi_)
+		  prefetch_[i].roi_.mutable_gpu_data();
     }
   }
 #endif
