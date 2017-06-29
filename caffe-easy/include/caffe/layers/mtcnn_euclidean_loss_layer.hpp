@@ -45,7 +45,8 @@ class MTCNNEuclideanLossLayer : public LossLayer<Dtype> {
   virtual void Reshape(const vector<Blob<Dtype>*>& bottom,
       const vector<Blob<Dtype>*>& top);
 
-  virtual inline int ExactNumBottomBlobs() const { return 3; }
+  virtual inline int ExactNumBottomBlobs() const { return -1; }
+  virtual inline int MinBottomBlobs() const { return 2; }
   virtual inline const char* type() const { return "MTCNNEuclideanLoss"; }
   /**
    * Unlike most loss layers, in the MTCNNEuclideanLossLayer we can backpropagate

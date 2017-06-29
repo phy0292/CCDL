@@ -377,6 +377,29 @@ Caffe_API void __stdcall getMultiConf(SoftmaxResult* result, float* buf){
 	}
 }
 
+Caffe_API void __stdcall forward(Classifier* classifier, const void* img, int len){
+	errBegin;
+	if (classifier == 0 || len < 1 || img == 0) return;
+
+	Mat im;
+	try{
+		im = imdecode(Mat(1, len, CV_8U, (uchar*)img), 1);
+	}
+	catch (...){}
+	if (im.empty()) return;
+
+	classifier->forward(im);
+	return;
+	errEnd();
+}
+
+//获取任意层的blob
+Caffe_API BlobData* __stdcall getBlobData(Classifier* classifier, const char* blob_name){
+	if (!classifier) return 0;
+	if (blob_name == 0) return 0;
+	return classifier->getBlobData(blob_name);
+}
+
 //获取第0个输出的label
 Caffe_API int __stdcall getSingleLabel(SoftmaxResult* result){
 	if (!result) return -1;
@@ -553,6 +576,20 @@ static std::vector<int> Argmax(const float* v, int len, int N) {
   for (int i = 0; i < N; ++i)
     result.push_back(pairs[i].second);
   return result;
+}
+
+void Classifier::forward(const cv::Mat& img){
+	Blob<float>* input_layer = ThisNet->input_blobs()[0];
+	input_layer->Reshape(1, num_channels_,
+		input_geometry_.height, input_geometry_.width);
+	/* Forward dimension change to all layers. */
+	ThisNet->Reshape();
+
+	std::vector<cv::Mat> input_channels;
+	WrapInputLayer(input_channels);
+	Preprocess({ img }, input_channels);
+
+	ThisNet->Forward();
 }
 
 BlobData* Classifier::extfeature(const cv::Mat& img, const char* feature_name){

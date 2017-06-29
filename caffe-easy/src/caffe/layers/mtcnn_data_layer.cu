@@ -53,6 +53,9 @@ void MTCNNDataLayer<Dtype>::Forward_gpu(
   prefetch_free_.push(batch);
 }
 
-INSTANTIATE_LAYER_GPU_FORWARD(MTCNNDataLayer);
+template <typename Dtype>
+void MTCNNDataLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
+	const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom){}
+INSTANTIATE_LAYER_GPU_FUNCS(MTCNNDataLayer);
 
 }  // namespace caffe

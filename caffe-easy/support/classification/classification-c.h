@@ -109,6 +109,12 @@ extern "C"{
 	Caffe_API MultiSoftmaxResult* __stdcall predictMultiSoftmaxAny(Classifier* classifier, const float** data, const int* dims, int num, int top_n = 5);
 	Caffe_API BlobData* __stdcall extfeatureAny(Classifier* classifier, const float* data, const int* dims, const char* feature_name);
 
+	//获取任意层的blob
+	Caffe_API void __stdcall forward(Classifier* classifier, const void* img, int len);
+
+	//获取任意层的blob
+	Caffe_API BlobData* __stdcall getBlobData(Classifier* classifier, const char* blob_name);
+
 	//获取特征的长度
 	Caffe_API int __stdcall getBlobLength(BlobData* feature);
 

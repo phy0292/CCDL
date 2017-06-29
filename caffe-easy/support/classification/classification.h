@@ -37,6 +37,7 @@ public:
 	SoftmaxResult* predictSoftmax(const cv::Mat& img, int top_n = 5);
 	MultiSoftmaxResult* predictSoftmax(const std::vector<cv::Mat>& imgs, int top_n = 5);
 	BlobData* extfeature(const cv::Mat& img, const char* layer_name = 0);
+	void forward(const cv::Mat& img);
 
 	int input_num(int index = 0);
 	int input_channels(int index = 0);
