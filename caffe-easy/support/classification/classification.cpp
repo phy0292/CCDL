@@ -350,6 +350,14 @@ Caffe_API float __stdcall getResultConf(SoftmaxResult* result, int layer, int nu
 	return result->list[layer].result[num].conf;
 }
 
+Caffe_API void __stdcall getBlobDims(BlobData* blob, int* dims_at_4_elem){
+	if (blob == 0 || dims_at_4_elem == 0) return;
+	*dims_at_4_elem++ = blob->num;
+	*dims_at_4_elem++ = blob->channels;
+	*dims_at_4_elem++ = blob->height;
+	*dims_at_4_elem++ = blob->width;
+}
+
 //多标签就是多个输出层，每个层取softmax
 Caffe_API void __stdcall getMultiLabel(SoftmaxResult* result, int* buf){
 	if (!result || result->count == 0 || !result->list) return;

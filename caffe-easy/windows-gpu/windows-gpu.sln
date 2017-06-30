@@ -13,8 +13,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "convert_annoset", "convert_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "get_image_size", "get_image_size\get_image_size.vcxproj", "{1B587939-5007-4CDA-ACA6-F64D5B22AEC0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mtcnn", "mtcnn\mtcnn.vcxproj", "{DEB3EC38-9718-448A-B34D-A146538E80F8}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "classification_dll", "classification_dll\classification_dll.vcxproj", "{193F1372-AC6A-417E-9D7D-9C589FD34091}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "compute_image_mean", "compute_image_mean\compute_image_mean.vcxproj", "{489E0A1E-513B-454F-9AEC-C851A224514D}"
@@ -60,10 +58,6 @@ Global
 		{1B587939-5007-4CDA-ACA6-F64D5B22AEC0}.Debug|x64.Build.0 = Debug|x64
 		{1B587939-5007-4CDA-ACA6-F64D5B22AEC0}.Release|x64.ActiveCfg = Release|x64
 		{1B587939-5007-4CDA-ACA6-F64D5B22AEC0}.Release|x64.Build.0 = Release|x64
-		{DEB3EC38-9718-448A-B34D-A146538E80F8}.Debug|x64.ActiveCfg = Debug|x64
-		{DEB3EC38-9718-448A-B34D-A146538E80F8}.Debug|x64.Build.0 = Debug|x64
-		{DEB3EC38-9718-448A-B34D-A146538E80F8}.Release|x64.ActiveCfg = Release|x64
-		{DEB3EC38-9718-448A-B34D-A146538E80F8}.Release|x64.Build.0 = Release|x64
 		{193F1372-AC6A-417E-9D7D-9C589FD34091}.Debug|x64.ActiveCfg = Debug|x64
 		{193F1372-AC6A-417E-9D7D-9C589FD34091}.Debug|x64.Build.0 = Debug|x64
 		{193F1372-AC6A-417E-9D7D-9C589FD34091}.Release|x64.ActiveCfg = Release|x64

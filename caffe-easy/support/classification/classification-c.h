@@ -118,6 +118,9 @@ extern "C"{
 	//获取特征的长度
 	Caffe_API int __stdcall getBlobLength(BlobData* feature);
 
+	//获取张量数据维度
+	Caffe_API void __stdcall getBlobDims(BlobData* blob, int* dims_at_4_elem);
+
 	//将特征复制到缓存区
 	Caffe_API void __stdcall cpyBlobData(void* buffer, BlobData* feature);
 

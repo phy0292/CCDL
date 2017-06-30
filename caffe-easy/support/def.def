@@ -39,3 +39,4 @@ extfeatureAny
 predictSoftmaxAnyByTaskPool
 getBlobData
 forward
+getBlobDims
