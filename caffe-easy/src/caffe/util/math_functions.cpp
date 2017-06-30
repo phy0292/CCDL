@@ -244,7 +244,12 @@ template
 double caffe_nextafter(const double b);
 
 template <typename Dtype>
-void caffe_rng_uniform(const int n, const Dtype a, const Dtype b, Dtype* r) {
+void caffe_rng_uniform(const int n, const Dtype a_, const Dtype b_, Dtype* r) {
+
+	Dtype a = a_;
+	Dtype b = b_;
+	if (a > b) std::swap(a, b);
+  
   CHECK_GE(n, 0);
   CHECK(r);
   CHECK_LE(a, b);
