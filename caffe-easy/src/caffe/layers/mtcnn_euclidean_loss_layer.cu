@@ -12,7 +12,7 @@ void MTCNNEuclideanLossLayer<Dtype>::Reshape(
 	CHECK_EQ(bottom[0]->count(1), bottom[1]->count(1))
 		<< "Inputs must have the same dimension.";
 	 
-	int has_ignore_label = this->layer_param().has_loss_param() && this->layer_param().loss_param().has_ignore_label();
+	int has_ignore_label = this->layer_param().loss_param().has_ignore_label();
 	if (has_ignore_label)
 		CHECK_EQ(bottom.size(), 3) << "has_ignore_label=true but not input label";
 	
@@ -26,7 +26,7 @@ template <typename Dtype>
 void MTCNNEuclideanLossLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& bottom,
     const vector<Blob<Dtype>*>& top) {
   int count = bottom[0]->count();
-  int has_ignore_label = this->layer_param().has_loss_param() && this->layer_param().loss_param().has_ignore_label();
+  int has_ignore_label = this->layer_param().loss_param().has_ignore_label();
   int ignore_label = has_ignore_label ? this->layer_param().loss_param().ignore_label() : -1;
 
   if (has_ignore_label){
@@ -74,7 +74,7 @@ template <typename Dtype>
 void MTCNNEuclideanLossLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
     const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom) {
 
-	int has_ignore_label = this->layer_param().has_loss_param() && this->layer_param().loss_param().has_ignore_label();
+	int has_ignore_label = this->layer_param().loss_param().has_ignore_label();
 	int ignore_label = has_ignore_label ? this->layer_param().loss_param().ignore_label() : -1;
 
 	if (has_ignore_label){
