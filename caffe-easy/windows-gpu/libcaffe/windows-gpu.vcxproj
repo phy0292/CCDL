@@ -415,7 +415,7 @@
 copy ..\..\3rd\staticlib\lmdb\$(Platform)\*.dll ..\..\Build\gpu_cuda$(CC_CUDA_VERSION)\$(Configuration)\$(Platform)\</Command>
     </PostBuildEvent>
     <CudaCompile>
-      <CodeGeneration>compute_20,sm_20;compute_20,sm_21;compute_30,sm_30;compute_35,sm_35;compute_50,sm_50;compute_50,compute_50</CodeGeneration>
+      <CodeGeneration>compute_30,sm_30;compute_35,sm_35;compute_50,sm_50;compute_50,compute_50</CodeGeneration>
       <TargetMachinePlatform>64</TargetMachinePlatform>
     </CudaCompile>
   </ItemDefinitionGroup>
