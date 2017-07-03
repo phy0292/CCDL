@@ -187,6 +187,9 @@ message FillerParameter {
     AVERAGE = 2;
   }
   optional VarianceNorm variance_norm = 8 [default = FAN_IN];
+
+  // added by Kaichun Mo
+  optional string file = 9;
 }
 
 message NetParameter {
@@ -460,7 +463,7 @@ message PredictBoxParameter {
 // NOTE
 // Update the next available ID when you add a new LayerParameter field.
 //
-// LayerParameter next available layer-specific ID: 155 (last added: labelsequence_accuracy_param)
+// LayerParameter next available layer-specific ID: 160 (last added: LocLossParameter)
 message LayerParameter {
   optional string name = 1; // the layer name
   optional string type = 2; // the layer type
@@ -575,6 +578,12 @@ message LayerParameter {
   optional CtcLossParameter ctc_loss_param = 152;
   optional ContinuationIndicatorParameter continuation_indicator_param = 153;
   optional LabelsequenceAccuracyParameter labelsequence_accuracy_param = 154;
+
+  // added by Kaichun Mo
+  optional SpatialTransformerParameter st_param = 156;
+  optional STLossParameter st_loss_param = 157;
+  optional PowerFileParameter power_file_param = 158;
+  optional LocLossParameter loc_loss_param = 159;
 }
 
 message FlipParameter {
@@ -2016,4 +2025,45 @@ message ContinuationIndicatorParameter {
 
 message LabelsequenceAccuracyParameter {
   optional int32 blank_label = 1 [default = 0];
+}
+
+// added by Kaichun Mo
+message SpatialTransformerParameter {
+
+  // How to use the parameter passed by localisation network
+  optional string transform_type = 1 [default = "affine"];
+  // What is the sampling technique
+  optional string sampler_type = 2 [default = "bilinear"];
+
+  // If not set,stay same with the input dimension H and W
+  optional int32 output_H = 3;
+  optional int32 output_W = 4;
+
+  // If false, only compute dTheta, DO NOT compute dU
+  optional bool to_compute_dU = 5 [default = true];
+
+  // The default value for some parameters
+  optional double theta_1_1 = 6;
+  optional double theta_1_2 = 7;
+  optional double theta_1_3 = 8;
+  optional double theta_2_1 = 9;
+  optional double theta_2_2 = 10;
+  optional double theta_2_3 = 11;
+}
+
+// added by Kaichun Mo
+message PowerFileParameter {
+  optional string shift_file = 1;
+}
+
+// added by Kaichun Mo
+message STLossParameter {
+  // Indicate the resolution of the output images after ST transformation
+  required int32 output_H = 1;
+  required int32 output_W = 2;
+}
+
+// added by Kaichun Mo
+message LocLossParameter {
+  required double threshold = 1;
 }

@@ -35,6 +35,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lstm", "lstm\lstm.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mexcaffe", "mexcaffe\mexcaffe.vcxproj", "{C9B8EA1E-A144-4CF0-86AB-DDF98994F270}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "upgrade_net_proto_text", "upgrade_net_proto_text\upgrade_net_proto_text.vcxproj", "{DC4CA1F0-D2E9-4780-9CF9-4B76967ADC18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -169,6 +171,14 @@ Global
 		{C9B8EA1E-A144-4CF0-86AB-DDF98994F270}.Release|Win32.Build.0 = Release|Win32
 		{C9B8EA1E-A144-4CF0-86AB-DDF98994F270}.Release|x64.ActiveCfg = Release|x64
 		{C9B8EA1E-A144-4CF0-86AB-DDF98994F270}.Release|x64.Build.0 = Release|x64
+		{DC4CA1F0-D2E9-4780-9CF9-4B76967ADC18}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DC4CA1F0-D2E9-4780-9CF9-4B76967ADC18}.Debug|Win32.Build.0 = Debug|Win32
+		{DC4CA1F0-D2E9-4780-9CF9-4B76967ADC18}.Debug|x64.ActiveCfg = Debug|x64
+		{DC4CA1F0-D2E9-4780-9CF9-4B76967ADC18}.Debug|x64.Build.0 = Debug|x64
+		{DC4CA1F0-D2E9-4780-9CF9-4B76967ADC18}.Release|Win32.ActiveCfg = Release|Win32
+		{DC4CA1F0-D2E9-4780-9CF9-4B76967ADC18}.Release|Win32.Build.0 = Release|Win32
+		{DC4CA1F0-D2E9-4780-9CF9-4B76967ADC18}.Release|x64.ActiveCfg = Release|x64
+		{DC4CA1F0-D2E9-4780-9CF9-4B76967ADC18}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

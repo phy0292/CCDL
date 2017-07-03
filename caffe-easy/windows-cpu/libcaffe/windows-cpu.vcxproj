@@ -109,6 +109,8 @@
     <ClInclude Include="..\..\include\caffe\layers\softmax_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\split_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\spp_layer.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\st_layer.hpp" />
+    <ClInclude Include="..\..\include\caffe\layers\st_loss_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\tanh_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\threshold_layer.hpp" />
     <ClInclude Include="..\..\include\caffe\layers\tile_layer.hpp" />
@@ -233,6 +235,8 @@
     <ClCompile Include="..\..\src\caffe\layers\softmax_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\split_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\spp_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\st_layer.cpp" />
+    <ClCompile Include="..\..\src\caffe\layers\st_loss_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\tanh_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\threshold_layer.cpp" />
     <ClCompile Include="..\..\src\caffe\layers\tile_layer.cpp" />
@@ -334,6 +338,8 @@
     <None Include="..\..\src\caffe\layers\softmax_layer.cu" />
     <None Include="..\..\src\caffe\layers\softmax_loss_layer.cu" />
     <None Include="..\..\src\caffe\layers\split_layer.cu" />
+    <None Include="..\..\src\caffe\layers\st_layer.cu" />
+    <None Include="..\..\src\caffe\layers\st_loss_layer.cu" />
     <None Include="..\..\src\caffe\layers\tanh_layer.cu" />
     <None Include="..\..\src\caffe\layers\threshold_layer.cu" />
     <None Include="..\..\src\caffe\layers\tile_layer.cu" />

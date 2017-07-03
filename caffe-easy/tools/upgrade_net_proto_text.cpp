@@ -11,6 +11,8 @@
 #include "caffe/util/io.hpp"
 #include "caffe/util/upgrade_proto.hpp"
 
+#define USE_STATIC_OPENBLAS
+#include <import-staticlib.h>
 using std::ofstream;
 
 using namespace caffe;  // NOLINT(build/namespaces)
