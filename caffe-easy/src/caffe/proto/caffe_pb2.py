@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='caffe.proto',
   package='caffe',
   syntax='proto2',
-  serialized_pb=_b('\n\x0b\x63\x61\x66\x66\x65.proto\x12\x05\x63\x61\x66\x66\x65\"\x1c\n\tBlobShape\x12\x0f\n\x03\x64im\x18\x01 \x03(\x03\x42\x02\x10\x01\"\xcc\x01\n\tBlobProto\x12\x1f\n\x05shape\x18\x07 \x01(\x0b\x32\x10.caffe.BlobShape\x12\x10\n\x04\x64\x61ta\x18\x05 \x03(\x02\x42\x02\x10\x01\x12\x10\n\x04\x64iff\x18\x06 \x03(\x02\x42\x02\x10\x01\x12\x17\n\x0b\x64ouble_data\x18\x08 \x03(\x01\x42\x02\x10\x01\x12\x17\n\x0b\x64ouble_diff\x18\t \x03(\x01\x42\x02\x10\x01\x12\x0e\n\x03num\x18\x01 \x01(\x05:\x01\x30\x12\x13\n\x08\x63hannels\x18\x02 \x01(\x05:\x01\x30\x12\x11\n\x06height\x18\x03 \x01(\x05:\x01\x30\x12\x10\n\x05width\x18\x04 \x01(\x05:\x01\x30\"2\n\x0f\x42lobProtoVector\x12\x1f\n\x05\x62lobs\x18\x01 \x03(\x0b\x32\x10.caffe.BlobProto\"\x91\x01\n\x05\x44\x61tum\x12\x10\n\x08\x63hannels\x18\x01 \x01(\x05\x12\x0e\n\x06height\x18\x02 \x01(\x05\x12\r\n\x05width\x18\x03 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x04 \x01(\x0c\x12\r\n\x05label\x18\x05 \x01(\x05\x12\x12\n\nfloat_data\x18\x06 \x03(\x02\x12\x16\n\x07\x65ncoded\x18\x07 \x01(\x08:\x05\x66\x61lse\x12\x0e\n\x06labels\x18\x08 \x03(\x02\"A\n\x0cLabelMapItem\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05label\x18\x02 \x01(\x05\x12\x14\n\x0c\x64isplay_name\x18\x03 \x01(\t\"-\n\x08LabelMap\x12!\n\x04item\x18\x01 \x03(\x0b\x32\x13.caffe.LabelMapItem\"o\n\x07Sampler\x12\x14\n\tmin_scale\x18\x01 \x01(\x02:\x01\x31\x12\x14\n\tmax_scale\x18\x02 \x01(\x02:\x01\x31\x12\x1b\n\x10min_aspect_ratio\x18\x03 \x01(\x02:\x01\x31\x12\x1b\n\x10max_aspect_ratio\x18\x04 \x01(\x02:\x01\x31\"\xc0\x01\n\x10SampleConstraint\x12\x1b\n\x13min_jaccard_overlap\x18\x01 \x01(\x02\x12\x1b\n\x13max_jaccard_overlap\x18\x02 \x01(\x02\x12\x1b\n\x13min_sample_coverage\x18\x03 \x01(\x02\x12\x1b\n\x13max_sample_coverage\x18\x04 \x01(\x02\x12\x1b\n\x13min_object_coverage\x18\x05 \x01(\x02\x12\x1b\n\x13max_object_coverage\x18\x06 \x01(\x02\"\xb2\x01\n\x0c\x42\x61tchSampler\x12 \n\x12use_original_image\x18\x01 \x01(\x08:\x04true\x12\x1f\n\x07sampler\x18\x02 \x01(\x0b\x32\x0e.caffe.Sampler\x12\x32\n\x11sample_constraint\x18\x03 \x01(\x0b\x32\x17.caffe.SampleConstraint\x12\x12\n\nmax_sample\x18\x04 \x01(\r\x12\x17\n\nmax_trials\x18\x05 \x01(\r:\x03\x31\x30\x30\"\x8a\x01\n\x0e\x45mitConstraint\x12\x39\n\temit_type\x18\x01 \x01(\x0e\x32\x1e.caffe.EmitConstraint.EmitType:\x06\x43\x45NTER\x12\x14\n\x0c\x65mit_overlap\x18\x02 \x01(\x02\"\'\n\x08\x45mitType\x12\n\n\x06\x43\x45NTER\x10\x00\x12\x0f\n\x0bMIN_OVERLAP\x10\x01\"\x87\x01\n\x0eNormalizedBBox\x12\x0c\n\x04xmin\x18\x01 \x01(\x02\x12\x0c\n\x04ymin\x18\x02 \x01(\x02\x12\x0c\n\x04xmax\x18\x03 \x01(\x02\x12\x0c\n\x04ymax\x18\x04 \x01(\x02\x12\r\n\x05label\x18\x05 \x01(\x05\x12\x11\n\tdifficult\x18\x06 \x01(\x08\x12\r\n\x05score\x18\x07 \x01(\x02\x12\x0c\n\x04size\x18\x08 \x01(\x02\"I\n\nAnnotation\x12\x16\n\x0binstance_id\x18\x01 \x01(\x05:\x01\x30\x12#\n\x04\x62\x62ox\x18\x02 \x01(\x0b\x32\x15.caffe.NormalizedBBox\"M\n\x0f\x41nnotationGroup\x12\x13\n\x0bgroup_label\x18\x01 \x01(\x05\x12%\n\nannotation\x18\x02 \x03(\x0b\x32\x11.caffe.Annotation\"\xaf\x01\n\x0e\x41nnotatedDatum\x12\x1b\n\x05\x64\x61tum\x18\x01 \x01(\x0b\x32\x0c.caffe.Datum\x12\x32\n\x04type\x18\x02 \x01(\x0e\x32$.caffe.AnnotatedDatum.AnnotationType\x12\x30\n\x10\x61nnotation_group\x18\x03 \x03(\x0b\x32\x16.caffe.AnnotationGroup\"\x1a\n\x0e\x41nnotationType\x12\x08\n\x04\x42\x42OX\x10\x00\"\x8a\x02\n\x0f\x46illerParameter\x12\x16\n\x04type\x18\x01 \x01(\t:\x08\x63onstant\x12\x10\n\x05value\x18\x02 \x01(\x02:\x01\x30\x12\x0e\n\x03min\x18\x03 \x01(\x02:\x01\x30\x12\x0e\n\x03max\x18\x04 \x01(\x02:\x01\x31\x12\x0f\n\x04mean\x18\x05 \x01(\x02:\x01\x30\x12\x0e\n\x03std\x18\x06 \x01(\x02:\x01\x31\x12\x12\n\x06sparse\x18\x07 \x01(\x05:\x02-1\x12\x42\n\rvariance_norm\x18\x08 \x01(\x0e\x32#.caffe.FillerParameter.VarianceNorm:\x06\x46\x41N_IN\"4\n\x0cVarianceNorm\x12\n\n\x06\x46\x41N_IN\x10\x00\x12\x0b\n\x07\x46\x41N_OUT\x10\x01\x12\x0b\n\x07\x41VERAGE\x10\x02\"\x8e\x02\n\x0cNetParameter\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05input\x18\x03 \x03(\t\x12%\n\x0binput_shape\x18\x08 \x03(\x0b\x32\x10.caffe.BlobShape\x12\x11\n\tinput_dim\x18\x04 \x03(\x05\x12\x1d\n\x0e\x66orce_backward\x18\x05 \x01(\x08:\x05\x66\x61lse\x12\x1e\n\x05state\x18\x06 \x01(\x0b\x32\x0f.caffe.NetState\x12\x19\n\ndebug_info\x18\x07 \x01(\x08:\x05\x66\x61lse\x12$\n\x05layer\x18\x64 \x03(\x0b\x32\x15.caffe.LayerParameter\x12\'\n\x06layers\x18\x02 \x03(\x0b\x32\x17.caffe.V1LayerParameter\"\xa3\x0b\n\x0fSolverParameter\x12\x0b\n\x03net\x18\x18 \x01(\t\x12&\n\tnet_param\x18\x19 \x01(\x0b\x32\x13.caffe.NetParameter\x12\x11\n\ttrain_net\x18\x01 \x01(\t\x12\x10\n\x08test_net\x18\x02 \x03(\t\x12,\n\x0ftrain_net_param\x18\x15 \x01(\x0b\x32\x13.caffe.NetParameter\x12+\n\x0etest_net_param\x18\x16 \x03(\x0b\x32\x13.caffe.NetParameter\x12$\n\x0btrain_state\x18\x1a \x01(\x0b\x32\x0f.caffe.NetState\x12#\n\ntest_state\x18\x1b \x03(\x0b\x32\x0f.caffe.NetState\x12!\n\teval_type\x18) \x01(\t:\x0e\x63lassification\x12\x1c\n\nap_version\x18* \x01(\t:\x08Integral\x12$\n\x15show_per_class_result\x18, \x01(\x08:\x05\x66\x61lse\x12\x11\n\ttest_iter\x18\x03 \x03(\x05\x12\x18\n\rtest_interval\x18\x04 \x01(\x05:\x01\x30\x12 \n\x11test_compute_loss\x18\x13 \x01(\x08:\x05\x66\x61lse\x12!\n\x13test_initialization\x18  \x01(\x08:\x04true\x12\x0f\n\x07\x62\x61se_lr\x18\x05 \x01(\x02\x12\x0f\n\x07\x64isplay\x18\x06 \x01(\x05\x12\x17\n\x0c\x61verage_loss\x18! \x01(\x05:\x01\x31\x12\x10\n\x08max_iter\x18\x07 \x01(\x05\x12\x14\n\titer_size\x18$ \x01(\x05:\x01\x31\x12\x11\n\tlr_policy\x18\x08 \x01(\t\x12\r\n\x05gamma\x18\t \x01(\x02\x12\r\n\x05power\x18\n \x01(\x02\x12\x10\n\x08momentum\x18\x0b \x01(\x02\x12\x14\n\x0cweight_decay\x18\x0c \x01(\x02\x12\x1f\n\x13regularization_type\x18\x1d \x01(\t:\x02L2\x12\x10\n\x08stepsize\x18\r \x01(\x05\x12\x11\n\tstepvalue\x18\" \x03(\x05\x12\x17\n\x0fplateau_winsize\x18+ \x03(\x05\x12\x1a\n\x0e\x63lip_gradients\x18# \x01(\x02:\x02-1\x12\x13\n\x08snapshot\x18\x0e \x01(\x05:\x01\x30\x12\x17\n\x0fsnapshot_prefix\x18\x0f \x01(\t\x12\x1c\n\rsnapshot_diff\x18\x10 \x01(\x08:\x05\x66\x61lse\x12K\n\x0fsnapshot_format\x18% \x01(\x0e\x32%.caffe.SolverParameter.SnapshotFormat:\x0b\x42INARYPROTO\x12;\n\x0bsolver_mode\x18\x11 \x01(\x0e\x32!.caffe.SolverParameter.SolverMode:\x03GPU\x12\x14\n\tdevice_id\x18\x12 \x01(\x05:\x01\x30\x12\x17\n\x0brandom_seed\x18\x14 \x01(\x03:\x02-1\x12\x11\n\x04type\x18( \x01(\t:\x03SGD\x12\x15\n\x05\x64\x65lta\x18\x1f \x01(\x02:\x06\x31\x65-008\x12\x18\n\tmomentum2\x18\' \x01(\x02:\x05\x30.999\x12\x17\n\trms_decay\x18& \x01(\x02:\x04\x30.99\x12\x19\n\ndebug_info\x18\x17 \x01(\x08:\x05\x66\x61lse\x12\"\n\x14snapshot_after_train\x18\x1c \x01(\x08:\x04true\x12;\n\x0bsolver_type\x18\x1e \x01(\x0e\x32!.caffe.SolverParameter.SolverType:\x03SGD\"+\n\x0eSnapshotFormat\x12\x08\n\x04HDF5\x10\x00\x12\x0f\n\x0b\x42INARYPROTO\x10\x01\"\x1e\n\nSolverMode\x12\x07\n\x03\x43PU\x10\x00\x12\x07\n\x03GPU\x10\x01\"U\n\nSolverType\x12\x07\n\x03SGD\x10\x00\x12\x0c\n\x08NESTEROV\x10\x01\x12\x0b\n\x07\x41\x44\x41GRAD\x10\x02\x12\x0b\n\x07RMSPROP\x10\x03\x12\x0c\n\x08\x41\x44\x41\x44\x45LTA\x10\x04\x12\x08\n\x04\x41\x44\x41M\x10\x05\"\xa6\x01\n\x0bSolverState\x12\x0c\n\x04iter\x18\x01 \x01(\x05\x12\x13\n\x0blearned_net\x18\x02 \x01(\t\x12!\n\x07history\x18\x03 \x03(\x0b\x32\x10.caffe.BlobProto\x12\x17\n\x0c\x63urrent_step\x18\x04 \x01(\x05:\x01\x30\x12\x1c\n\x0cminimum_loss\x18\x05 \x01(\x02:\x06\x31\x65+038\x12\x1a\n\x0fiter_last_event\x18\x06 \x01(\x05:\x01\x30\"N\n\x08NetState\x12!\n\x05phase\x18\x01 \x01(\x0e\x32\x0c.caffe.Phase:\x04TEST\x12\x10\n\x05level\x18\x02 \x01(\x05:\x01\x30\x12\r\n\x05stage\x18\x03 \x03(\t\"s\n\x0cNetStateRule\x12\x1b\n\x05phase\x18\x01 \x01(\x0e\x32\x0c.caffe.Phase\x12\x11\n\tmin_level\x18\x02 \x01(\x05\x12\x11\n\tmax_level\x18\x03 \x01(\x05\x12\r\n\x05stage\x18\x04 \x03(\t\x12\x11\n\tnot_stage\x18\x05 \x03(\t\"\xa3\x01\n\tParamSpec\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x31\n\nshare_mode\x18\x02 \x01(\x0e\x32\x1d.caffe.ParamSpec.DimCheckMode\x12\x12\n\x07lr_mult\x18\x03 \x01(\x02:\x01\x31\x12\x15\n\ndecay_mult\x18\x04 \x01(\x02:\x01\x31\"*\n\x0c\x44imCheckMode\x12\n\n\x06STRICT\x10\x00\x12\x0e\n\nPERMISSIVE\x10\x01\"\xac\x01\n\x13PredictBoxParameter\x12\x11\n\x06stride\x18\x01 \x01(\r:\x01\x32\x12\x1b\n\x0freceptive_field\x18\x02 \x01(\r:\x02\x31\x32\x12\x11\n\x03nms\x18\x03 \x01(\x08:\x04true\x12\x1b\n\routput_vector\x18\x04 \x01(\x08:\x04true\x12\x1c\n\x0fpositive_thresh\x18\x05 \x01(\x02:\x03\x30.5\x12\x17\n\tbbreg_exp\x18\x06 \x01(\x08:\x04true\"\xf2\x1b\n\x0eLayerParameter\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x0e\n\x06\x62ottom\x18\x03 \x03(\t\x12\x0b\n\x03top\x18\x04 \x03(\t\x12\x1b\n\x05phase\x18\n \x01(\x0e\x32\x0c.caffe.Phase\x12\x13\n\x0bloss_weight\x18\x05 \x03(\x02\x12\x1f\n\x05param\x18\x06 \x03(\x0b\x32\x10.caffe.ParamSpec\x12\x1f\n\x05\x62lobs\x18\x07 \x03(\x0b\x32\x10.caffe.BlobProto\x12\x16\n\x0epropagate_down\x18\x0b \x03(\x08\x12$\n\x07include\x18\x08 \x03(\x0b\x32\x13.caffe.NetStateRule\x12$\n\x07\x65xclude\x18\t \x03(\x0b\x32\x13.caffe.NetStateRule\x12\x37\n\x0ftransform_param\x18\x64 \x01(\x0b\x32\x1e.caffe.TransformationParameter\x12(\n\nloss_param\x18\x65 \x01(\x0b\x32\x14.caffe.LossParameter\x12\x30\n\x0e\x61\x63\x63uracy_param\x18\x66 \x01(\x0b\x32\x18.caffe.AccuracyParameter\x12<\n\x14\x61nnotated_data_param\x18\xc8\x01 \x01(\x0b\x32\x1d.caffe.AnnotatedDataParameter\x12,\n\x0c\x61rgmax_param\x18g \x01(\x0b\x32\x16.caffe.ArgMaxParameter\x12\x34\n\x10\x62\x61tch_norm_param\x18\x8b\x01 \x01(\x0b\x32\x19.caffe.BatchNormParameter\x12)\n\nbias_param\x18\x8d\x01 \x01(\x0b\x32\x14.caffe.BiasParameter\x12\x36\n\x11\x63\x65nter_loss_param\x18\x93\x01 \x01(\x0b\x32\x1a.caffe.CenterLossParameter\x12,\n\x0c\x63oncat_param\x18h \x01(\x0b\x32\x16.caffe.ConcatParameter\x12?\n\x16\x63ontrastive_loss_param\x18i \x01(\x0b\x32\x1f.caffe.ContrastiveLossParameter\x12\x36\n\x11\x63onvolution_param\x18j \x01(\x0b\x32\x1b.caffe.ConvolutionParameter\x12)\n\ncrop_param\x18\x90\x01 \x01(\x0b\x32\x14.caffe.CropParameter\x12(\n\ndata_param\x18k \x01(\x0b\x32\x14.caffe.DataParameter\x12\x44\n\x18\x64\x65tection_evaluate_param\x18\xcd\x01 \x01(\x0b\x32!.caffe.DetectionEvaluateParameter\x12@\n\x16\x64\x65tection_output_param\x18\xcc\x01 \x01(\x0b\x32\x1f.caffe.DetectionOutputParameter\x12.\n\rdropout_param\x18l \x01(\x0b\x32\x17.caffe.DropoutParameter\x12\x33\n\x10\x64ummy_data_param\x18m \x01(\x0b\x32\x19.caffe.DummyDataParameter\x12.\n\reltwise_param\x18n \x01(\x0b\x32\x17.caffe.EltwiseParameter\x12\'\n\telu_param\x18\x8c\x01 \x01(\x0b\x32\x13.caffe.ELUParameter\x12+\n\x0b\x65mbed_param\x18\x89\x01 \x01(\x0b\x32\x15.caffe.EmbedParameter\x12&\n\texp_param\x18o \x01(\x0b\x32\x13.caffe.ExpParameter\x12/\n\rflatten_param\x18\x87\x01 \x01(\x0b\x32\x17.caffe.FlattenParameter\x12\x31\n\x0fhdf5_data_param\x18p \x01(\x0b\x32\x18.caffe.HDF5DataParameter\x12\x35\n\x11hdf5_output_param\x18q \x01(\x0b\x32\x1a.caffe.HDF5OutputParameter\x12\x33\n\x10hinge_loss_param\x18r \x01(\x0b\x32\x19.caffe.HingeLossParameter\x12\x33\n\x10image_data_param\x18s \x01(\x0b\x32\x19.caffe.ImageDataParameter\x12\x39\n\x13infogain_loss_param\x18t \x01(\x0b\x32\x1c.caffe.InfogainLossParameter\x12\x39\n\x13inner_product_param\x18u \x01(\x0b\x32\x1c.caffe.InnerProductParameter\x12+\n\x0binput_param\x18\x8f\x01 \x01(\x0b\x32\x15.caffe.InputParameter\x12\'\n\tlog_param\x18\x86\x01 \x01(\x0b\x32\x13.caffe.LogParameter\x12&\n\tlrn_param\x18v \x01(\x0b\x32\x13.caffe.LRNParameter\x12\x35\n\x11memory_data_param\x18w \x01(\x0b\x32\x1a.caffe.MemoryDataParameter\x12:\n\x13multibox_loss_param\x18\xc9\x01 \x01(\x0b\x32\x1c.caffe.MultiBoxLossParameter\x12&\n\tmvn_param\x18x \x01(\x0b\x32\x13.caffe.MVNParameter\x12.\n\nnorm_param\x18\xce\x01 \x01(\x0b\x32\x19.caffe.NormalizeParameter\x12\x36\n\x11predict_box_param\x18\xd1\x01 \x01(\x0b\x32\x1a.caffe.PredictBoxParameter\x12\x33\n\x0fparameter_param\x18\x91\x01 \x01(\x0b\x32\x19.caffe.ParameterParameter\x12/\n\rpermute_param\x18\xca\x01 \x01(\x0b\x32\x17.caffe.PermuteParameter\x12.\n\rpooling_param\x18y \x01(\x0b\x32\x17.caffe.PoolingParameter\x12*\n\x0bpower_param\x18z \x01(\x0b\x32\x15.caffe.PowerParameter\x12+\n\x0bprelu_param\x18\x83\x01 \x01(\x0b\x32\x15.caffe.PReLUParameter\x12\x32\n\x0fprior_box_param\x18\xcb\x01 \x01(\x0b\x32\x18.caffe.PriorBoxParameter\x12-\n\x0cpython_param\x18\x82\x01 \x01(\x0b\x32\x16.caffe.PythonParameter\x12\x33\n\x0frecurrent_param\x18\x92\x01 \x01(\x0b\x32\x19.caffe.RecurrentParameter\x12\x33\n\x0freduction_param\x18\x88\x01 \x01(\x0b\x32\x19.caffe.ReductionParameter\x12(\n\nrelu_param\x18{ \x01(\x0b\x32\x14.caffe.ReLUParameter\x12/\n\rreshape_param\x18\x85\x01 \x01(\x0b\x32\x17.caffe.ReshapeParameter\x12+\n\x0bscale_param\x18\x8e\x01 \x01(\x0b\x32\x15.caffe.ScaleParameter\x12.\n\rsigmoid_param\x18| \x01(\x0b\x32\x17.caffe.SigmoidParameter\x12.\n\rsoftmax_param\x18} \x01(\x0b\x32\x17.caffe.SoftmaxParameter\x12\'\n\tspp_param\x18\x84\x01 \x01(\x0b\x32\x13.caffe.SPPParameter\x12*\n\x0bslice_param\x18~ \x01(\x0b\x32\x15.caffe.SliceParameter\x12(\n\ntanh_param\x18\x7f \x01(\x0b\x32\x14.caffe.TanHParameter\x12\x33\n\x0fthreshold_param\x18\x80\x01 \x01(\x0b\x32\x19.caffe.ThresholdParameter\x12)\n\ntile_param\x18\x8a\x01 \x01(\x0b\x32\x14.caffe.TileParameter\x12\x34\n\x10video_data_param\x18\xcf\x01 \x01(\x0b\x32\x19.caffe.VideoDataParameter\x12\x36\n\x11window_data_param\x18\x81\x01 \x01(\x0b\x32\x1a.caffe.WindowDataParameter\x12)\n\nflip_param\x18\xd4\x01 \x01(\x0b\x32\x14.caffe.FlipParameter\x12)\n\nlstm_param\x18\x94\x01 \x01(\x0b\x32\x14.caffe.LSTMParameter\x12\'\n\tctc_param\x18\x95\x01 \x01(\x0b\x32\x13.caffe.CTCParameter\x12\x33\n\x0ftranspose_param\x18\x96\x01 \x01(\x0b\x32\x19.caffe.TransposeParameter\x12/\n\rreverse_param\x18\x97\x01 \x01(\x0b\x32\x17.caffe.ReverseParameter\x12\x30\n\x0e\x63tc_loss_param\x18\x98\x01 \x01(\x0b\x32\x17.caffe.CtcLossParameter\x12L\n\x1c\x63ontinuation_indicator_param\x18\x99\x01 \x01(\x0b\x32%.caffe.ContinuationIndicatorParameter\x12L\n\x1clabelsequence_accuracy_param\x18\x9a\x01 \x01(\x0b\x32%.caffe.LabelsequenceAccuracyParameter\"E\n\rFlipParameter\x12\x18\n\nflip_width\x18\x01 \x01(\x08:\x04true\x12\x1a\n\x0b\x66lip_height\x18\x02 \x01(\x08:\x05\x66\x61lse\"\xca\x03\n\x17TransformationParameter\x12\x10\n\x05scale\x18\x01 \x01(\x02:\x01\x31\x12\x15\n\x06mirror\x18\x02 \x01(\x08:\x05\x66\x61lse\x12\x14\n\tcrop_size\x18\x03 \x01(\r:\x01\x30\x12\x11\n\x06\x63rop_h\x18\x0b \x01(\r:\x01\x30\x12\x11\n\x06\x63rop_w\x18\x0c \x01(\r:\x01\x30\x12\x11\n\tmean_file\x18\x04 \x01(\t\x12\x12\n\nmean_value\x18\x05 \x03(\x02\x12\x1a\n\x0b\x66orce_color\x18\x06 \x01(\x08:\x05\x66\x61lse\x12\x19\n\nforce_gray\x18\x07 \x01(\x08:\x05\x66\x61lse\x12,\n\x0cresize_param\x18\x08 \x01(\x0b\x32\x16.caffe.ResizeParameter\x12*\n\x0bnoise_param\x18\t \x01(\x0b\x32\x15.caffe.NoiseParameter\x12\x31\n\rdistort_param\x18\r \x01(\x0b\x32\x1a.caffe.DistortionParameter\x12/\n\x0c\x65xpand_param\x18\x0e \x01(\x0b\x32\x19.caffe.ExpansionParameter\x12.\n\x0f\x65mit_constraint\x18\n \x01(\x0b\x32\x15.caffe.EmitConstraint\"\x90\x04\n\x0fResizeParameter\x12\x0f\n\x04prob\x18\x01 \x01(\x02:\x01\x31\x12=\n\x0bresize_mode\x18\x02 \x01(\x0e\x32\".caffe.ResizeParameter.Resize_mode:\x04WARP\x12\x11\n\x06height\x18\x03 \x01(\r:\x01\x30\x12\x10\n\x05width\x18\x04 \x01(\r:\x01\x30\x12\x17\n\x0cheight_scale\x18\x08 \x01(\r:\x01\x30\x12\x16\n\x0bwidth_scale\x18\t \x01(\r:\x01\x30\x12;\n\x08pad_mode\x18\x05 \x01(\x0e\x32\x1f.caffe.ResizeParameter.Pad_mode:\x08\x43ONSTANT\x12\x11\n\tpad_value\x18\x06 \x03(\x02\x12\x37\n\x0binterp_mode\x18\x07 \x03(\x0e\x32\".caffe.ResizeParameter.Interp_mode\"G\n\x0bResize_mode\x12\x08\n\x04WARP\x10\x01\x12\x12\n\x0e\x46IT_SMALL_SIZE\x10\x02\x12\x1a\n\x16\x46IT_LARGE_SIZE_AND_PAD\x10\x03\":\n\x08Pad_mode\x12\x0c\n\x08\x43ONSTANT\x10\x01\x12\x0c\n\x08MIRRORED\x10\x02\x12\x12\n\x0eREPEAT_NEAREST\x10\x03\"I\n\x0bInterp_mode\x12\n\n\x06LINEAR\x10\x01\x12\x08\n\x04\x41REA\x10\x02\x12\x0b\n\x07NEAREST\x10\x03\x12\t\n\x05\x43UBIC\x10\x04\x12\x0c\n\x08LANCZOS4\x10\x05\"9\n\x13SaltPepperParameter\x12\x13\n\x08\x66raction\x18\x01 \x01(\x02:\x01\x30\x12\r\n\x05value\x18\x02 \x03(\x02\"\xee\x02\n\x0eNoiseParameter\x12\x0f\n\x04prob\x18\x01 \x01(\x02:\x01\x30\x12\x16\n\x07hist_eq\x18\x02 \x01(\x08:\x05\x66\x61lse\x12\x16\n\x07inverse\x18\x03 \x01(\x08:\x05\x66\x61lse\x12\x19\n\ndecolorize\x18\x04 \x01(\x08:\x05\x66\x61lse\x12\x19\n\ngauss_blur\x18\x05 \x01(\x08:\x05\x66\x61lse\x12\x10\n\x04jpeg\x18\x06 \x01(\x02:\x02-1\x12\x18\n\tposterize\x18\x07 \x01(\x08:\x05\x66\x61lse\x12\x14\n\x05\x65rode\x18\x08 \x01(\x08:\x05\x66\x61lse\x12\x19\n\nsaltpepper\x18\t \x01(\x08:\x05\x66\x61lse\x12\x34\n\x10saltpepper_param\x18\n \x01(\x0b\x32\x1a.caffe.SaltPepperParameter\x12\x14\n\x05\x63lahe\x18\x0b \x01(\x08:\x05\x66\x61lse\x12\x1d\n\x0e\x63onvert_to_hsv\x18\x0c \x01(\x08:\x05\x66\x61lse\x12\x1d\n\x0e\x63onvert_to_lab\x18\r \x01(\x08:\x05\x66\x61lse\"\xbd\x02\n\x13\x44istortionParameter\x12\x1a\n\x0f\x62rightness_prob\x18\x01 \x01(\x02:\x01\x30\x12\x1b\n\x10\x62rightness_delta\x18\x02 \x01(\x02:\x01\x30\x12\x18\n\rcontrast_prob\x18\x03 \x01(\x02:\x01\x30\x12\x19\n\x0e\x63ontrast_lower\x18\x04 \x01(\x02:\x01\x30\x12\x19\n\x0e\x63ontrast_upper\x18\x05 \x01(\x02:\x01\x30\x12\x13\n\x08hue_prob\x18\x06 \x01(\x02:\x01\x30\x12\x14\n\thue_delta\x18\x07 \x01(\x02:\x01\x30\x12\x1a\n\x0fsaturation_prob\x18\x08 \x01(\x02:\x01\x30\x12\x1b\n\x10saturation_lower\x18\t \x01(\x02:\x01\x30\x12\x1b\n\x10saturation_upper\x18\n \x01(\x02:\x01\x30\x12\x1c\n\x11random_order_prob\x18\x0b \x01(\x02:\x01\x30\"B\n\x12\x45xpansionParameter\x12\x0f\n\x04prob\x18\x01 \x01(\x02:\x01\x31\x12\x1b\n\x10max_expand_ratio\x18\x02 \x01(\x02:\x01\x31\"\xc2\x01\n\rLossParameter\x12\x14\n\x0cignore_label\x18\x01 \x01(\x05\x12\x44\n\rnormalization\x18\x03 \x01(\x0e\x32&.caffe.LossParameter.NormalizationMode:\x05VALID\x12\x11\n\tnormalize\x18\x02 \x01(\x08\"B\n\x11NormalizationMode\x12\x08\n\x04\x46ULL\x10\x00\x12\t\n\x05VALID\x10\x01\x12\x0e\n\nBATCH_SIZE\x10\x02\x12\x08\n\x04NONE\x10\x03\"L\n\x11\x41\x63\x63uracyParameter\x12\x10\n\x05top_k\x18\x01 \x01(\r:\x01\x31\x12\x0f\n\x04\x61xis\x18\x02 \x01(\x05:\x01\x31\x12\x14\n\x0cignore_label\x18\x03 \x01(\x05\"\x95\x01\n\x16\x41nnotatedDataParameter\x12*\n\rbatch_sampler\x18\x01 \x03(\x0b\x32\x13.caffe.BatchSampler\x12\x16\n\x0elabel_map_file\x18\x02 \x01(\t\x12\x37\n\tanno_type\x18\x03 \x01(\x0e\x32$.caffe.AnnotatedDatum.AnnotationType\"M\n\x0f\x41rgMaxParameter\x12\x1a\n\x0bout_max_val\x18\x01 \x01(\x08:\x05\x66\x61lse\x12\x10\n\x05top_k\x18\x02 \x01(\r:\x01\x31\x12\x0c\n\x04\x61xis\x18\x03 \x01(\x05\"9\n\x0f\x43oncatParameter\x12\x0f\n\x04\x61xis\x18\x02 \x01(\x05:\x01\x31\x12\x15\n\nconcat_dim\x18\x01 \x01(\r:\x01\x31\"k\n\x12\x42\x61tchNormParameter\x12\x18\n\x10use_global_stats\x18\x01 \x01(\x08\x12&\n\x17moving_average_fraction\x18\x02 \x01(\x02:\x05\x30.999\x12\x13\n\x03\x65ps\x18\x03 \x01(\x02:\x06\x31\x65-005\"]\n\rBiasParameter\x12\x0f\n\x04\x61xis\x18\x01 \x01(\x05:\x01\x31\x12\x13\n\x08num_axes\x18\x02 \x01(\x05:\x01\x31\x12&\n\x06\x66iller\x18\x03 \x01(\x0b\x32\x16.caffe.FillerParameter\"L\n\x18\x43ontrastiveLossParameter\x12\x11\n\x06margin\x18\x01 \x01(\x02:\x01\x31\x12\x1d\n\x0elegacy_version\x18\x02 \x01(\x08:\x05\x66\x61lse\"\xfc\x03\n\x14\x43onvolutionParameter\x12\x12\n\nnum_output\x18\x01 \x01(\r\x12\x17\n\tbias_term\x18\x02 \x01(\x08:\x04true\x12\x0b\n\x03pad\x18\x03 \x03(\r\x12\x13\n\x0bkernel_size\x18\x04 \x03(\r\x12\x0e\n\x06stride\x18\x06 \x03(\r\x12\x10\n\x08\x64ilation\x18\x12 \x03(\r\x12\x10\n\x05pad_h\x18\t \x01(\r:\x01\x30\x12\x10\n\x05pad_w\x18\n \x01(\r:\x01\x30\x12\x10\n\x08kernel_h\x18\x0b \x01(\r\x12\x10\n\x08kernel_w\x18\x0c \x01(\r\x12\x10\n\x08stride_h\x18\r \x01(\r\x12\x10\n\x08stride_w\x18\x0e \x01(\r\x12\x10\n\x05group\x18\x05 \x01(\r:\x01\x31\x12-\n\rweight_filler\x18\x07 \x01(\x0b\x32\x16.caffe.FillerParameter\x12+\n\x0b\x62ias_filler\x18\x08 \x01(\x0b\x32\x16.caffe.FillerParameter\x12;\n\x06\x65ngine\x18\x0f \x01(\x0e\x32\".caffe.ConvolutionParameter.Engine:\x07\x44\x45\x46\x41ULT\x12\x0f\n\x04\x61xis\x18\x10 \x01(\x05:\x01\x31\x12\x1e\n\x0f\x66orce_nd_im2col\x18\x11 \x01(\x08:\x05\x66\x61lse\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"0\n\rCropParameter\x12\x0f\n\x04\x61xis\x18\x01 \x01(\x05:\x01\x32\x12\x0e\n\x06offset\x18\x02 \x03(\r\"\xa4\x02\n\rDataParameter\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x12\n\nbatch_size\x18\x04 \x01(\r\x12\x14\n\trand_skip\x18\x07 \x01(\r:\x01\x30\x12\x31\n\x07\x62\x61\x63kend\x18\x08 \x01(\x0e\x32\x17.caffe.DataParameter.DB:\x07LEVELDB\x12\x10\n\x05scale\x18\x02 \x01(\x02:\x01\x31\x12\x11\n\tmean_file\x18\x03 \x01(\t\x12\x14\n\tcrop_size\x18\x05 \x01(\r:\x01\x30\x12\x15\n\x06mirror\x18\x06 \x01(\x08:\x05\x66\x61lse\x12\"\n\x13\x66orce_encoded_color\x18\t \x01(\x08:\x05\x66\x61lse\x12\x13\n\x08prefetch\x18\n \x01(\r:\x01\x34\"\x1b\n\x02\x44\x42\x12\x0b\n\x07LEVELDB\x10\x00\x12\x08\n\x04LMDB\x10\x01\"\xdc\x01\n\x1a\x44\x65tectionEvaluateParameter\x12\x13\n\x0bnum_classes\x18\x01 \x01(\r\x12\x1e\n\x13\x62\x61\x63kground_label_id\x18\x02 \x01(\r:\x01\x30\x12\x1e\n\x11overlap_threshold\x18\x03 \x01(\x02:\x03\x30.5\x12#\n\x15\x65valuate_difficult_gt\x18\x04 \x01(\x08:\x04true\x12\x16\n\x0ename_size_file\x18\x05 \x01(\t\x12,\n\x0cresize_param\x18\x06 \x01(\x0b\x32\x16.caffe.ResizeParameter\"[\n\x1eNonMaximumSuppressionParameter\x12\x1a\n\rnms_threshold\x18\x01 \x01(\x02:\x03\x30.3\x12\r\n\x05top_k\x18\x02 \x01(\x05\x12\x0e\n\x03\x65ta\x18\x03 \x01(\x02:\x01\x31\"\xd8\x01\n\x13SaveOutputParameter\x12\x18\n\x10output_directory\x18\x01 \x01(\t\x12\x1a\n\x12output_name_prefix\x18\x02 \x01(\t\x12\x15\n\routput_format\x18\x03 \x01(\t\x12\x16\n\x0elabel_map_file\x18\x04 \x01(\t\x12\x16\n\x0ename_size_file\x18\x05 \x01(\t\x12\x16\n\x0enum_test_image\x18\x06 \x01(\r\x12,\n\x0cresize_param\x18\x07 \x01(\x0b\x32\x16.caffe.ResizeParameter\"\xc7\x03\n\x18\x44\x65tectionOutputParameter\x12\x13\n\x0bnum_classes\x18\x01 \x01(\r\x12\x1c\n\x0eshare_location\x18\x02 \x01(\x08:\x04true\x12\x1e\n\x13\x62\x61\x63kground_label_id\x18\x03 \x01(\x05:\x01\x30\x12\x38\n\tnms_param\x18\x04 \x01(\x0b\x32%.caffe.NonMaximumSuppressionParameter\x12\x35\n\x11save_output_param\x18\x05 \x01(\x0b\x32\x1a.caffe.SaveOutputParameter\x12<\n\tcode_type\x18\x06 \x01(\x0e\x32!.caffe.PriorBoxParameter.CodeType:\x06\x43ORNER\x12)\n\x1avariance_encoded_in_target\x18\x08 \x01(\x08:\x05\x66\x61lse\x12\x16\n\nkeep_top_k\x18\x07 \x01(\x05:\x02-1\x12\x1c\n\x14\x63onfidence_threshold\x18\t \x01(\x02\x12\x18\n\tvisualize\x18\n \x01(\x08:\x05\x66\x61lse\x12\x1b\n\x13visualize_threshold\x18\x0b \x01(\x02\x12\x11\n\tsave_file\x18\x0c \x01(\t\".\n\x10\x44ropoutParameter\x12\x1a\n\rdropout_ratio\x18\x01 \x01(\x02:\x03\x30.5\"\xa0\x01\n\x12\x44ummyDataParameter\x12+\n\x0b\x64\x61ta_filler\x18\x01 \x03(\x0b\x32\x16.caffe.FillerParameter\x12\x1f\n\x05shape\x18\x06 \x03(\x0b\x32\x10.caffe.BlobShape\x12\x0b\n\x03num\x18\x02 \x03(\r\x12\x10\n\x08\x63hannels\x18\x03 \x03(\r\x12\x0e\n\x06height\x18\x04 \x03(\r\x12\r\n\x05width\x18\x05 \x03(\r\"\xa5\x01\n\x10\x45ltwiseParameter\x12\x39\n\toperation\x18\x01 \x01(\x0e\x32!.caffe.EltwiseParameter.EltwiseOp:\x03SUM\x12\r\n\x05\x63oeff\x18\x02 \x03(\x02\x12\x1e\n\x10stable_prod_grad\x18\x03 \x01(\x08:\x04true\"\'\n\tEltwiseOp\x12\x08\n\x04PROD\x10\x00\x12\x07\n\x03SUM\x10\x01\x12\x07\n\x03MAX\x10\x02\" \n\x0c\x45LUParameter\x12\x10\n\x05\x61lpha\x18\x01 \x01(\x02:\x01\x31\"\xac\x01\n\x0e\x45mbedParameter\x12\x12\n\nnum_output\x18\x01 \x01(\r\x12\x11\n\tinput_dim\x18\x02 \x01(\r\x12\x17\n\tbias_term\x18\x03 \x01(\x08:\x04true\x12-\n\rweight_filler\x18\x04 \x01(\x0b\x32\x16.caffe.FillerParameter\x12+\n\x0b\x62ias_filler\x18\x05 \x01(\x0b\x32\x16.caffe.FillerParameter\"D\n\x0c\x45xpParameter\x12\x10\n\x04\x62\x61se\x18\x01 \x01(\x02:\x02-1\x12\x10\n\x05scale\x18\x02 \x01(\x02:\x01\x31\x12\x10\n\x05shift\x18\x03 \x01(\x02:\x01\x30\"9\n\x10\x46lattenParameter\x12\x0f\n\x04\x61xis\x18\x01 \x01(\x05:\x01\x31\x12\x14\n\x08\x65nd_axis\x18\x02 \x01(\x05:\x02-1\"O\n\x11HDF5DataParameter\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x12\n\nbatch_size\x18\x02 \x01(\r\x12\x16\n\x07shuffle\x18\x03 \x01(\x08:\x05\x66\x61lse\"(\n\x13HDF5OutputParameter\x12\x11\n\tfile_name\x18\x01 \x01(\t\"^\n\x12HingeLossParameter\x12\x30\n\x04norm\x18\x01 \x01(\x0e\x32\x1e.caffe.HingeLossParameter.Norm:\x02L1\"\x16\n\x04Norm\x12\x06\n\x02L1\x10\x01\x12\x06\n\x02L2\x10\x02\"\x97\x02\n\x12ImageDataParameter\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x15\n\nbatch_size\x18\x04 \x01(\r:\x01\x31\x12\x14\n\trand_skip\x18\x07 \x01(\r:\x01\x30\x12\x16\n\x07shuffle\x18\x08 \x01(\x08:\x05\x66\x61lse\x12\x15\n\nnew_height\x18\t \x01(\r:\x01\x30\x12\x14\n\tnew_width\x18\n \x01(\r:\x01\x30\x12\x16\n\x08is_color\x18\x0b \x01(\x08:\x04true\x12\x10\n\x05scale\x18\x02 \x01(\x02:\x01\x31\x12\x11\n\tmean_file\x18\x03 \x01(\t\x12\x14\n\tcrop_size\x18\x05 \x01(\r:\x01\x30\x12\x15\n\x06mirror\x18\x06 \x01(\x08:\x05\x66\x61lse\x12\x15\n\x0broot_folder\x18\x0c \x01(\t:\x00\"\'\n\x15InfogainLossParameter\x12\x0e\n\x06source\x18\x01 \x01(\t\"\xcb\x01\n\x15InnerProductParameter\x12\x12\n\nnum_output\x18\x01 \x01(\r\x12\x17\n\tbias_term\x18\x02 \x01(\x08:\x04true\x12-\n\rweight_filler\x18\x03 \x01(\x0b\x32\x16.caffe.FillerParameter\x12+\n\x0b\x62ias_filler\x18\x04 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x0f\n\x04\x61xis\x18\x05 \x01(\x05:\x01\x31\x12\x18\n\ttranspose\x18\x06 \x01(\x08:\x05\x66\x61lse\"1\n\x0eInputParameter\x12\x1f\n\x05shape\x18\x01 \x03(\x0b\x32\x10.caffe.BlobShape\"D\n\x0cLogParameter\x12\x10\n\x04\x62\x61se\x18\x01 \x01(\x02:\x02-1\x12\x10\n\x05scale\x18\x02 \x01(\x02:\x01\x31\x12\x10\n\x05shift\x18\x03 \x01(\x02:\x01\x30\"\xb8\x02\n\x0cLRNParameter\x12\x15\n\nlocal_size\x18\x01 \x01(\r:\x01\x35\x12\x10\n\x05\x61lpha\x18\x02 \x01(\x02:\x01\x31\x12\x12\n\x04\x62\x65ta\x18\x03 \x01(\x02:\x04\x30.75\x12\x44\n\x0bnorm_region\x18\x04 \x01(\x0e\x32\x1e.caffe.LRNParameter.NormRegion:\x0f\x41\x43ROSS_CHANNELS\x12\x0c\n\x01k\x18\x05 \x01(\x02:\x01\x31\x12\x33\n\x06\x65ngine\x18\x06 \x01(\x0e\x32\x1a.caffe.LRNParameter.Engine:\x07\x44\x45\x46\x41ULT\"5\n\nNormRegion\x12\x13\n\x0f\x41\x43ROSS_CHANNELS\x10\x00\x12\x12\n\x0eWITHIN_CHANNEL\x10\x01\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"t\n\x13MemoryDataParameter\x12\x12\n\nbatch_size\x18\x01 \x01(\r\x12\x10\n\x08\x63hannels\x18\x02 \x01(\r\x12\x0e\n\x06height\x18\x03 \x01(\r\x12\r\n\x05width\x18\x04 \x01(\r\x12\x18\n\ttranspose\x18\x05 \x01(\x08:\x05\x66\x61lse\"\xe8\x08\n\x15MultiBoxLossParameter\x12J\n\rloc_loss_type\x18\x01 \x01(\x0e\x32(.caffe.MultiBoxLossParameter.LocLossType:\tSMOOTH_L1\x12J\n\x0e\x63onf_loss_type\x18\x02 \x01(\x0e\x32).caffe.MultiBoxLossParameter.ConfLossType:\x07SOFTMAX\x12\x15\n\nloc_weight\x18\x03 \x01(\x02:\x01\x31\x12\x13\n\x0bnum_classes\x18\x04 \x01(\r\x12\x1c\n\x0eshare_location\x18\x05 \x01(\x08:\x04true\x12J\n\nmatch_type\x18\x06 \x01(\x0e\x32&.caffe.MultiBoxLossParameter.MatchType:\x0ePER_PREDICTION\x12\x1e\n\x11overlap_threshold\x18\x07 \x01(\x02:\x03\x30.5\x12$\n\x16use_prior_for_matching\x18\x08 \x01(\x08:\x04true\x12\x1e\n\x13\x62\x61\x63kground_label_id\x18\t \x01(\r:\x01\x30\x12\x1e\n\x10use_difficult_gt\x18\n \x01(\x08:\x04true\x12\x15\n\rdo_neg_mining\x18\x0b \x01(\x08\x12\x18\n\rneg_pos_ratio\x18\x0c \x01(\x02:\x01\x33\x12\x18\n\x0bneg_overlap\x18\r \x01(\x02:\x03\x30.5\x12<\n\tcode_type\x18\x0e \x01(\x0e\x32!.caffe.PriorBoxParameter.CodeType:\x06\x43ORNER\x12(\n\x19\x65ncode_variance_in_target\x18\x10 \x01(\x08:\x05\x66\x61lse\x12%\n\x16map_object_to_agnostic\x18\x11 \x01(\x08:\x05\x66\x61lse\x12)\n\x1aignore_cross_boundary_bbox\x18\x12 \x01(\x08:\x05\x66\x61lse\x12\x18\n\tbp_inside\x18\x13 \x01(\x08:\x05\x66\x61lse\x12J\n\x0bmining_type\x18\x14 \x01(\x0e\x32\'.caffe.MultiBoxLossParameter.MiningType:\x0cMAX_NEGATIVE\x12\x38\n\tnms_param\x18\x15 \x01(\x0b\x32%.caffe.NonMaximumSuppressionParameter\x12\x17\n\x0bsample_size\x18\x16 \x01(\x05:\x02\x36\x34\x12 \n\x11use_prior_for_nms\x18\x17 \x01(\x08:\x05\x66\x61lse\"$\n\x0bLocLossType\x12\x06\n\x02L2\x10\x00\x12\r\n\tSMOOTH_L1\x10\x01\")\n\x0c\x43onfLossType\x12\x0b\n\x07SOFTMAX\x10\x00\x12\x0c\n\x08LOGISTIC\x10\x01\".\n\tMatchType\x12\r\n\tBIPARTITE\x10\x00\x12\x12\n\x0ePER_PREDICTION\x10\x01\":\n\nMiningType\x12\x08\n\x04NONE\x10\x00\x12\x10\n\x0cMAX_NEGATIVE\x10\x01\x12\x10\n\x0cHARD_EXAMPLE\x10\x02\"e\n\x0cMVNParameter\x12 \n\x12normalize_variance\x18\x01 \x01(\x08:\x04true\x12\x1e\n\x0f\x61\x63ross_channels\x18\x02 \x01(\x08:\x05\x66\x61lse\x12\x13\n\x03\x65ps\x18\x03 \x01(\x02:\x06\x31\x65-009\"\x93\x01\n\x12NormalizeParameter\x12\x1c\n\x0e\x61\x63ross_spatial\x18\x01 \x01(\x08:\x04true\x12,\n\x0cscale_filler\x18\x02 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x1c\n\x0e\x63hannel_shared\x18\x03 \x01(\x08:\x04true\x12\x13\n\x03\x65ps\x18\x04 \x01(\x02:\x06\x31\x65-010\"5\n\x12ParameterParameter\x12\x1f\n\x05shape\x18\x01 \x01(\x0b\x32\x10.caffe.BlobShape\"!\n\x10PermuteParameter\x12\r\n\x05order\x18\x01 \x03(\r\"\xa2\x03\n\x10PoolingParameter\x12\x35\n\x04pool\x18\x01 \x01(\x0e\x32\".caffe.PoolingParameter.PoolMethod:\x03MAX\x12\x0e\n\x03pad\x18\x04 \x01(\r:\x01\x30\x12\x10\n\x05pad_h\x18\t \x01(\r:\x01\x30\x12\x10\n\x05pad_w\x18\n \x01(\r:\x01\x30\x12\x13\n\x0bkernel_size\x18\x02 \x01(\r\x12\x10\n\x08kernel_h\x18\x05 \x01(\r\x12\x10\n\x08kernel_w\x18\x06 \x01(\r\x12\x11\n\x06stride\x18\x03 \x01(\r:\x01\x31\x12\x10\n\x08stride_h\x18\x07 \x01(\r\x12\x10\n\x08stride_w\x18\x08 \x01(\r\x12\x37\n\x06\x65ngine\x18\x0b \x01(\x0e\x32\x1e.caffe.PoolingParameter.Engine:\x07\x44\x45\x46\x41ULT\x12\x1d\n\x0eglobal_pooling\x18\x0c \x01(\x08:\x05\x66\x61lse\".\n\nPoolMethod\x12\x07\n\x03MAX\x10\x00\x12\x07\n\x03\x41VE\x10\x01\x12\x0e\n\nSTOCHASTIC\x10\x02\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"F\n\x0ePowerParameter\x12\x10\n\x05power\x18\x01 \x01(\x02:\x01\x31\x12\x10\n\x05scale\x18\x02 \x01(\x02:\x01\x31\x12\x10\n\x05shift\x18\x03 \x01(\x02:\x01\x30\"\xb5\x02\n\x11PriorBoxParameter\x12\x10\n\x08min_size\x18\x01 \x03(\x02\x12\x10\n\x08max_size\x18\x02 \x03(\x02\x12\x14\n\x0c\x61spect_ratio\x18\x03 \x03(\x02\x12\x12\n\x04\x66lip\x18\x04 \x01(\x08:\x04true\x12\x13\n\x04\x63lip\x18\x05 \x01(\x08:\x05\x66\x61lse\x12\x10\n\x08variance\x18\x06 \x03(\x02\x12\x10\n\x08img_size\x18\x07 \x01(\r\x12\r\n\x05img_h\x18\x08 \x01(\r\x12\r\n\x05img_w\x18\t \x01(\r\x12\x0c\n\x04step\x18\n \x01(\x02\x12\x0e\n\x06step_h\x18\x0b \x01(\x02\x12\x0e\n\x06step_w\x18\x0c \x01(\x02\x12\x13\n\x06offset\x18\r \x01(\x02:\x03\x30.5\"8\n\x08\x43odeType\x12\n\n\x06\x43ORNER\x10\x01\x12\x0f\n\x0b\x43\x45NTER_SIZE\x10\x02\x12\x0f\n\x0b\x43ORNER_SIZE\x10\x03\"g\n\x0fPythonParameter\x12\x0e\n\x06module\x18\x01 \x01(\t\x12\r\n\x05layer\x18\x02 \x01(\t\x12\x13\n\tparam_str\x18\x03 \x01(\t:\x00\x12 \n\x11share_in_parallel\x18\x04 \x01(\x08:\x05\x66\x61lse\"\xc0\x01\n\x12RecurrentParameter\x12\x15\n\nnum_output\x18\x01 \x01(\r:\x01\x30\x12-\n\rweight_filler\x18\x02 \x01(\x0b\x32\x16.caffe.FillerParameter\x12+\n\x0b\x62ias_filler\x18\x03 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x19\n\ndebug_info\x18\x04 \x01(\x08:\x05\x66\x61lse\x12\x1c\n\rexpose_hidden\x18\x05 \x01(\x08:\x05\x66\x61lse\"\xad\x01\n\x12ReductionParameter\x12=\n\toperation\x18\x01 \x01(\x0e\x32%.caffe.ReductionParameter.ReductionOp:\x03SUM\x12\x0f\n\x04\x61xis\x18\x02 \x01(\x05:\x01\x30\x12\x10\n\x05\x63oeff\x18\x03 \x01(\x02:\x01\x31\"5\n\x0bReductionOp\x12\x07\n\x03SUM\x10\x01\x12\x08\n\x04\x41SUM\x10\x02\x12\t\n\x05SUMSQ\x10\x03\x12\x08\n\x04MEAN\x10\x04\"\x8d\x01\n\rReLUParameter\x12\x19\n\x0enegative_slope\x18\x01 \x01(\x02:\x01\x30\x12\x34\n\x06\x65ngine\x18\x02 \x01(\x0e\x32\x1b.caffe.ReLUParameter.Engine:\x07\x44\x45\x46\x41ULT\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"Z\n\x10ReshapeParameter\x12\x1f\n\x05shape\x18\x01 \x01(\x0b\x32\x10.caffe.BlobShape\x12\x0f\n\x04\x61xis\x18\x02 \x01(\x05:\x01\x30\x12\x14\n\x08num_axes\x18\x03 \x01(\x05:\x02-1\"\xa5\x01\n\x0eScaleParameter\x12\x0f\n\x04\x61xis\x18\x01 \x01(\x05:\x01\x31\x12\x13\n\x08num_axes\x18\x02 \x01(\x05:\x01\x31\x12&\n\x06\x66iller\x18\x03 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x18\n\tbias_term\x18\x04 \x01(\x08:\x05\x66\x61lse\x12+\n\x0b\x62ias_filler\x18\x05 \x01(\x0b\x32\x16.caffe.FillerParameter\"x\n\x10SigmoidParameter\x12\x37\n\x06\x65ngine\x18\x01 \x01(\x0e\x32\x1e.caffe.SigmoidParameter.Engine:\x07\x44\x45\x46\x41ULT\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"L\n\x0eSliceParameter\x12\x0f\n\x04\x61xis\x18\x03 \x01(\x05:\x01\x31\x12\x13\n\x0bslice_point\x18\x02 \x03(\r\x12\x14\n\tslice_dim\x18\x01 \x01(\r:\x01\x31\"\x89\x02\n\x10SoftmaxParameter\x12\x37\n\x06\x65ngine\x18\x01 \x01(\x0e\x32\x1e.caffe.SoftmaxParameter.Engine:\x07\x44\x45\x46\x41ULT\x12\x0f\n\x04\x61xis\x18\x02 \x01(\x05:\x01\x31\x12\x15\n\nhard_ratio\x18\x03 \x01(\x02:\x01\x31\x12\x14\n\x0c\x63lass_weight\x18\x04 \x03(\x02\x12\x19\n\x11hard_mining_label\x18\x05 \x01(\x05\x12\x15\n\rcutting_point\x18\x06 \x01(\x02\x12\x1f\n\x0enormalize_type\x18\x07 \x01(\t:\x07Softmax\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"r\n\rTanHParameter\x12\x34\n\x06\x65ngine\x18\x01 \x01(\x0e\x32\x1b.caffe.TanHParameter.Engine:\x07\x44\x45\x46\x41ULT\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"/\n\rTileParameter\x12\x0f\n\x04\x61xis\x18\x01 \x01(\x05:\x01\x31\x12\r\n\x05tiles\x18\x02 \x01(\x05\"*\n\x12ThresholdParameter\x12\x14\n\tthreshold\x18\x01 \x01(\x02:\x01\x30\"\xbb\x01\n\x12VideoDataParameter\x12?\n\nvideo_type\x18\x01 \x01(\x0e\x32#.caffe.VideoDataParameter.VideoType:\x06WEBCAM\x12\x14\n\tdevice_id\x18\x02 \x01(\x05:\x01\x30\x12\x12\n\nvideo_file\x18\x03 \x01(\t\x12\x16\n\x0bskip_frames\x18\x04 \x01(\r:\x01\x30\"\"\n\tVideoType\x12\n\n\x06WEBCAM\x10\x00\x12\t\n\x05VIDEO\x10\x01\"\xc1\x02\n\x13WindowDataParameter\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x10\n\x05scale\x18\x02 \x01(\x02:\x01\x31\x12\x11\n\tmean_file\x18\x03 \x01(\t\x12\x12\n\nbatch_size\x18\x04 \x01(\r\x12\x14\n\tcrop_size\x18\x05 \x01(\r:\x01\x30\x12\x15\n\x06mirror\x18\x06 \x01(\x08:\x05\x66\x61lse\x12\x19\n\x0c\x66g_threshold\x18\x07 \x01(\x02:\x03\x30.5\x12\x19\n\x0c\x62g_threshold\x18\x08 \x01(\x02:\x03\x30.5\x12\x19\n\x0b\x66g_fraction\x18\t \x01(\x02:\x04\x30.25\x12\x16\n\x0b\x63ontext_pad\x18\n \x01(\r:\x01\x30\x12\x17\n\tcrop_mode\x18\x0b \x01(\t:\x04warp\x12\x1b\n\x0c\x63\x61\x63he_images\x18\x0c \x01(\x08:\x05\x66\x61lse\x12\x15\n\x0broot_folder\x18\r \x01(\t:\x00\"\xeb\x01\n\x0cSPPParameter\x12\x16\n\x0epyramid_height\x18\x01 \x01(\r\x12\x31\n\x04pool\x18\x02 \x01(\x0e\x32\x1e.caffe.SPPParameter.PoolMethod:\x03MAX\x12\x33\n\x06\x65ngine\x18\x06 \x01(\x0e\x32\x1a.caffe.SPPParameter.Engine:\x07\x44\x45\x46\x41ULT\".\n\nPoolMethod\x12\x07\n\x03MAX\x10\x00\x12\x07\n\x03\x41VE\x10\x01\x12\x0e\n\nSTOCHASTIC\x10\x02\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"\xe0\x13\n\x10V1LayerParameter\x12\x0e\n\x06\x62ottom\x18\x02 \x03(\t\x12\x0b\n\x03top\x18\x03 \x03(\t\x12\x0c\n\x04name\x18\x04 \x01(\t\x12$\n\x07include\x18  \x03(\x0b\x32\x13.caffe.NetStateRule\x12$\n\x07\x65xclude\x18! \x03(\x0b\x32\x13.caffe.NetStateRule\x12/\n\x04type\x18\x05 \x01(\x0e\x32!.caffe.V1LayerParameter.LayerType\x12\x1f\n\x05\x62lobs\x18\x06 \x03(\x0b\x32\x10.caffe.BlobProto\x12\x0e\n\x05param\x18\xe9\x07 \x03(\t\x12>\n\x0f\x62lob_share_mode\x18\xea\x07 \x03(\x0e\x32$.caffe.V1LayerParameter.DimCheckMode\x12\x10\n\x08\x62lobs_lr\x18\x07 \x03(\x02\x12\x14\n\x0cweight_decay\x18\x08 \x03(\x02\x12\x13\n\x0bloss_weight\x18# \x03(\x02\x12\x30\n\x0e\x61\x63\x63uracy_param\x18\x1b \x01(\x0b\x32\x18.caffe.AccuracyParameter\x12,\n\x0c\x61rgmax_param\x18\x17 \x01(\x0b\x32\x16.caffe.ArgMaxParameter\x12,\n\x0c\x63oncat_param\x18\t \x01(\x0b\x32\x16.caffe.ConcatParameter\x12?\n\x16\x63ontrastive_loss_param\x18( \x01(\x0b\x32\x1f.caffe.ContrastiveLossParameter\x12\x36\n\x11\x63onvolution_param\x18\n \x01(\x0b\x32\x1b.caffe.ConvolutionParameter\x12(\n\ndata_param\x18\x0b \x01(\x0b\x32\x14.caffe.DataParameter\x12.\n\rdropout_param\x18\x0c \x01(\x0b\x32\x17.caffe.DropoutParameter\x12\x33\n\x10\x64ummy_data_param\x18\x1a \x01(\x0b\x32\x19.caffe.DummyDataParameter\x12.\n\reltwise_param\x18\x18 \x01(\x0b\x32\x17.caffe.EltwiseParameter\x12&\n\texp_param\x18) \x01(\x0b\x32\x13.caffe.ExpParameter\x12\x31\n\x0fhdf5_data_param\x18\r \x01(\x0b\x32\x18.caffe.HDF5DataParameter\x12\x35\n\x11hdf5_output_param\x18\x0e \x01(\x0b\x32\x1a.caffe.HDF5OutputParameter\x12\x33\n\x10hinge_loss_param\x18\x1d \x01(\x0b\x32\x19.caffe.HingeLossParameter\x12\x33\n\x10image_data_param\x18\x0f \x01(\x0b\x32\x19.caffe.ImageDataParameter\x12\x39\n\x13infogain_loss_param\x18\x10 \x01(\x0b\x32\x1c.caffe.InfogainLossParameter\x12\x39\n\x13inner_product_param\x18\x11 \x01(\x0b\x32\x1c.caffe.InnerProductParameter\x12&\n\tlrn_param\x18\x12 \x01(\x0b\x32\x13.caffe.LRNParameter\x12\x35\n\x11memory_data_param\x18\x16 \x01(\x0b\x32\x1a.caffe.MemoryDataParameter\x12&\n\tmvn_param\x18\" \x01(\x0b\x32\x13.caffe.MVNParameter\x12.\n\rpooling_param\x18\x13 \x01(\x0b\x32\x17.caffe.PoolingParameter\x12*\n\x0bpower_param\x18\x15 \x01(\x0b\x32\x15.caffe.PowerParameter\x12(\n\nrelu_param\x18\x1e \x01(\x0b\x32\x14.caffe.ReLUParameter\x12.\n\rsigmoid_param\x18& \x01(\x0b\x32\x17.caffe.SigmoidParameter\x12.\n\rsoftmax_param\x18\' \x01(\x0b\x32\x17.caffe.SoftmaxParameter\x12*\n\x0bslice_param\x18\x1f \x01(\x0b\x32\x15.caffe.SliceParameter\x12(\n\ntanh_param\x18% \x01(\x0b\x32\x14.caffe.TanHParameter\x12\x32\n\x0fthreshold_param\x18\x19 \x01(\x0b\x32\x19.caffe.ThresholdParameter\x12\x35\n\x11window_data_param\x18\x14 \x01(\x0b\x32\x1a.caffe.WindowDataParameter\x12\x37\n\x0ftransform_param\x18$ \x01(\x0b\x32\x1e.caffe.TransformationParameter\x12(\n\nloss_param\x18* \x01(\x0b\x32\x14.caffe.LossParameter\x12&\n\x05layer\x18\x01 \x01(\x0b\x32\x17.caffe.V0LayerParameter\"\xd8\x04\n\tLayerType\x12\x08\n\x04NONE\x10\x00\x12\n\n\x06\x41\x42SVAL\x10#\x12\x0c\n\x08\x41\x43\x43URACY\x10\x01\x12\n\n\x06\x41RGMAX\x10\x1e\x12\x08\n\x04\x42NLL\x10\x02\x12\n\n\x06\x43ONCAT\x10\x03\x12\x14\n\x10\x43ONTRASTIVE_LOSS\x10%\x12\x0f\n\x0b\x43ONVOLUTION\x10\x04\x12\x08\n\x04\x44\x41TA\x10\x05\x12\x11\n\rDECONVOLUTION\x10\'\x12\x0b\n\x07\x44ROPOUT\x10\x06\x12\x0e\n\nDUMMY_DATA\x10 \x12\x12\n\x0e\x45UCLIDEAN_LOSS\x10\x07\x12\x0b\n\x07\x45LTWISE\x10\x19\x12\x07\n\x03\x45XP\x10&\x12\x0b\n\x07\x46LATTEN\x10\x08\x12\r\n\tHDF5_DATA\x10\t\x12\x0f\n\x0bHDF5_OUTPUT\x10\n\x12\x0e\n\nHINGE_LOSS\x10\x1c\x12\n\n\x06IM2COL\x10\x0b\x12\x0e\n\nIMAGE_DATA\x10\x0c\x12\x11\n\rINFOGAIN_LOSS\x10\r\x12\x11\n\rINNER_PRODUCT\x10\x0e\x12\x07\n\x03LRN\x10\x0f\x12\x0f\n\x0bMEMORY_DATA\x10\x1d\x12\x1d\n\x19MULTINOMIAL_LOGISTIC_LOSS\x10\x10\x12\x07\n\x03MVN\x10\"\x12\x0b\n\x07POOLING\x10\x11\x12\t\n\x05POWER\x10\x1a\x12\x08\n\x04RELU\x10\x12\x12\x0b\n\x07SIGMOID\x10\x13\x12\x1e\n\x1aSIGMOID_CROSS_ENTROPY_LOSS\x10\x1b\x12\x0b\n\x07SILENCE\x10$\x12\x0b\n\x07SOFTMAX\x10\x14\x12\x10\n\x0cSOFTMAX_LOSS\x10\x15\x12\t\n\x05SPLIT\x10\x16\x12\t\n\x05SLICE\x10!\x12\x08\n\x04TANH\x10\x17\x12\x0f\n\x0bWINDOW_DATA\x10\x18\x12\r\n\tTHRESHOLD\x10\x1f\"*\n\x0c\x44imCheckMode\x12\n\n\x06STRICT\x10\x00\x12\x0e\n\nPERMISSIVE\x10\x01\"\xfd\x07\n\x10V0LayerParameter\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x12\n\nnum_output\x18\x03 \x01(\r\x12\x16\n\x08\x62iasterm\x18\x04 \x01(\x08:\x04true\x12-\n\rweight_filler\x18\x05 \x01(\x0b\x32\x16.caffe.FillerParameter\x12+\n\x0b\x62ias_filler\x18\x06 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x0e\n\x03pad\x18\x07 \x01(\r:\x01\x30\x12\x12\n\nkernelsize\x18\x08 \x01(\r\x12\x10\n\x05group\x18\t \x01(\r:\x01\x31\x12\x11\n\x06stride\x18\n \x01(\r:\x01\x31\x12\x35\n\x04pool\x18\x0b \x01(\x0e\x32\".caffe.V0LayerParameter.PoolMethod:\x03MAX\x12\x1a\n\rdropout_ratio\x18\x0c \x01(\x02:\x03\x30.5\x12\x15\n\nlocal_size\x18\r \x01(\r:\x01\x35\x12\x10\n\x05\x61lpha\x18\x0e \x01(\x02:\x01\x31\x12\x12\n\x04\x62\x65ta\x18\x0f \x01(\x02:\x04\x30.75\x12\x0c\n\x01k\x18\x16 \x01(\x02:\x01\x31\x12\x0e\n\x06source\x18\x10 \x01(\t\x12\x10\n\x05scale\x18\x11 \x01(\x02:\x01\x31\x12\x10\n\x08meanfile\x18\x12 \x01(\t\x12\x11\n\tbatchsize\x18\x13 \x01(\r\x12\x13\n\x08\x63ropsize\x18\x14 \x01(\r:\x01\x30\x12\x15\n\x06mirror\x18\x15 \x01(\x08:\x05\x66\x61lse\x12\x1f\n\x05\x62lobs\x18\x32 \x03(\x0b\x32\x10.caffe.BlobProto\x12\x10\n\x08\x62lobs_lr\x18\x33 \x03(\x02\x12\x14\n\x0cweight_decay\x18\x34 \x03(\x02\x12\x14\n\trand_skip\x18\x35 \x01(\r:\x01\x30\x12\x1d\n\x10\x64\x65t_fg_threshold\x18\x36 \x01(\x02:\x03\x30.5\x12\x1d\n\x10\x64\x65t_bg_threshold\x18\x37 \x01(\x02:\x03\x30.5\x12\x1d\n\x0f\x64\x65t_fg_fraction\x18\x38 \x01(\x02:\x04\x30.25\x12\x1a\n\x0f\x64\x65t_context_pad\x18: \x01(\r:\x01\x30\x12\x1b\n\rdet_crop_mode\x18; \x01(\t:\x04warp\x12\x12\n\x07new_num\x18< \x01(\x05:\x01\x30\x12\x17\n\x0cnew_channels\x18= \x01(\x05:\x01\x30\x12\x15\n\nnew_height\x18> \x01(\x05:\x01\x30\x12\x14\n\tnew_width\x18? \x01(\x05:\x01\x30\x12\x1d\n\x0eshuffle_images\x18@ \x01(\x08:\x05\x66\x61lse\x12\x15\n\nconcat_dim\x18\x41 \x01(\r:\x01\x31\x12\x36\n\x11hdf5_output_param\x18\xe9\x07 \x01(\x0b\x32\x1a.caffe.HDF5OutputParameter\".\n\nPoolMethod\x12\x07\n\x03MAX\x10\x00\x12\x07\n\x03\x41VE\x10\x01\x12\x0e\n\nSTOCHASTIC\x10\x02\"W\n\x0ePReLUParameter\x12&\n\x06\x66iller\x18\x01 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x1d\n\x0e\x63hannel_shared\x18\x02 \x01(\x08:\x05\x66\x61lse\"!\n\x12TransposeParameter\x12\x0b\n\x03\x64im\x18\x01 \x03(\x05\"#\n\x10ReverseParameter\x12\x0f\n\x04\x61xis\x18\x01 \x01(\x05:\x01\x30\"\xb5\x01\n\rLSTMParameter\x12\x12\n\nnum_output\x18\x01 \x01(\r\x12\x1d\n\x12\x63lipping_threshold\x18\x02 \x01(\x02:\x01\x30\x12-\n\rweight_filler\x18\x03 \x01(\x0b\x32\x16.caffe.FillerParameter\x12+\n\x0b\x62ias_filler\x18\x04 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x15\n\nbatch_size\x18\x05 \x01(\r:\x01\x31\"\xa5\x01\n\x0c\x43TCParameter\x12\x16\n\tthreshold\x18\x01 \x01(\x02:\x03\x30.7\x12;\n\x0b\x64\x65\x63ode_type\x18\x02 \x01(\x0e\x32\x1b.caffe.CTCParameter.Decoder:\tbest_path\"@\n\x07\x44\x65\x63oder\x12\r\n\tbest_path\x10\x00\x12\x13\n\x0f\x62\x65st_path_thres\x10\x01\x12\x11\n\rprefix_search\x10\x02\"i\n\x13\x43\x65nterLossParameter\x12\x12\n\nnum_output\x18\x01 \x01(\r\x12-\n\rcenter_filler\x18\x02 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x0f\n\x04\x61xis\x18\x03 \x01(\x05:\x01\x31\"Z\n\x10\x43tcLossParameter\x12\x18\n\ralphabet_size\x18\x01 \x01(\r:\x01\x30\x12\x14\n\ttime_step\x18\x03 \x01(\r:\x01\x30\x12\x16\n\x0b\x62lank_label\x18\x04 \x01(\x05:\x01\x30\"M\n\x1e\x43ontinuationIndicatorParameter\x12\x14\n\ttime_step\x18\x01 \x01(\r:\x01\x30\x12\x15\n\nbatch_size\x18\x02 \x01(\r:\x01\x30\"8\n\x1eLabelsequenceAccuracyParameter\x12\x16\n\x0b\x62lank_label\x18\x01 \x01(\x05:\x01\x30*\x1c\n\x05Phase\x12\t\n\x05TRAIN\x10\x00\x12\x08\n\x04TEST\x10\x01')
+  serialized_pb=_b('\n\x0b\x63\x61\x66\x66\x65.proto\x12\x05\x63\x61\x66\x66\x65\"\x1c\n\tBlobShape\x12\x0f\n\x03\x64im\x18\x01 \x03(\x03\x42\x02\x10\x01\"\xcc\x01\n\tBlobProto\x12\x1f\n\x05shape\x18\x07 \x01(\x0b\x32\x10.caffe.BlobShape\x12\x10\n\x04\x64\x61ta\x18\x05 \x03(\x02\x42\x02\x10\x01\x12\x10\n\x04\x64iff\x18\x06 \x03(\x02\x42\x02\x10\x01\x12\x17\n\x0b\x64ouble_data\x18\x08 \x03(\x01\x42\x02\x10\x01\x12\x17\n\x0b\x64ouble_diff\x18\t \x03(\x01\x42\x02\x10\x01\x12\x0e\n\x03num\x18\x01 \x01(\x05:\x01\x30\x12\x13\n\x08\x63hannels\x18\x02 \x01(\x05:\x01\x30\x12\x11\n\x06height\x18\x03 \x01(\x05:\x01\x30\x12\x10\n\x05width\x18\x04 \x01(\x05:\x01\x30\"2\n\x0f\x42lobProtoVector\x12\x1f\n\x05\x62lobs\x18\x01 \x03(\x0b\x32\x10.caffe.BlobProto\"\x91\x01\n\x05\x44\x61tum\x12\x10\n\x08\x63hannels\x18\x01 \x01(\x05\x12\x0e\n\x06height\x18\x02 \x01(\x05\x12\r\n\x05width\x18\x03 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x04 \x01(\x0c\x12\r\n\x05label\x18\x05 \x01(\x05\x12\x12\n\nfloat_data\x18\x06 \x03(\x02\x12\x16\n\x07\x65ncoded\x18\x07 \x01(\x08:\x05\x66\x61lse\x12\x0e\n\x06labels\x18\x08 \x03(\x02\"C\n\tMTCNNBBox\x12\x0c\n\x04xmin\x18\x01 \x01(\x02\x12\x0c\n\x04ymin\x18\x02 \x01(\x02\x12\x0c\n\x04xmax\x18\x03 \x01(\x02\x12\x0c\n\x04ymax\x18\x04 \x01(\x02\"U\n\nMTCNNDatum\x12\x1b\n\x05\x64\x61tum\x18\x01 \x01(\x0b\x32\x0c.caffe.Datum\x12\x1d\n\x03roi\x18\x02 \x01(\x0b\x32\x10.caffe.MTCNNBBox\x12\x0b\n\x03pts\x18\x03 \x03(\x02\"A\n\x0cLabelMapItem\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05label\x18\x02 \x01(\x05\x12\x14\n\x0c\x64isplay_name\x18\x03 \x01(\t\"-\n\x08LabelMap\x12!\n\x04item\x18\x01 \x03(\x0b\x32\x13.caffe.LabelMapItem\"o\n\x07Sampler\x12\x14\n\tmin_scale\x18\x01 \x01(\x02:\x01\x31\x12\x14\n\tmax_scale\x18\x02 \x01(\x02:\x01\x31\x12\x1b\n\x10min_aspect_ratio\x18\x03 \x01(\x02:\x01\x31\x12\x1b\n\x10max_aspect_ratio\x18\x04 \x01(\x02:\x01\x31\"\xc0\x01\n\x10SampleConstraint\x12\x1b\n\x13min_jaccard_overlap\x18\x01 \x01(\x02\x12\x1b\n\x13max_jaccard_overlap\x18\x02 \x01(\x02\x12\x1b\n\x13min_sample_coverage\x18\x03 \x01(\x02\x12\x1b\n\x13max_sample_coverage\x18\x04 \x01(\x02\x12\x1b\n\x13min_object_coverage\x18\x05 \x01(\x02\x12\x1b\n\x13max_object_coverage\x18\x06 \x01(\x02\"\xb2\x01\n\x0c\x42\x61tchSampler\x12 \n\x12use_original_image\x18\x01 \x01(\x08:\x04true\x12\x1f\n\x07sampler\x18\x02 \x01(\x0b\x32\x0e.caffe.Sampler\x12\x32\n\x11sample_constraint\x18\x03 \x01(\x0b\x32\x17.caffe.SampleConstraint\x12\x12\n\nmax_sample\x18\x04 \x01(\r\x12\x17\n\nmax_trials\x18\x05 \x01(\r:\x03\x31\x30\x30\"\x8a\x01\n\x0e\x45mitConstraint\x12\x39\n\temit_type\x18\x01 \x01(\x0e\x32\x1e.caffe.EmitConstraint.EmitType:\x06\x43\x45NTER\x12\x14\n\x0c\x65mit_overlap\x18\x02 \x01(\x02\"\'\n\x08\x45mitType\x12\n\n\x06\x43\x45NTER\x10\x00\x12\x0f\n\x0bMIN_OVERLAP\x10\x01\"\x87\x01\n\x0eNormalizedBBox\x12\x0c\n\x04xmin\x18\x01 \x01(\x02\x12\x0c\n\x04ymin\x18\x02 \x01(\x02\x12\x0c\n\x04xmax\x18\x03 \x01(\x02\x12\x0c\n\x04ymax\x18\x04 \x01(\x02\x12\r\n\x05label\x18\x05 \x01(\x05\x12\x11\n\tdifficult\x18\x06 \x01(\x08\x12\r\n\x05score\x18\x07 \x01(\x02\x12\x0c\n\x04size\x18\x08 \x01(\x02\"I\n\nAnnotation\x12\x16\n\x0binstance_id\x18\x01 \x01(\x05:\x01\x30\x12#\n\x04\x62\x62ox\x18\x02 \x01(\x0b\x32\x15.caffe.NormalizedBBox\"M\n\x0f\x41nnotationGroup\x12\x13\n\x0bgroup_label\x18\x01 \x01(\x05\x12%\n\nannotation\x18\x02 \x03(\x0b\x32\x11.caffe.Annotation\"\xaf\x01\n\x0e\x41nnotatedDatum\x12\x1b\n\x05\x64\x61tum\x18\x01 \x01(\x0b\x32\x0c.caffe.Datum\x12\x32\n\x04type\x18\x02 \x01(\x0e\x32$.caffe.AnnotatedDatum.AnnotationType\x12\x30\n\x10\x61nnotation_group\x18\x03 \x03(\x0b\x32\x16.caffe.AnnotationGroup\"\x1a\n\x0e\x41nnotationType\x12\x08\n\x04\x42\x42OX\x10\x00\"\x98\x02\n\x0f\x46illerParameter\x12\x16\n\x04type\x18\x01 \x01(\t:\x08\x63onstant\x12\x10\n\x05value\x18\x02 \x01(\x02:\x01\x30\x12\x0e\n\x03min\x18\x03 \x01(\x02:\x01\x30\x12\x0e\n\x03max\x18\x04 \x01(\x02:\x01\x31\x12\x0f\n\x04mean\x18\x05 \x01(\x02:\x01\x30\x12\x0e\n\x03std\x18\x06 \x01(\x02:\x01\x31\x12\x12\n\x06sparse\x18\x07 \x01(\x05:\x02-1\x12\x42\n\rvariance_norm\x18\x08 \x01(\x0e\x32#.caffe.FillerParameter.VarianceNorm:\x06\x46\x41N_IN\x12\x0c\n\x04\x66ile\x18\t \x01(\t\"4\n\x0cVarianceNorm\x12\n\n\x06\x46\x41N_IN\x10\x00\x12\x0b\n\x07\x46\x41N_OUT\x10\x01\x12\x0b\n\x07\x41VERAGE\x10\x02\"\x8e\x02\n\x0cNetParameter\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05input\x18\x03 \x03(\t\x12%\n\x0binput_shape\x18\x08 \x03(\x0b\x32\x10.caffe.BlobShape\x12\x11\n\tinput_dim\x18\x04 \x03(\x05\x12\x1d\n\x0e\x66orce_backward\x18\x05 \x01(\x08:\x05\x66\x61lse\x12\x1e\n\x05state\x18\x06 \x01(\x0b\x32\x0f.caffe.NetState\x12\x19\n\ndebug_info\x18\x07 \x01(\x08:\x05\x66\x61lse\x12$\n\x05layer\x18\x64 \x03(\x0b\x32\x15.caffe.LayerParameter\x12\'\n\x06layers\x18\x02 \x03(\x0b\x32\x17.caffe.V1LayerParameter\"\xa3\x0b\n\x0fSolverParameter\x12\x0b\n\x03net\x18\x18 \x01(\t\x12&\n\tnet_param\x18\x19 \x01(\x0b\x32\x13.caffe.NetParameter\x12\x11\n\ttrain_net\x18\x01 \x01(\t\x12\x10\n\x08test_net\x18\x02 \x03(\t\x12,\n\x0ftrain_net_param\x18\x15 \x01(\x0b\x32\x13.caffe.NetParameter\x12+\n\x0etest_net_param\x18\x16 \x03(\x0b\x32\x13.caffe.NetParameter\x12$\n\x0btrain_state\x18\x1a \x01(\x0b\x32\x0f.caffe.NetState\x12#\n\ntest_state\x18\x1b \x03(\x0b\x32\x0f.caffe.NetState\x12!\n\teval_type\x18) \x01(\t:\x0e\x63lassification\x12\x1c\n\nap_version\x18* \x01(\t:\x08Integral\x12$\n\x15show_per_class_result\x18, \x01(\x08:\x05\x66\x61lse\x12\x11\n\ttest_iter\x18\x03 \x03(\x05\x12\x18\n\rtest_interval\x18\x04 \x01(\x05:\x01\x30\x12 \n\x11test_compute_loss\x18\x13 \x01(\x08:\x05\x66\x61lse\x12!\n\x13test_initialization\x18  \x01(\x08:\x04true\x12\x0f\n\x07\x62\x61se_lr\x18\x05 \x01(\x02\x12\x0f\n\x07\x64isplay\x18\x06 \x01(\x05\x12\x17\n\x0c\x61verage_loss\x18! \x01(\x05:\x01\x31\x12\x10\n\x08max_iter\x18\x07 \x01(\x05\x12\x14\n\titer_size\x18$ \x01(\x05:\x01\x31\x12\x11\n\tlr_policy\x18\x08 \x01(\t\x12\r\n\x05gamma\x18\t \x01(\x02\x12\r\n\x05power\x18\n \x01(\x02\x12\x10\n\x08momentum\x18\x0b \x01(\x02\x12\x14\n\x0cweight_decay\x18\x0c \x01(\x02\x12\x1f\n\x13regularization_type\x18\x1d \x01(\t:\x02L2\x12\x10\n\x08stepsize\x18\r \x01(\x05\x12\x11\n\tstepvalue\x18\" \x03(\x05\x12\x17\n\x0fplateau_winsize\x18+ \x03(\x05\x12\x1a\n\x0e\x63lip_gradients\x18# \x01(\x02:\x02-1\x12\x13\n\x08snapshot\x18\x0e \x01(\x05:\x01\x30\x12\x17\n\x0fsnapshot_prefix\x18\x0f \x01(\t\x12\x1c\n\rsnapshot_diff\x18\x10 \x01(\x08:\x05\x66\x61lse\x12K\n\x0fsnapshot_format\x18% \x01(\x0e\x32%.caffe.SolverParameter.SnapshotFormat:\x0b\x42INARYPROTO\x12;\n\x0bsolver_mode\x18\x11 \x01(\x0e\x32!.caffe.SolverParameter.SolverMode:\x03GPU\x12\x14\n\tdevice_id\x18\x12 \x01(\x05:\x01\x30\x12\x17\n\x0brandom_seed\x18\x14 \x01(\x03:\x02-1\x12\x11\n\x04type\x18( \x01(\t:\x03SGD\x12\x15\n\x05\x64\x65lta\x18\x1f \x01(\x02:\x06\x31\x65-008\x12\x18\n\tmomentum2\x18\' \x01(\x02:\x05\x30.999\x12\x17\n\trms_decay\x18& \x01(\x02:\x04\x30.99\x12\x19\n\ndebug_info\x18\x17 \x01(\x08:\x05\x66\x61lse\x12\"\n\x14snapshot_after_train\x18\x1c \x01(\x08:\x04true\x12;\n\x0bsolver_type\x18\x1e \x01(\x0e\x32!.caffe.SolverParameter.SolverType:\x03SGD\"+\n\x0eSnapshotFormat\x12\x08\n\x04HDF5\x10\x00\x12\x0f\n\x0b\x42INARYPROTO\x10\x01\"\x1e\n\nSolverMode\x12\x07\n\x03\x43PU\x10\x00\x12\x07\n\x03GPU\x10\x01\"U\n\nSolverType\x12\x07\n\x03SGD\x10\x00\x12\x0c\n\x08NESTEROV\x10\x01\x12\x0b\n\x07\x41\x44\x41GRAD\x10\x02\x12\x0b\n\x07RMSPROP\x10\x03\x12\x0c\n\x08\x41\x44\x41\x44\x45LTA\x10\x04\x12\x08\n\x04\x41\x44\x41M\x10\x05\"\xa6\x01\n\x0bSolverState\x12\x0c\n\x04iter\x18\x01 \x01(\x05\x12\x13\n\x0blearned_net\x18\x02 \x01(\t\x12!\n\x07history\x18\x03 \x03(\x0b\x32\x10.caffe.BlobProto\x12\x17\n\x0c\x63urrent_step\x18\x04 \x01(\x05:\x01\x30\x12\x1c\n\x0cminimum_loss\x18\x05 \x01(\x02:\x06\x31\x65+038\x12\x1a\n\x0fiter_last_event\x18\x06 \x01(\x05:\x01\x30\"N\n\x08NetState\x12!\n\x05phase\x18\x01 \x01(\x0e\x32\x0c.caffe.Phase:\x04TEST\x12\x10\n\x05level\x18\x02 \x01(\x05:\x01\x30\x12\r\n\x05stage\x18\x03 \x03(\t\"s\n\x0cNetStateRule\x12\x1b\n\x05phase\x18\x01 \x01(\x0e\x32\x0c.caffe.Phase\x12\x11\n\tmin_level\x18\x02 \x01(\x05\x12\x11\n\tmax_level\x18\x03 \x01(\x05\x12\r\n\x05stage\x18\x04 \x03(\t\x12\x11\n\tnot_stage\x18\x05 \x03(\t\"\xa3\x01\n\tParamSpec\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x31\n\nshare_mode\x18\x02 \x01(\x0e\x32\x1d.caffe.ParamSpec.DimCheckMode\x12\x12\n\x07lr_mult\x18\x03 \x01(\x02:\x01\x31\x12\x15\n\ndecay_mult\x18\x04 \x01(\x02:\x01\x31\"*\n\x0c\x44imCheckMode\x12\n\n\x06STRICT\x10\x00\x12\x0e\n\nPERMISSIVE\x10\x01\"\xac\x01\n\x13PredictBoxParameter\x12\x11\n\x06stride\x18\x01 \x01(\r:\x01\x32\x12\x1b\n\x0freceptive_field\x18\x02 \x01(\r:\x02\x31\x32\x12\x11\n\x03nms\x18\x03 \x01(\x08:\x04true\x12\x1b\n\routput_vector\x18\x04 \x01(\x08:\x04true\x12\x1c\n\x0fpositive_thresh\x18\x05 \x01(\x02:\x03\x30.5\x12\x17\n\tbbreg_exp\x18\x06 \x01(\x08:\x04true\"\xc1\x1d\n\x0eLayerParameter\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x0e\n\x06\x62ottom\x18\x03 \x03(\t\x12\x0b\n\x03top\x18\x04 \x03(\t\x12\x1b\n\x05phase\x18\n \x01(\x0e\x32\x0c.caffe.Phase\x12\x13\n\x0bloss_weight\x18\x05 \x03(\x02\x12\x1f\n\x05param\x18\x06 \x03(\x0b\x32\x10.caffe.ParamSpec\x12\x1f\n\x05\x62lobs\x18\x07 \x03(\x0b\x32\x10.caffe.BlobProto\x12\x16\n\x0epropagate_down\x18\x0b \x03(\x08\x12$\n\x07include\x18\x08 \x03(\x0b\x32\x13.caffe.NetStateRule\x12$\n\x07\x65xclude\x18\t \x03(\x0b\x32\x13.caffe.NetStateRule\x12\x37\n\x0ftransform_param\x18\x64 \x01(\x0b\x32\x1e.caffe.TransformationParameter\x12(\n\nloss_param\x18\x65 \x01(\x0b\x32\x14.caffe.LossParameter\x12\x30\n\x0e\x61\x63\x63uracy_param\x18\x66 \x01(\x0b\x32\x18.caffe.AccuracyParameter\x12<\n\x14\x61nnotated_data_param\x18\xc8\x01 \x01(\x0b\x32\x1d.caffe.AnnotatedDataParameter\x12,\n\x0c\x61rgmax_param\x18g \x01(\x0b\x32\x16.caffe.ArgMaxParameter\x12\x34\n\x10\x62\x61tch_norm_param\x18\x8b\x01 \x01(\x0b\x32\x19.caffe.BatchNormParameter\x12)\n\nbias_param\x18\x8d\x01 \x01(\x0b\x32\x14.caffe.BiasParameter\x12\x36\n\x11\x63\x65nter_loss_param\x18\x93\x01 \x01(\x0b\x32\x1a.caffe.CenterLossParameter\x12,\n\x0c\x63oncat_param\x18h \x01(\x0b\x32\x16.caffe.ConcatParameter\x12?\n\x16\x63ontrastive_loss_param\x18i \x01(\x0b\x32\x1f.caffe.ContrastiveLossParameter\x12\x36\n\x11\x63onvolution_param\x18j \x01(\x0b\x32\x1b.caffe.ConvolutionParameter\x12)\n\ncrop_param\x18\x90\x01 \x01(\x0b\x32\x14.caffe.CropParameter\x12(\n\ndata_param\x18k \x01(\x0b\x32\x14.caffe.DataParameter\x12\x44\n\x18\x64\x65tection_evaluate_param\x18\xcd\x01 \x01(\x0b\x32!.caffe.DetectionEvaluateParameter\x12@\n\x16\x64\x65tection_output_param\x18\xcc\x01 \x01(\x0b\x32\x1f.caffe.DetectionOutputParameter\x12.\n\rdropout_param\x18l \x01(\x0b\x32\x17.caffe.DropoutParameter\x12\x33\n\x10\x64ummy_data_param\x18m \x01(\x0b\x32\x19.caffe.DummyDataParameter\x12.\n\reltwise_param\x18n \x01(\x0b\x32\x17.caffe.EltwiseParameter\x12\'\n\telu_param\x18\x8c\x01 \x01(\x0b\x32\x13.caffe.ELUParameter\x12+\n\x0b\x65mbed_param\x18\x89\x01 \x01(\x0b\x32\x15.caffe.EmbedParameter\x12&\n\texp_param\x18o \x01(\x0b\x32\x13.caffe.ExpParameter\x12/\n\rflatten_param\x18\x87\x01 \x01(\x0b\x32\x17.caffe.FlattenParameter\x12\x31\n\x0fhdf5_data_param\x18p \x01(\x0b\x32\x18.caffe.HDF5DataParameter\x12\x35\n\x11hdf5_output_param\x18q \x01(\x0b\x32\x1a.caffe.HDF5OutputParameter\x12\x33\n\x10hinge_loss_param\x18r \x01(\x0b\x32\x19.caffe.HingeLossParameter\x12\x33\n\x10image_data_param\x18s \x01(\x0b\x32\x19.caffe.ImageDataParameter\x12\x39\n\x13infogain_loss_param\x18t \x01(\x0b\x32\x1c.caffe.InfogainLossParameter\x12\x39\n\x13inner_product_param\x18u \x01(\x0b\x32\x1c.caffe.InnerProductParameter\x12+\n\x0binput_param\x18\x8f\x01 \x01(\x0b\x32\x15.caffe.InputParameter\x12\'\n\tlog_param\x18\x86\x01 \x01(\x0b\x32\x13.caffe.LogParameter\x12&\n\tlrn_param\x18v \x01(\x0b\x32\x13.caffe.LRNParameter\x12\x35\n\x11memory_data_param\x18w \x01(\x0b\x32\x1a.caffe.MemoryDataParameter\x12:\n\x13multibox_loss_param\x18\xc9\x01 \x01(\x0b\x32\x1c.caffe.MultiBoxLossParameter\x12&\n\tmvn_param\x18x \x01(\x0b\x32\x13.caffe.MVNParameter\x12.\n\nnorm_param\x18\xce\x01 \x01(\x0b\x32\x19.caffe.NormalizeParameter\x12\x36\n\x11predict_box_param\x18\xd1\x01 \x01(\x0b\x32\x1a.caffe.PredictBoxParameter\x12\x33\n\x0fparameter_param\x18\x91\x01 \x01(\x0b\x32\x19.caffe.ParameterParameter\x12/\n\rpermute_param\x18\xca\x01 \x01(\x0b\x32\x17.caffe.PermuteParameter\x12.\n\rpooling_param\x18y \x01(\x0b\x32\x17.caffe.PoolingParameter\x12*\n\x0bpower_param\x18z \x01(\x0b\x32\x15.caffe.PowerParameter\x12+\n\x0bprelu_param\x18\x83\x01 \x01(\x0b\x32\x15.caffe.PReLUParameter\x12\x32\n\x0fprior_box_param\x18\xcb\x01 \x01(\x0b\x32\x18.caffe.PriorBoxParameter\x12-\n\x0cpython_param\x18\x82\x01 \x01(\x0b\x32\x16.caffe.PythonParameter\x12\x33\n\x0frecurrent_param\x18\x92\x01 \x01(\x0b\x32\x19.caffe.RecurrentParameter\x12\x33\n\x0freduction_param\x18\x88\x01 \x01(\x0b\x32\x19.caffe.ReductionParameter\x12(\n\nrelu_param\x18{ \x01(\x0b\x32\x14.caffe.ReLUParameter\x12/\n\rreshape_param\x18\x85\x01 \x01(\x0b\x32\x17.caffe.ReshapeParameter\x12+\n\x0bscale_param\x18\x8e\x01 \x01(\x0b\x32\x15.caffe.ScaleParameter\x12.\n\rsigmoid_param\x18| \x01(\x0b\x32\x17.caffe.SigmoidParameter\x12.\n\rsoftmax_param\x18} \x01(\x0b\x32\x17.caffe.SoftmaxParameter\x12\'\n\tspp_param\x18\x84\x01 \x01(\x0b\x32\x13.caffe.SPPParameter\x12*\n\x0bslice_param\x18~ \x01(\x0b\x32\x15.caffe.SliceParameter\x12(\n\ntanh_param\x18\x7f \x01(\x0b\x32\x14.caffe.TanHParameter\x12\x33\n\x0fthreshold_param\x18\x80\x01 \x01(\x0b\x32\x19.caffe.ThresholdParameter\x12)\n\ntile_param\x18\x8a\x01 \x01(\x0b\x32\x14.caffe.TileParameter\x12\x34\n\x10video_data_param\x18\xcf\x01 \x01(\x0b\x32\x19.caffe.VideoDataParameter\x12\x36\n\x11window_data_param\x18\x81\x01 \x01(\x0b\x32\x1a.caffe.WindowDataParameter\x12)\n\nflip_param\x18\xd4\x01 \x01(\x0b\x32\x14.caffe.FlipParameter\x12)\n\nlstm_param\x18\x94\x01 \x01(\x0b\x32\x14.caffe.LSTMParameter\x12\'\n\tctc_param\x18\x95\x01 \x01(\x0b\x32\x13.caffe.CTCParameter\x12\x33\n\x0ftranspose_param\x18\x96\x01 \x01(\x0b\x32\x19.caffe.TransposeParameter\x12/\n\rreverse_param\x18\x97\x01 \x01(\x0b\x32\x17.caffe.ReverseParameter\x12\x30\n\x0e\x63tc_loss_param\x18\x98\x01 \x01(\x0b\x32\x17.caffe.CtcLossParameter\x12L\n\x1c\x63ontinuation_indicator_param\x18\x99\x01 \x01(\x0b\x32%.caffe.ContinuationIndicatorParameter\x12L\n\x1clabelsequence_accuracy_param\x18\x9a\x01 \x01(\x0b\x32%.caffe.LabelsequenceAccuracyParameter\x12\x35\n\x08st_param\x18\x9c\x01 \x01(\x0b\x32\".caffe.SpatialTransformerParameter\x12.\n\rst_loss_param\x18\x9d\x01 \x01(\x0b\x32\x16.caffe.STLossParameter\x12\x34\n\x10power_file_param\x18\x9e\x01 \x01(\x0b\x32\x19.caffe.PowerFileParameter\x12\x30\n\x0eloc_loss_param\x18\x9f\x01 \x01(\x0b\x32\x17.caffe.LocLossParameter\"E\n\rFlipParameter\x12\x18\n\nflip_width\x18\x01 \x01(\x08:\x04true\x12\x1a\n\x0b\x66lip_height\x18\x02 \x01(\x08:\x05\x66\x61lse\"\xca\x03\n\x17TransformationParameter\x12\x10\n\x05scale\x18\x01 \x01(\x02:\x01\x31\x12\x15\n\x06mirror\x18\x02 \x01(\x08:\x05\x66\x61lse\x12\x14\n\tcrop_size\x18\x03 \x01(\r:\x01\x30\x12\x11\n\x06\x63rop_h\x18\x0b \x01(\r:\x01\x30\x12\x11\n\x06\x63rop_w\x18\x0c \x01(\r:\x01\x30\x12\x11\n\tmean_file\x18\x04 \x01(\t\x12\x12\n\nmean_value\x18\x05 \x03(\x02\x12\x1a\n\x0b\x66orce_color\x18\x06 \x01(\x08:\x05\x66\x61lse\x12\x19\n\nforce_gray\x18\x07 \x01(\x08:\x05\x66\x61lse\x12,\n\x0cresize_param\x18\x08 \x01(\x0b\x32\x16.caffe.ResizeParameter\x12*\n\x0bnoise_param\x18\t \x01(\x0b\x32\x15.caffe.NoiseParameter\x12\x31\n\rdistort_param\x18\r \x01(\x0b\x32\x1a.caffe.DistortionParameter\x12/\n\x0c\x65xpand_param\x18\x0e \x01(\x0b\x32\x19.caffe.ExpansionParameter\x12.\n\x0f\x65mit_constraint\x18\n \x01(\x0b\x32\x15.caffe.EmitConstraint\"\x90\x04\n\x0fResizeParameter\x12\x0f\n\x04prob\x18\x01 \x01(\x02:\x01\x31\x12=\n\x0bresize_mode\x18\x02 \x01(\x0e\x32\".caffe.ResizeParameter.Resize_mode:\x04WARP\x12\x11\n\x06height\x18\x03 \x01(\r:\x01\x30\x12\x10\n\x05width\x18\x04 \x01(\r:\x01\x30\x12\x17\n\x0cheight_scale\x18\x08 \x01(\r:\x01\x30\x12\x16\n\x0bwidth_scale\x18\t \x01(\r:\x01\x30\x12;\n\x08pad_mode\x18\x05 \x01(\x0e\x32\x1f.caffe.ResizeParameter.Pad_mode:\x08\x43ONSTANT\x12\x11\n\tpad_value\x18\x06 \x03(\x02\x12\x37\n\x0binterp_mode\x18\x07 \x03(\x0e\x32\".caffe.ResizeParameter.Interp_mode\"G\n\x0bResize_mode\x12\x08\n\x04WARP\x10\x01\x12\x12\n\x0e\x46IT_SMALL_SIZE\x10\x02\x12\x1a\n\x16\x46IT_LARGE_SIZE_AND_PAD\x10\x03\":\n\x08Pad_mode\x12\x0c\n\x08\x43ONSTANT\x10\x01\x12\x0c\n\x08MIRRORED\x10\x02\x12\x12\n\x0eREPEAT_NEAREST\x10\x03\"I\n\x0bInterp_mode\x12\n\n\x06LINEAR\x10\x01\x12\x08\n\x04\x41REA\x10\x02\x12\x0b\n\x07NEAREST\x10\x03\x12\t\n\x05\x43UBIC\x10\x04\x12\x0c\n\x08LANCZOS4\x10\x05\"9\n\x13SaltPepperParameter\x12\x13\n\x08\x66raction\x18\x01 \x01(\x02:\x01\x30\x12\r\n\x05value\x18\x02 \x03(\x02\"\xee\x02\n\x0eNoiseParameter\x12\x0f\n\x04prob\x18\x01 \x01(\x02:\x01\x30\x12\x16\n\x07hist_eq\x18\x02 \x01(\x08:\x05\x66\x61lse\x12\x16\n\x07inverse\x18\x03 \x01(\x08:\x05\x66\x61lse\x12\x19\n\ndecolorize\x18\x04 \x01(\x08:\x05\x66\x61lse\x12\x19\n\ngauss_blur\x18\x05 \x01(\x08:\x05\x66\x61lse\x12\x10\n\x04jpeg\x18\x06 \x01(\x02:\x02-1\x12\x18\n\tposterize\x18\x07 \x01(\x08:\x05\x66\x61lse\x12\x14\n\x05\x65rode\x18\x08 \x01(\x08:\x05\x66\x61lse\x12\x19\n\nsaltpepper\x18\t \x01(\x08:\x05\x66\x61lse\x12\x34\n\x10saltpepper_param\x18\n \x01(\x0b\x32\x1a.caffe.SaltPepperParameter\x12\x14\n\x05\x63lahe\x18\x0b \x01(\x08:\x05\x66\x61lse\x12\x1d\n\x0e\x63onvert_to_hsv\x18\x0c \x01(\x08:\x05\x66\x61lse\x12\x1d\n\x0e\x63onvert_to_lab\x18\r \x01(\x08:\x05\x66\x61lse\"\xbd\x02\n\x13\x44istortionParameter\x12\x1a\n\x0f\x62rightness_prob\x18\x01 \x01(\x02:\x01\x30\x12\x1b\n\x10\x62rightness_delta\x18\x02 \x01(\x02:\x01\x30\x12\x18\n\rcontrast_prob\x18\x03 \x01(\x02:\x01\x30\x12\x19\n\x0e\x63ontrast_lower\x18\x04 \x01(\x02:\x01\x30\x12\x19\n\x0e\x63ontrast_upper\x18\x05 \x01(\x02:\x01\x30\x12\x13\n\x08hue_prob\x18\x06 \x01(\x02:\x01\x30\x12\x14\n\thue_delta\x18\x07 \x01(\x02:\x01\x30\x12\x1a\n\x0fsaturation_prob\x18\x08 \x01(\x02:\x01\x30\x12\x1b\n\x10saturation_lower\x18\t \x01(\x02:\x01\x30\x12\x1b\n\x10saturation_upper\x18\n \x01(\x02:\x01\x30\x12\x1c\n\x11random_order_prob\x18\x0b \x01(\x02:\x01\x30\"B\n\x12\x45xpansionParameter\x12\x0f\n\x04prob\x18\x01 \x01(\x02:\x01\x31\x12\x1b\n\x10max_expand_ratio\x18\x02 \x01(\x02:\x01\x31\"\xc2\x01\n\rLossParameter\x12\x14\n\x0cignore_label\x18\x01 \x01(\x05\x12\x44\n\rnormalization\x18\x03 \x01(\x0e\x32&.caffe.LossParameter.NormalizationMode:\x05VALID\x12\x11\n\tnormalize\x18\x02 \x01(\x08\"B\n\x11NormalizationMode\x12\x08\n\x04\x46ULL\x10\x00\x12\t\n\x05VALID\x10\x01\x12\x0e\n\nBATCH_SIZE\x10\x02\x12\x08\n\x04NONE\x10\x03\"L\n\x11\x41\x63\x63uracyParameter\x12\x10\n\x05top_k\x18\x01 \x01(\r:\x01\x31\x12\x0f\n\x04\x61xis\x18\x02 \x01(\x05:\x01\x31\x12\x14\n\x0cignore_label\x18\x03 \x01(\x05\"\x95\x01\n\x16\x41nnotatedDataParameter\x12*\n\rbatch_sampler\x18\x01 \x03(\x0b\x32\x13.caffe.BatchSampler\x12\x16\n\x0elabel_map_file\x18\x02 \x01(\t\x12\x37\n\tanno_type\x18\x03 \x01(\x0e\x32$.caffe.AnnotatedDatum.AnnotationType\"M\n\x0f\x41rgMaxParameter\x12\x1a\n\x0bout_max_val\x18\x01 \x01(\x08:\x05\x66\x61lse\x12\x10\n\x05top_k\x18\x02 \x01(\r:\x01\x31\x12\x0c\n\x04\x61xis\x18\x03 \x01(\x05\"9\n\x0f\x43oncatParameter\x12\x0f\n\x04\x61xis\x18\x02 \x01(\x05:\x01\x31\x12\x15\n\nconcat_dim\x18\x01 \x01(\r:\x01\x31\"k\n\x12\x42\x61tchNormParameter\x12\x18\n\x10use_global_stats\x18\x01 \x01(\x08\x12&\n\x17moving_average_fraction\x18\x02 \x01(\x02:\x05\x30.999\x12\x13\n\x03\x65ps\x18\x03 \x01(\x02:\x06\x31\x65-005\"]\n\rBiasParameter\x12\x0f\n\x04\x61xis\x18\x01 \x01(\x05:\x01\x31\x12\x13\n\x08num_axes\x18\x02 \x01(\x05:\x01\x31\x12&\n\x06\x66iller\x18\x03 \x01(\x0b\x32\x16.caffe.FillerParameter\"L\n\x18\x43ontrastiveLossParameter\x12\x11\n\x06margin\x18\x01 \x01(\x02:\x01\x31\x12\x1d\n\x0elegacy_version\x18\x02 \x01(\x08:\x05\x66\x61lse\"\xfc\x03\n\x14\x43onvolutionParameter\x12\x12\n\nnum_output\x18\x01 \x01(\r\x12\x17\n\tbias_term\x18\x02 \x01(\x08:\x04true\x12\x0b\n\x03pad\x18\x03 \x03(\r\x12\x13\n\x0bkernel_size\x18\x04 \x03(\r\x12\x0e\n\x06stride\x18\x06 \x03(\r\x12\x10\n\x08\x64ilation\x18\x12 \x03(\r\x12\x10\n\x05pad_h\x18\t \x01(\r:\x01\x30\x12\x10\n\x05pad_w\x18\n \x01(\r:\x01\x30\x12\x10\n\x08kernel_h\x18\x0b \x01(\r\x12\x10\n\x08kernel_w\x18\x0c \x01(\r\x12\x10\n\x08stride_h\x18\r \x01(\r\x12\x10\n\x08stride_w\x18\x0e \x01(\r\x12\x10\n\x05group\x18\x05 \x01(\r:\x01\x31\x12-\n\rweight_filler\x18\x07 \x01(\x0b\x32\x16.caffe.FillerParameter\x12+\n\x0b\x62ias_filler\x18\x08 \x01(\x0b\x32\x16.caffe.FillerParameter\x12;\n\x06\x65ngine\x18\x0f \x01(\x0e\x32\".caffe.ConvolutionParameter.Engine:\x07\x44\x45\x46\x41ULT\x12\x0f\n\x04\x61xis\x18\x10 \x01(\x05:\x01\x31\x12\x1e\n\x0f\x66orce_nd_im2col\x18\x11 \x01(\x08:\x05\x66\x61lse\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"0\n\rCropParameter\x12\x0f\n\x04\x61xis\x18\x01 \x01(\x05:\x01\x32\x12\x0e\n\x06offset\x18\x02 \x03(\r\"\xa4\x02\n\rDataParameter\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x12\n\nbatch_size\x18\x04 \x01(\r\x12\x14\n\trand_skip\x18\x07 \x01(\r:\x01\x30\x12\x31\n\x07\x62\x61\x63kend\x18\x08 \x01(\x0e\x32\x17.caffe.DataParameter.DB:\x07LEVELDB\x12\x10\n\x05scale\x18\x02 \x01(\x02:\x01\x31\x12\x11\n\tmean_file\x18\x03 \x01(\t\x12\x14\n\tcrop_size\x18\x05 \x01(\r:\x01\x30\x12\x15\n\x06mirror\x18\x06 \x01(\x08:\x05\x66\x61lse\x12\"\n\x13\x66orce_encoded_color\x18\t \x01(\x08:\x05\x66\x61lse\x12\x13\n\x08prefetch\x18\n \x01(\r:\x01\x34\"\x1b\n\x02\x44\x42\x12\x0b\n\x07LEVELDB\x10\x00\x12\x08\n\x04LMDB\x10\x01\"\xdc\x01\n\x1a\x44\x65tectionEvaluateParameter\x12\x13\n\x0bnum_classes\x18\x01 \x01(\r\x12\x1e\n\x13\x62\x61\x63kground_label_id\x18\x02 \x01(\r:\x01\x30\x12\x1e\n\x11overlap_threshold\x18\x03 \x01(\x02:\x03\x30.5\x12#\n\x15\x65valuate_difficult_gt\x18\x04 \x01(\x08:\x04true\x12\x16\n\x0ename_size_file\x18\x05 \x01(\t\x12,\n\x0cresize_param\x18\x06 \x01(\x0b\x32\x16.caffe.ResizeParameter\"[\n\x1eNonMaximumSuppressionParameter\x12\x1a\n\rnms_threshold\x18\x01 \x01(\x02:\x03\x30.3\x12\r\n\x05top_k\x18\x02 \x01(\x05\x12\x0e\n\x03\x65ta\x18\x03 \x01(\x02:\x01\x31\"\xd8\x01\n\x13SaveOutputParameter\x12\x18\n\x10output_directory\x18\x01 \x01(\t\x12\x1a\n\x12output_name_prefix\x18\x02 \x01(\t\x12\x15\n\routput_format\x18\x03 \x01(\t\x12\x16\n\x0elabel_map_file\x18\x04 \x01(\t\x12\x16\n\x0ename_size_file\x18\x05 \x01(\t\x12\x16\n\x0enum_test_image\x18\x06 \x01(\r\x12,\n\x0cresize_param\x18\x07 \x01(\x0b\x32\x16.caffe.ResizeParameter\"\xc7\x03\n\x18\x44\x65tectionOutputParameter\x12\x13\n\x0bnum_classes\x18\x01 \x01(\r\x12\x1c\n\x0eshare_location\x18\x02 \x01(\x08:\x04true\x12\x1e\n\x13\x62\x61\x63kground_label_id\x18\x03 \x01(\x05:\x01\x30\x12\x38\n\tnms_param\x18\x04 \x01(\x0b\x32%.caffe.NonMaximumSuppressionParameter\x12\x35\n\x11save_output_param\x18\x05 \x01(\x0b\x32\x1a.caffe.SaveOutputParameter\x12<\n\tcode_type\x18\x06 \x01(\x0e\x32!.caffe.PriorBoxParameter.CodeType:\x06\x43ORNER\x12)\n\x1avariance_encoded_in_target\x18\x08 \x01(\x08:\x05\x66\x61lse\x12\x16\n\nkeep_top_k\x18\x07 \x01(\x05:\x02-1\x12\x1c\n\x14\x63onfidence_threshold\x18\t \x01(\x02\x12\x18\n\tvisualize\x18\n \x01(\x08:\x05\x66\x61lse\x12\x1b\n\x13visualize_threshold\x18\x0b \x01(\x02\x12\x11\n\tsave_file\x18\x0c \x01(\t\".\n\x10\x44ropoutParameter\x12\x1a\n\rdropout_ratio\x18\x01 \x01(\x02:\x03\x30.5\"\xa0\x01\n\x12\x44ummyDataParameter\x12+\n\x0b\x64\x61ta_filler\x18\x01 \x03(\x0b\x32\x16.caffe.FillerParameter\x12\x1f\n\x05shape\x18\x06 \x03(\x0b\x32\x10.caffe.BlobShape\x12\x0b\n\x03num\x18\x02 \x03(\r\x12\x10\n\x08\x63hannels\x18\x03 \x03(\r\x12\x0e\n\x06height\x18\x04 \x03(\r\x12\r\n\x05width\x18\x05 \x03(\r\"\xa5\x01\n\x10\x45ltwiseParameter\x12\x39\n\toperation\x18\x01 \x01(\x0e\x32!.caffe.EltwiseParameter.EltwiseOp:\x03SUM\x12\r\n\x05\x63oeff\x18\x02 \x03(\x02\x12\x1e\n\x10stable_prod_grad\x18\x03 \x01(\x08:\x04true\"\'\n\tEltwiseOp\x12\x08\n\x04PROD\x10\x00\x12\x07\n\x03SUM\x10\x01\x12\x07\n\x03MAX\x10\x02\" \n\x0c\x45LUParameter\x12\x10\n\x05\x61lpha\x18\x01 \x01(\x02:\x01\x31\"\xac\x01\n\x0e\x45mbedParameter\x12\x12\n\nnum_output\x18\x01 \x01(\r\x12\x11\n\tinput_dim\x18\x02 \x01(\r\x12\x17\n\tbias_term\x18\x03 \x01(\x08:\x04true\x12-\n\rweight_filler\x18\x04 \x01(\x0b\x32\x16.caffe.FillerParameter\x12+\n\x0b\x62ias_filler\x18\x05 \x01(\x0b\x32\x16.caffe.FillerParameter\"D\n\x0c\x45xpParameter\x12\x10\n\x04\x62\x61se\x18\x01 \x01(\x02:\x02-1\x12\x10\n\x05scale\x18\x02 \x01(\x02:\x01\x31\x12\x10\n\x05shift\x18\x03 \x01(\x02:\x01\x30\"9\n\x10\x46lattenParameter\x12\x0f\n\x04\x61xis\x18\x01 \x01(\x05:\x01\x31\x12\x14\n\x08\x65nd_axis\x18\x02 \x01(\x05:\x02-1\"O\n\x11HDF5DataParameter\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x12\n\nbatch_size\x18\x02 \x01(\r\x12\x16\n\x07shuffle\x18\x03 \x01(\x08:\x05\x66\x61lse\"(\n\x13HDF5OutputParameter\x12\x11\n\tfile_name\x18\x01 \x01(\t\"^\n\x12HingeLossParameter\x12\x30\n\x04norm\x18\x01 \x01(\x0e\x32\x1e.caffe.HingeLossParameter.Norm:\x02L1\"\x16\n\x04Norm\x12\x06\n\x02L1\x10\x01\x12\x06\n\x02L2\x10\x02\"\x97\x02\n\x12ImageDataParameter\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x15\n\nbatch_size\x18\x04 \x01(\r:\x01\x31\x12\x14\n\trand_skip\x18\x07 \x01(\r:\x01\x30\x12\x16\n\x07shuffle\x18\x08 \x01(\x08:\x05\x66\x61lse\x12\x15\n\nnew_height\x18\t \x01(\r:\x01\x30\x12\x14\n\tnew_width\x18\n \x01(\r:\x01\x30\x12\x16\n\x08is_color\x18\x0b \x01(\x08:\x04true\x12\x10\n\x05scale\x18\x02 \x01(\x02:\x01\x31\x12\x11\n\tmean_file\x18\x03 \x01(\t\x12\x14\n\tcrop_size\x18\x05 \x01(\r:\x01\x30\x12\x15\n\x06mirror\x18\x06 \x01(\x08:\x05\x66\x61lse\x12\x15\n\x0broot_folder\x18\x0c \x01(\t:\x00\"\'\n\x15InfogainLossParameter\x12\x0e\n\x06source\x18\x01 \x01(\t\"\xcb\x01\n\x15InnerProductParameter\x12\x12\n\nnum_output\x18\x01 \x01(\r\x12\x17\n\tbias_term\x18\x02 \x01(\x08:\x04true\x12-\n\rweight_filler\x18\x03 \x01(\x0b\x32\x16.caffe.FillerParameter\x12+\n\x0b\x62ias_filler\x18\x04 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x0f\n\x04\x61xis\x18\x05 \x01(\x05:\x01\x31\x12\x18\n\ttranspose\x18\x06 \x01(\x08:\x05\x66\x61lse\"1\n\x0eInputParameter\x12\x1f\n\x05shape\x18\x01 \x03(\x0b\x32\x10.caffe.BlobShape\"D\n\x0cLogParameter\x12\x10\n\x04\x62\x61se\x18\x01 \x01(\x02:\x02-1\x12\x10\n\x05scale\x18\x02 \x01(\x02:\x01\x31\x12\x10\n\x05shift\x18\x03 \x01(\x02:\x01\x30\"\xb8\x02\n\x0cLRNParameter\x12\x15\n\nlocal_size\x18\x01 \x01(\r:\x01\x35\x12\x10\n\x05\x61lpha\x18\x02 \x01(\x02:\x01\x31\x12\x12\n\x04\x62\x65ta\x18\x03 \x01(\x02:\x04\x30.75\x12\x44\n\x0bnorm_region\x18\x04 \x01(\x0e\x32\x1e.caffe.LRNParameter.NormRegion:\x0f\x41\x43ROSS_CHANNELS\x12\x0c\n\x01k\x18\x05 \x01(\x02:\x01\x31\x12\x33\n\x06\x65ngine\x18\x06 \x01(\x0e\x32\x1a.caffe.LRNParameter.Engine:\x07\x44\x45\x46\x41ULT\"5\n\nNormRegion\x12\x13\n\x0f\x41\x43ROSS_CHANNELS\x10\x00\x12\x12\n\x0eWITHIN_CHANNEL\x10\x01\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"t\n\x13MemoryDataParameter\x12\x12\n\nbatch_size\x18\x01 \x01(\r\x12\x10\n\x08\x63hannels\x18\x02 \x01(\r\x12\x0e\n\x06height\x18\x03 \x01(\r\x12\r\n\x05width\x18\x04 \x01(\r\x12\x18\n\ttranspose\x18\x05 \x01(\x08:\x05\x66\x61lse\"\xe8\x08\n\x15MultiBoxLossParameter\x12J\n\rloc_loss_type\x18\x01 \x01(\x0e\x32(.caffe.MultiBoxLossParameter.LocLossType:\tSMOOTH_L1\x12J\n\x0e\x63onf_loss_type\x18\x02 \x01(\x0e\x32).caffe.MultiBoxLossParameter.ConfLossType:\x07SOFTMAX\x12\x15\n\nloc_weight\x18\x03 \x01(\x02:\x01\x31\x12\x13\n\x0bnum_classes\x18\x04 \x01(\r\x12\x1c\n\x0eshare_location\x18\x05 \x01(\x08:\x04true\x12J\n\nmatch_type\x18\x06 \x01(\x0e\x32&.caffe.MultiBoxLossParameter.MatchType:\x0ePER_PREDICTION\x12\x1e\n\x11overlap_threshold\x18\x07 \x01(\x02:\x03\x30.5\x12$\n\x16use_prior_for_matching\x18\x08 \x01(\x08:\x04true\x12\x1e\n\x13\x62\x61\x63kground_label_id\x18\t \x01(\r:\x01\x30\x12\x1e\n\x10use_difficult_gt\x18\n \x01(\x08:\x04true\x12\x15\n\rdo_neg_mining\x18\x0b \x01(\x08\x12\x18\n\rneg_pos_ratio\x18\x0c \x01(\x02:\x01\x33\x12\x18\n\x0bneg_overlap\x18\r \x01(\x02:\x03\x30.5\x12<\n\tcode_type\x18\x0e \x01(\x0e\x32!.caffe.PriorBoxParameter.CodeType:\x06\x43ORNER\x12(\n\x19\x65ncode_variance_in_target\x18\x10 \x01(\x08:\x05\x66\x61lse\x12%\n\x16map_object_to_agnostic\x18\x11 \x01(\x08:\x05\x66\x61lse\x12)\n\x1aignore_cross_boundary_bbox\x18\x12 \x01(\x08:\x05\x66\x61lse\x12\x18\n\tbp_inside\x18\x13 \x01(\x08:\x05\x66\x61lse\x12J\n\x0bmining_type\x18\x14 \x01(\x0e\x32\'.caffe.MultiBoxLossParameter.MiningType:\x0cMAX_NEGATIVE\x12\x38\n\tnms_param\x18\x15 \x01(\x0b\x32%.caffe.NonMaximumSuppressionParameter\x12\x17\n\x0bsample_size\x18\x16 \x01(\x05:\x02\x36\x34\x12 \n\x11use_prior_for_nms\x18\x17 \x01(\x08:\x05\x66\x61lse\"$\n\x0bLocLossType\x12\x06\n\x02L2\x10\x00\x12\r\n\tSMOOTH_L1\x10\x01\")\n\x0c\x43onfLossType\x12\x0b\n\x07SOFTMAX\x10\x00\x12\x0c\n\x08LOGISTIC\x10\x01\".\n\tMatchType\x12\r\n\tBIPARTITE\x10\x00\x12\x12\n\x0ePER_PREDICTION\x10\x01\":\n\nMiningType\x12\x08\n\x04NONE\x10\x00\x12\x10\n\x0cMAX_NEGATIVE\x10\x01\x12\x10\n\x0cHARD_EXAMPLE\x10\x02\"e\n\x0cMVNParameter\x12 \n\x12normalize_variance\x18\x01 \x01(\x08:\x04true\x12\x1e\n\x0f\x61\x63ross_channels\x18\x02 \x01(\x08:\x05\x66\x61lse\x12\x13\n\x03\x65ps\x18\x03 \x01(\x02:\x06\x31\x65-009\"\x93\x01\n\x12NormalizeParameter\x12\x1c\n\x0e\x61\x63ross_spatial\x18\x01 \x01(\x08:\x04true\x12,\n\x0cscale_filler\x18\x02 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x1c\n\x0e\x63hannel_shared\x18\x03 \x01(\x08:\x04true\x12\x13\n\x03\x65ps\x18\x04 \x01(\x02:\x06\x31\x65-010\"5\n\x12ParameterParameter\x12\x1f\n\x05shape\x18\x01 \x01(\x0b\x32\x10.caffe.BlobShape\"!\n\x10PermuteParameter\x12\r\n\x05order\x18\x01 \x03(\r\"\xa2\x03\n\x10PoolingParameter\x12\x35\n\x04pool\x18\x01 \x01(\x0e\x32\".caffe.PoolingParameter.PoolMethod:\x03MAX\x12\x0e\n\x03pad\x18\x04 \x01(\r:\x01\x30\x12\x10\n\x05pad_h\x18\t \x01(\r:\x01\x30\x12\x10\n\x05pad_w\x18\n \x01(\r:\x01\x30\x12\x13\n\x0bkernel_size\x18\x02 \x01(\r\x12\x10\n\x08kernel_h\x18\x05 \x01(\r\x12\x10\n\x08kernel_w\x18\x06 \x01(\r\x12\x11\n\x06stride\x18\x03 \x01(\r:\x01\x31\x12\x10\n\x08stride_h\x18\x07 \x01(\r\x12\x10\n\x08stride_w\x18\x08 \x01(\r\x12\x37\n\x06\x65ngine\x18\x0b \x01(\x0e\x32\x1e.caffe.PoolingParameter.Engine:\x07\x44\x45\x46\x41ULT\x12\x1d\n\x0eglobal_pooling\x18\x0c \x01(\x08:\x05\x66\x61lse\".\n\nPoolMethod\x12\x07\n\x03MAX\x10\x00\x12\x07\n\x03\x41VE\x10\x01\x12\x0e\n\nSTOCHASTIC\x10\x02\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"F\n\x0ePowerParameter\x12\x10\n\x05power\x18\x01 \x01(\x02:\x01\x31\x12\x10\n\x05scale\x18\x02 \x01(\x02:\x01\x31\x12\x10\n\x05shift\x18\x03 \x01(\x02:\x01\x30\"\xb5\x02\n\x11PriorBoxParameter\x12\x10\n\x08min_size\x18\x01 \x03(\x02\x12\x10\n\x08max_size\x18\x02 \x03(\x02\x12\x14\n\x0c\x61spect_ratio\x18\x03 \x03(\x02\x12\x12\n\x04\x66lip\x18\x04 \x01(\x08:\x04true\x12\x13\n\x04\x63lip\x18\x05 \x01(\x08:\x05\x66\x61lse\x12\x10\n\x08variance\x18\x06 \x03(\x02\x12\x10\n\x08img_size\x18\x07 \x01(\r\x12\r\n\x05img_h\x18\x08 \x01(\r\x12\r\n\x05img_w\x18\t \x01(\r\x12\x0c\n\x04step\x18\n \x01(\x02\x12\x0e\n\x06step_h\x18\x0b \x01(\x02\x12\x0e\n\x06step_w\x18\x0c \x01(\x02\x12\x13\n\x06offset\x18\r \x01(\x02:\x03\x30.5\"8\n\x08\x43odeType\x12\n\n\x06\x43ORNER\x10\x01\x12\x0f\n\x0b\x43\x45NTER_SIZE\x10\x02\x12\x0f\n\x0b\x43ORNER_SIZE\x10\x03\"g\n\x0fPythonParameter\x12\x0e\n\x06module\x18\x01 \x01(\t\x12\r\n\x05layer\x18\x02 \x01(\t\x12\x13\n\tparam_str\x18\x03 \x01(\t:\x00\x12 \n\x11share_in_parallel\x18\x04 \x01(\x08:\x05\x66\x61lse\"\xc0\x01\n\x12RecurrentParameter\x12\x15\n\nnum_output\x18\x01 \x01(\r:\x01\x30\x12-\n\rweight_filler\x18\x02 \x01(\x0b\x32\x16.caffe.FillerParameter\x12+\n\x0b\x62ias_filler\x18\x03 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x19\n\ndebug_info\x18\x04 \x01(\x08:\x05\x66\x61lse\x12\x1c\n\rexpose_hidden\x18\x05 \x01(\x08:\x05\x66\x61lse\"\xad\x01\n\x12ReductionParameter\x12=\n\toperation\x18\x01 \x01(\x0e\x32%.caffe.ReductionParameter.ReductionOp:\x03SUM\x12\x0f\n\x04\x61xis\x18\x02 \x01(\x05:\x01\x30\x12\x10\n\x05\x63oeff\x18\x03 \x01(\x02:\x01\x31\"5\n\x0bReductionOp\x12\x07\n\x03SUM\x10\x01\x12\x08\n\x04\x41SUM\x10\x02\x12\t\n\x05SUMSQ\x10\x03\x12\x08\n\x04MEAN\x10\x04\"\x8d\x01\n\rReLUParameter\x12\x19\n\x0enegative_slope\x18\x01 \x01(\x02:\x01\x30\x12\x34\n\x06\x65ngine\x18\x02 \x01(\x0e\x32\x1b.caffe.ReLUParameter.Engine:\x07\x44\x45\x46\x41ULT\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"Z\n\x10ReshapeParameter\x12\x1f\n\x05shape\x18\x01 \x01(\x0b\x32\x10.caffe.BlobShape\x12\x0f\n\x04\x61xis\x18\x02 \x01(\x05:\x01\x30\x12\x14\n\x08num_axes\x18\x03 \x01(\x05:\x02-1\"\xa5\x01\n\x0eScaleParameter\x12\x0f\n\x04\x61xis\x18\x01 \x01(\x05:\x01\x31\x12\x13\n\x08num_axes\x18\x02 \x01(\x05:\x01\x31\x12&\n\x06\x66iller\x18\x03 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x18\n\tbias_term\x18\x04 \x01(\x08:\x05\x66\x61lse\x12+\n\x0b\x62ias_filler\x18\x05 \x01(\x0b\x32\x16.caffe.FillerParameter\"x\n\x10SigmoidParameter\x12\x37\n\x06\x65ngine\x18\x01 \x01(\x0e\x32\x1e.caffe.SigmoidParameter.Engine:\x07\x44\x45\x46\x41ULT\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"L\n\x0eSliceParameter\x12\x0f\n\x04\x61xis\x18\x03 \x01(\x05:\x01\x31\x12\x13\n\x0bslice_point\x18\x02 \x03(\r\x12\x14\n\tslice_dim\x18\x01 \x01(\r:\x01\x31\"\x89\x02\n\x10SoftmaxParameter\x12\x37\n\x06\x65ngine\x18\x01 \x01(\x0e\x32\x1e.caffe.SoftmaxParameter.Engine:\x07\x44\x45\x46\x41ULT\x12\x0f\n\x04\x61xis\x18\x02 \x01(\x05:\x01\x31\x12\x15\n\nhard_ratio\x18\x03 \x01(\x02:\x01\x31\x12\x14\n\x0c\x63lass_weight\x18\x04 \x03(\x02\x12\x19\n\x11hard_mining_label\x18\x05 \x01(\x05\x12\x15\n\rcutting_point\x18\x06 \x01(\x02\x12\x1f\n\x0enormalize_type\x18\x07 \x01(\t:\x07Softmax\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"r\n\rTanHParameter\x12\x34\n\x06\x65ngine\x18\x01 \x01(\x0e\x32\x1b.caffe.TanHParameter.Engine:\x07\x44\x45\x46\x41ULT\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"/\n\rTileParameter\x12\x0f\n\x04\x61xis\x18\x01 \x01(\x05:\x01\x31\x12\r\n\x05tiles\x18\x02 \x01(\x05\"*\n\x12ThresholdParameter\x12\x14\n\tthreshold\x18\x01 \x01(\x02:\x01\x30\"\xbb\x01\n\x12VideoDataParameter\x12?\n\nvideo_type\x18\x01 \x01(\x0e\x32#.caffe.VideoDataParameter.VideoType:\x06WEBCAM\x12\x14\n\tdevice_id\x18\x02 \x01(\x05:\x01\x30\x12\x12\n\nvideo_file\x18\x03 \x01(\t\x12\x16\n\x0bskip_frames\x18\x04 \x01(\r:\x01\x30\"\"\n\tVideoType\x12\n\n\x06WEBCAM\x10\x00\x12\t\n\x05VIDEO\x10\x01\"\xc1\x02\n\x13WindowDataParameter\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x10\n\x05scale\x18\x02 \x01(\x02:\x01\x31\x12\x11\n\tmean_file\x18\x03 \x01(\t\x12\x12\n\nbatch_size\x18\x04 \x01(\r\x12\x14\n\tcrop_size\x18\x05 \x01(\r:\x01\x30\x12\x15\n\x06mirror\x18\x06 \x01(\x08:\x05\x66\x61lse\x12\x19\n\x0c\x66g_threshold\x18\x07 \x01(\x02:\x03\x30.5\x12\x19\n\x0c\x62g_threshold\x18\x08 \x01(\x02:\x03\x30.5\x12\x19\n\x0b\x66g_fraction\x18\t \x01(\x02:\x04\x30.25\x12\x16\n\x0b\x63ontext_pad\x18\n \x01(\r:\x01\x30\x12\x17\n\tcrop_mode\x18\x0b \x01(\t:\x04warp\x12\x1b\n\x0c\x63\x61\x63he_images\x18\x0c \x01(\x08:\x05\x66\x61lse\x12\x15\n\x0broot_folder\x18\r \x01(\t:\x00\"\xeb\x01\n\x0cSPPParameter\x12\x16\n\x0epyramid_height\x18\x01 \x01(\r\x12\x31\n\x04pool\x18\x02 \x01(\x0e\x32\x1e.caffe.SPPParameter.PoolMethod:\x03MAX\x12\x33\n\x06\x65ngine\x18\x06 \x01(\x0e\x32\x1a.caffe.SPPParameter.Engine:\x07\x44\x45\x46\x41ULT\".\n\nPoolMethod\x12\x07\n\x03MAX\x10\x00\x12\x07\n\x03\x41VE\x10\x01\x12\x0e\n\nSTOCHASTIC\x10\x02\"+\n\x06\x45ngine\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\t\n\x05\x43UDNN\x10\x02\"\xe0\x13\n\x10V1LayerParameter\x12\x0e\n\x06\x62ottom\x18\x02 \x03(\t\x12\x0b\n\x03top\x18\x03 \x03(\t\x12\x0c\n\x04name\x18\x04 \x01(\t\x12$\n\x07include\x18  \x03(\x0b\x32\x13.caffe.NetStateRule\x12$\n\x07\x65xclude\x18! \x03(\x0b\x32\x13.caffe.NetStateRule\x12/\n\x04type\x18\x05 \x01(\x0e\x32!.caffe.V1LayerParameter.LayerType\x12\x1f\n\x05\x62lobs\x18\x06 \x03(\x0b\x32\x10.caffe.BlobProto\x12\x0e\n\x05param\x18\xe9\x07 \x03(\t\x12>\n\x0f\x62lob_share_mode\x18\xea\x07 \x03(\x0e\x32$.caffe.V1LayerParameter.DimCheckMode\x12\x10\n\x08\x62lobs_lr\x18\x07 \x03(\x02\x12\x14\n\x0cweight_decay\x18\x08 \x03(\x02\x12\x13\n\x0bloss_weight\x18# \x03(\x02\x12\x30\n\x0e\x61\x63\x63uracy_param\x18\x1b \x01(\x0b\x32\x18.caffe.AccuracyParameter\x12,\n\x0c\x61rgmax_param\x18\x17 \x01(\x0b\x32\x16.caffe.ArgMaxParameter\x12,\n\x0c\x63oncat_param\x18\t \x01(\x0b\x32\x16.caffe.ConcatParameter\x12?\n\x16\x63ontrastive_loss_param\x18( \x01(\x0b\x32\x1f.caffe.ContrastiveLossParameter\x12\x36\n\x11\x63onvolution_param\x18\n \x01(\x0b\x32\x1b.caffe.ConvolutionParameter\x12(\n\ndata_param\x18\x0b \x01(\x0b\x32\x14.caffe.DataParameter\x12.\n\rdropout_param\x18\x0c \x01(\x0b\x32\x17.caffe.DropoutParameter\x12\x33\n\x10\x64ummy_data_param\x18\x1a \x01(\x0b\x32\x19.caffe.DummyDataParameter\x12.\n\reltwise_param\x18\x18 \x01(\x0b\x32\x17.caffe.EltwiseParameter\x12&\n\texp_param\x18) \x01(\x0b\x32\x13.caffe.ExpParameter\x12\x31\n\x0fhdf5_data_param\x18\r \x01(\x0b\x32\x18.caffe.HDF5DataParameter\x12\x35\n\x11hdf5_output_param\x18\x0e \x01(\x0b\x32\x1a.caffe.HDF5OutputParameter\x12\x33\n\x10hinge_loss_param\x18\x1d \x01(\x0b\x32\x19.caffe.HingeLossParameter\x12\x33\n\x10image_data_param\x18\x0f \x01(\x0b\x32\x19.caffe.ImageDataParameter\x12\x39\n\x13infogain_loss_param\x18\x10 \x01(\x0b\x32\x1c.caffe.InfogainLossParameter\x12\x39\n\x13inner_product_param\x18\x11 \x01(\x0b\x32\x1c.caffe.InnerProductParameter\x12&\n\tlrn_param\x18\x12 \x01(\x0b\x32\x13.caffe.LRNParameter\x12\x35\n\x11memory_data_param\x18\x16 \x01(\x0b\x32\x1a.caffe.MemoryDataParameter\x12&\n\tmvn_param\x18\" \x01(\x0b\x32\x13.caffe.MVNParameter\x12.\n\rpooling_param\x18\x13 \x01(\x0b\x32\x17.caffe.PoolingParameter\x12*\n\x0bpower_param\x18\x15 \x01(\x0b\x32\x15.caffe.PowerParameter\x12(\n\nrelu_param\x18\x1e \x01(\x0b\x32\x14.caffe.ReLUParameter\x12.\n\rsigmoid_param\x18& \x01(\x0b\x32\x17.caffe.SigmoidParameter\x12.\n\rsoftmax_param\x18\' \x01(\x0b\x32\x17.caffe.SoftmaxParameter\x12*\n\x0bslice_param\x18\x1f \x01(\x0b\x32\x15.caffe.SliceParameter\x12(\n\ntanh_param\x18% \x01(\x0b\x32\x14.caffe.TanHParameter\x12\x32\n\x0fthreshold_param\x18\x19 \x01(\x0b\x32\x19.caffe.ThresholdParameter\x12\x35\n\x11window_data_param\x18\x14 \x01(\x0b\x32\x1a.caffe.WindowDataParameter\x12\x37\n\x0ftransform_param\x18$ \x01(\x0b\x32\x1e.caffe.TransformationParameter\x12(\n\nloss_param\x18* \x01(\x0b\x32\x14.caffe.LossParameter\x12&\n\x05layer\x18\x01 \x01(\x0b\x32\x17.caffe.V0LayerParameter\"\xd8\x04\n\tLayerType\x12\x08\n\x04NONE\x10\x00\x12\n\n\x06\x41\x42SVAL\x10#\x12\x0c\n\x08\x41\x43\x43URACY\x10\x01\x12\n\n\x06\x41RGMAX\x10\x1e\x12\x08\n\x04\x42NLL\x10\x02\x12\n\n\x06\x43ONCAT\x10\x03\x12\x14\n\x10\x43ONTRASTIVE_LOSS\x10%\x12\x0f\n\x0b\x43ONVOLUTION\x10\x04\x12\x08\n\x04\x44\x41TA\x10\x05\x12\x11\n\rDECONVOLUTION\x10\'\x12\x0b\n\x07\x44ROPOUT\x10\x06\x12\x0e\n\nDUMMY_DATA\x10 \x12\x12\n\x0e\x45UCLIDEAN_LOSS\x10\x07\x12\x0b\n\x07\x45LTWISE\x10\x19\x12\x07\n\x03\x45XP\x10&\x12\x0b\n\x07\x46LATTEN\x10\x08\x12\r\n\tHDF5_DATA\x10\t\x12\x0f\n\x0bHDF5_OUTPUT\x10\n\x12\x0e\n\nHINGE_LOSS\x10\x1c\x12\n\n\x06IM2COL\x10\x0b\x12\x0e\n\nIMAGE_DATA\x10\x0c\x12\x11\n\rINFOGAIN_LOSS\x10\r\x12\x11\n\rINNER_PRODUCT\x10\x0e\x12\x07\n\x03LRN\x10\x0f\x12\x0f\n\x0bMEMORY_DATA\x10\x1d\x12\x1d\n\x19MULTINOMIAL_LOGISTIC_LOSS\x10\x10\x12\x07\n\x03MVN\x10\"\x12\x0b\n\x07POOLING\x10\x11\x12\t\n\x05POWER\x10\x1a\x12\x08\n\x04RELU\x10\x12\x12\x0b\n\x07SIGMOID\x10\x13\x12\x1e\n\x1aSIGMOID_CROSS_ENTROPY_LOSS\x10\x1b\x12\x0b\n\x07SILENCE\x10$\x12\x0b\n\x07SOFTMAX\x10\x14\x12\x10\n\x0cSOFTMAX_LOSS\x10\x15\x12\t\n\x05SPLIT\x10\x16\x12\t\n\x05SLICE\x10!\x12\x08\n\x04TANH\x10\x17\x12\x0f\n\x0bWINDOW_DATA\x10\x18\x12\r\n\tTHRESHOLD\x10\x1f\"*\n\x0c\x44imCheckMode\x12\n\n\x06STRICT\x10\x00\x12\x0e\n\nPERMISSIVE\x10\x01\"\xfd\x07\n\x10V0LayerParameter\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x12\n\nnum_output\x18\x03 \x01(\r\x12\x16\n\x08\x62iasterm\x18\x04 \x01(\x08:\x04true\x12-\n\rweight_filler\x18\x05 \x01(\x0b\x32\x16.caffe.FillerParameter\x12+\n\x0b\x62ias_filler\x18\x06 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x0e\n\x03pad\x18\x07 \x01(\r:\x01\x30\x12\x12\n\nkernelsize\x18\x08 \x01(\r\x12\x10\n\x05group\x18\t \x01(\r:\x01\x31\x12\x11\n\x06stride\x18\n \x01(\r:\x01\x31\x12\x35\n\x04pool\x18\x0b \x01(\x0e\x32\".caffe.V0LayerParameter.PoolMethod:\x03MAX\x12\x1a\n\rdropout_ratio\x18\x0c \x01(\x02:\x03\x30.5\x12\x15\n\nlocal_size\x18\r \x01(\r:\x01\x35\x12\x10\n\x05\x61lpha\x18\x0e \x01(\x02:\x01\x31\x12\x12\n\x04\x62\x65ta\x18\x0f \x01(\x02:\x04\x30.75\x12\x0c\n\x01k\x18\x16 \x01(\x02:\x01\x31\x12\x0e\n\x06source\x18\x10 \x01(\t\x12\x10\n\x05scale\x18\x11 \x01(\x02:\x01\x31\x12\x10\n\x08meanfile\x18\x12 \x01(\t\x12\x11\n\tbatchsize\x18\x13 \x01(\r\x12\x13\n\x08\x63ropsize\x18\x14 \x01(\r:\x01\x30\x12\x15\n\x06mirror\x18\x15 \x01(\x08:\x05\x66\x61lse\x12\x1f\n\x05\x62lobs\x18\x32 \x03(\x0b\x32\x10.caffe.BlobProto\x12\x10\n\x08\x62lobs_lr\x18\x33 \x03(\x02\x12\x14\n\x0cweight_decay\x18\x34 \x03(\x02\x12\x14\n\trand_skip\x18\x35 \x01(\r:\x01\x30\x12\x1d\n\x10\x64\x65t_fg_threshold\x18\x36 \x01(\x02:\x03\x30.5\x12\x1d\n\x10\x64\x65t_bg_threshold\x18\x37 \x01(\x02:\x03\x30.5\x12\x1d\n\x0f\x64\x65t_fg_fraction\x18\x38 \x01(\x02:\x04\x30.25\x12\x1a\n\x0f\x64\x65t_context_pad\x18: \x01(\r:\x01\x30\x12\x1b\n\rdet_crop_mode\x18; \x01(\t:\x04warp\x12\x12\n\x07new_num\x18< \x01(\x05:\x01\x30\x12\x17\n\x0cnew_channels\x18= \x01(\x05:\x01\x30\x12\x15\n\nnew_height\x18> \x01(\x05:\x01\x30\x12\x14\n\tnew_width\x18? \x01(\x05:\x01\x30\x12\x1d\n\x0eshuffle_images\x18@ \x01(\x08:\x05\x66\x61lse\x12\x15\n\nconcat_dim\x18\x41 \x01(\r:\x01\x31\x12\x36\n\x11hdf5_output_param\x18\xe9\x07 \x01(\x0b\x32\x1a.caffe.HDF5OutputParameter\".\n\nPoolMethod\x12\x07\n\x03MAX\x10\x00\x12\x07\n\x03\x41VE\x10\x01\x12\x0e\n\nSTOCHASTIC\x10\x02\"W\n\x0ePReLUParameter\x12&\n\x06\x66iller\x18\x01 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x1d\n\x0e\x63hannel_shared\x18\x02 \x01(\x08:\x05\x66\x61lse\"!\n\x12TransposeParameter\x12\x0b\n\x03\x64im\x18\x01 \x03(\x05\"#\n\x10ReverseParameter\x12\x0f\n\x04\x61xis\x18\x01 \x01(\x05:\x01\x30\"\xb5\x01\n\rLSTMParameter\x12\x12\n\nnum_output\x18\x01 \x01(\r\x12\x1d\n\x12\x63lipping_threshold\x18\x02 \x01(\x02:\x01\x30\x12-\n\rweight_filler\x18\x03 \x01(\x0b\x32\x16.caffe.FillerParameter\x12+\n\x0b\x62ias_filler\x18\x04 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x15\n\nbatch_size\x18\x05 \x01(\r:\x01\x31\"\xa5\x01\n\x0c\x43TCParameter\x12\x16\n\tthreshold\x18\x01 \x01(\x02:\x03\x30.7\x12;\n\x0b\x64\x65\x63ode_type\x18\x02 \x01(\x0e\x32\x1b.caffe.CTCParameter.Decoder:\tbest_path\"@\n\x07\x44\x65\x63oder\x12\r\n\tbest_path\x10\x00\x12\x13\n\x0f\x62\x65st_path_thres\x10\x01\x12\x11\n\rprefix_search\x10\x02\"i\n\x13\x43\x65nterLossParameter\x12\x12\n\nnum_output\x18\x01 \x01(\r\x12-\n\rcenter_filler\x18\x02 \x01(\x0b\x32\x16.caffe.FillerParameter\x12\x0f\n\x04\x61xis\x18\x03 \x01(\x05:\x01\x31\"Z\n\x10\x43tcLossParameter\x12\x18\n\ralphabet_size\x18\x01 \x01(\r:\x01\x30\x12\x14\n\ttime_step\x18\x03 \x01(\r:\x01\x30\x12\x16\n\x0b\x62lank_label\x18\x04 \x01(\x05:\x01\x30\"M\n\x1e\x43ontinuationIndicatorParameter\x12\x14\n\ttime_step\x18\x01 \x01(\r:\x01\x30\x12\x15\n\nbatch_size\x18\x02 \x01(\r:\x01\x30\"8\n\x1eLabelsequenceAccuracyParameter\x12\x16\n\x0b\x62lank_label\x18\x01 \x01(\x05:\x01\x30\"\x90\x02\n\x1bSpatialTransformerParameter\x12\x1e\n\x0etransform_type\x18\x01 \x01(\t:\x06\x61\x66\x66ine\x12\x1e\n\x0csampler_type\x18\x02 \x01(\t:\x08\x62ilinear\x12\x10\n\x08output_H\x18\x03 \x01(\x05\x12\x10\n\x08output_W\x18\x04 \x01(\x05\x12\x1b\n\rto_compute_dU\x18\x05 \x01(\x08:\x04true\x12\x11\n\ttheta_1_1\x18\x06 \x01(\x01\x12\x11\n\ttheta_1_2\x18\x07 \x01(\x01\x12\x11\n\ttheta_1_3\x18\x08 \x01(\x01\x12\x11\n\ttheta_2_1\x18\t \x01(\x01\x12\x11\n\ttheta_2_2\x18\n \x01(\x01\x12\x11\n\ttheta_2_3\x18\x0b \x01(\x01\"(\n\x12PowerFileParameter\x12\x12\n\nshift_file\x18\x01 \x01(\t\"5\n\x0fSTLossParameter\x12\x10\n\x08output_H\x18\x01 \x02(\x05\x12\x10\n\x08output_W\x18\x02 \x02(\x05\"%\n\x10LocLossParameter\x12\x11\n\tthreshold\x18\x01 \x02(\x01*\x1c\n\x05Phase\x12\t\n\x05TRAIN\x10\x00\x12\x08\n\x04TEST\x10\x01')
 )
 
 _PHASE = _descriptor.EnumDescriptor(
@@ -40,8 +40,8 @@ _PHASE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=23527,
-  serialized_end=23555,
+  serialized_start=24315,
+  serialized_end=24343,
 )
 _sym_db.RegisterEnumDescriptor(_PHASE)
 
@@ -67,8 +67,8 @@ _EMITCONSTRAINT_EMITTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1162,
-  serialized_end=1201,
+  serialized_start=1318,
+  serialized_end=1357,
 )
 _sym_db.RegisterEnumDescriptor(_EMITCONSTRAINT_EMITTYPE)
 
@@ -85,8 +85,8 @@ _ANNOTATEDDATUM_ANNOTATIONTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1645,
-  serialized_end=1671,
+  serialized_start=1801,
+  serialized_end=1827,
 )
 _sym_db.RegisterEnumDescriptor(_ANNOTATEDDATUM_ANNOTATIONTYPE)
 
@@ -111,8 +111,8 @@ _FILLERPARAMETER_VARIANCENORM = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1888,
-  serialized_end=1940,
+  serialized_start=2058,
+  serialized_end=2110,
 )
 _sym_db.RegisterEnumDescriptor(_FILLERPARAMETER_VARIANCENORM)
 
@@ -133,8 +133,8 @@ _SOLVERPARAMETER_SNAPSHOTFORMAT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=3497,
-  serialized_end=3540,
+  serialized_start=3667,
+  serialized_end=3710,
 )
 _sym_db.RegisterEnumDescriptor(_SOLVERPARAMETER_SNAPSHOTFORMAT)
 
@@ -155,8 +155,8 @@ _SOLVERPARAMETER_SOLVERMODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=3542,
-  serialized_end=3572,
+  serialized_start=3712,
+  serialized_end=3742,
 )
 _sym_db.RegisterEnumDescriptor(_SOLVERPARAMETER_SOLVERMODE)
 
@@ -193,8 +193,8 @@ _SOLVERPARAMETER_SOLVERTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=3574,
-  serialized_end=3659,
+  serialized_start=3744,
+  serialized_end=3829,
 )
 _sym_db.RegisterEnumDescriptor(_SOLVERPARAMETER_SOLVERTYPE)
 
@@ -215,8 +215,8 @@ _PARAMSPEC_DIMCHECKMODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=4149,
-  serialized_end=4191,
+  serialized_start=4319,
+  serialized_end=4361,
 )
 _sym_db.RegisterEnumDescriptor(_PARAMSPEC_DIMCHECKMODE)
 
@@ -241,8 +241,8 @@ _RESIZEPARAMETER_RESIZE_MODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=8796,
-  serialized_end=8867,
+  serialized_start=9173,
+  serialized_end=9244,
 )
 _sym_db.RegisterEnumDescriptor(_RESIZEPARAMETER_RESIZE_MODE)
 
@@ -267,8 +267,8 @@ _RESIZEPARAMETER_PAD_MODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=8869,
-  serialized_end=8927,
+  serialized_start=9246,
+  serialized_end=9304,
 )
 _sym_db.RegisterEnumDescriptor(_RESIZEPARAMETER_PAD_MODE)
 
@@ -301,8 +301,8 @@ _RESIZEPARAMETER_INTERP_MODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=8929,
-  serialized_end=9002,
+  serialized_start=9306,
+  serialized_end=9379,
 )
 _sym_db.RegisterEnumDescriptor(_RESIZEPARAMETER_INTERP_MODE)
 
@@ -331,8 +331,8 @@ _LOSSPARAMETER_NORMALIZATIONMODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=9949,
-  serialized_end=10015,
+  serialized_start=10326,
+  serialized_end=10392,
 )
 _sym_db.RegisterEnumDescriptor(_LOSSPARAMETER_NORMALIZATIONMODE)
 
@@ -357,8 +357,8 @@ _CONVOLUTIONPARAMETER_ENGINE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=11133,
-  serialized_end=11176,
+  serialized_start=11510,
+  serialized_end=11553,
 )
 _sym_db.RegisterEnumDescriptor(_CONVOLUTIONPARAMETER_ENGINE)
 
@@ -379,8 +379,8 @@ _DATAPARAMETER_DB = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=11494,
-  serialized_end=11521,
+  serialized_start=11871,
+  serialized_end=11898,
 )
 _sym_db.RegisterEnumDescriptor(_DATAPARAMETER_DB)
 
@@ -405,8 +405,8 @@ _ELTWISEPARAMETER_ELTWISEOP = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=12854,
-  serialized_end=12893,
+  serialized_start=13231,
+  serialized_end=13270,
 )
 _sym_db.RegisterEnumDescriptor(_ELTWISEPARAMETER_ELTWISEOP)
 
@@ -427,8 +427,8 @@ _HINGELOSSPARAMETER_NORM = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=13428,
-  serialized_end=13450,
+  serialized_start=13805,
+  serialized_end=13827,
 )
 _sym_db.RegisterEnumDescriptor(_HINGELOSSPARAMETER_NORM)
 
@@ -449,8 +449,8 @@ _LRNPARAMETER_NORMREGION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=14317,
-  serialized_end=14370,
+  serialized_start=14694,
+  serialized_end=14747,
 )
 _sym_db.RegisterEnumDescriptor(_LRNPARAMETER_NORMREGION)
 
@@ -475,8 +475,8 @@ _LRNPARAMETER_ENGINE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=11133,
-  serialized_end=11176,
+  serialized_start=11510,
+  serialized_end=11553,
 )
 _sym_db.RegisterEnumDescriptor(_LRNPARAMETER_ENGINE)
 
@@ -497,8 +497,8 @@ _MULTIBOXLOSSPARAMETER_LOCLOSSTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=15477,
-  serialized_end=15513,
+  serialized_start=15854,
+  serialized_end=15890,
 )
 _sym_db.RegisterEnumDescriptor(_MULTIBOXLOSSPARAMETER_LOCLOSSTYPE)
 
@@ -519,8 +519,8 @@ _MULTIBOXLOSSPARAMETER_CONFLOSSTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=15515,
-  serialized_end=15556,
+  serialized_start=15892,
+  serialized_end=15933,
 )
 _sym_db.RegisterEnumDescriptor(_MULTIBOXLOSSPARAMETER_CONFLOSSTYPE)
 
@@ -541,8 +541,8 @@ _MULTIBOXLOSSPARAMETER_MATCHTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=15558,
-  serialized_end=15604,
+  serialized_start=15935,
+  serialized_end=15981,
 )
 _sym_db.RegisterEnumDescriptor(_MULTIBOXLOSSPARAMETER_MATCHTYPE)
 
@@ -567,8 +567,8 @@ _MULTIBOXLOSSPARAMETER_MININGTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=15606,
-  serialized_end=15664,
+  serialized_start=15983,
+  serialized_end=16041,
 )
 _sym_db.RegisterEnumDescriptor(_MULTIBOXLOSSPARAMETER_MININGTYPE)
 
@@ -593,8 +593,8 @@ _POOLINGPARAMETER_POOLMETHOD = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=16337,
-  serialized_end=16383,
+  serialized_start=16714,
+  serialized_end=16760,
 )
 _sym_db.RegisterEnumDescriptor(_POOLINGPARAMETER_POOLMETHOD)
 
@@ -619,8 +619,8 @@ _POOLINGPARAMETER_ENGINE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=11133,
-  serialized_end=11176,
+  serialized_start=11510,
+  serialized_end=11553,
 )
 _sym_db.RegisterEnumDescriptor(_POOLINGPARAMETER_ENGINE)
 
@@ -645,8 +645,8 @@ _PRIORBOXPARAMETER_CODETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=16756,
-  serialized_end=16812,
+  serialized_start=17133,
+  serialized_end=17189,
 )
 _sym_db.RegisterEnumDescriptor(_PRIORBOXPARAMETER_CODETYPE)
 
@@ -675,8 +675,8 @@ _REDUCTIONPARAMETER_REDUCTIONOP = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=17235,
-  serialized_end=17288,
+  serialized_start=17612,
+  serialized_end=17665,
 )
 _sym_db.RegisterEnumDescriptor(_REDUCTIONPARAMETER_REDUCTIONOP)
 
@@ -701,8 +701,8 @@ _RELUPARAMETER_ENGINE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=11133,
-  serialized_end=11176,
+  serialized_start=11510,
+  serialized_end=11553,
 )
 _sym_db.RegisterEnumDescriptor(_RELUPARAMETER_ENGINE)
 
@@ -727,8 +727,8 @@ _SIGMOIDPARAMETER_ENGINE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=11133,
-  serialized_end=11176,
+  serialized_start=11510,
+  serialized_end=11553,
 )
 _sym_db.RegisterEnumDescriptor(_SIGMOIDPARAMETER_ENGINE)
 
@@ -753,8 +753,8 @@ _SOFTMAXPARAMETER_ENGINE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=11133,
-  serialized_end=11176,
+  serialized_start=11510,
+  serialized_end=11553,
 )
 _sym_db.RegisterEnumDescriptor(_SOFTMAXPARAMETER_ENGINE)
 
@@ -779,8 +779,8 @@ _TANHPARAMETER_ENGINE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=11133,
-  serialized_end=11176,
+  serialized_start=11510,
+  serialized_end=11553,
 )
 _sym_db.RegisterEnumDescriptor(_TANHPARAMETER_ENGINE)
 
@@ -801,8 +801,8 @@ _VIDEODATAPARAMETER_VIDEOTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=18525,
-  serialized_end=18559,
+  serialized_start=18902,
+  serialized_end=18936,
 )
 _sym_db.RegisterEnumDescriptor(_VIDEODATAPARAMETER_VIDEOTYPE)
 
@@ -827,8 +827,8 @@ _SPPPARAMETER_POOLMETHOD = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=16337,
-  serialized_end=16383,
+  serialized_start=16714,
+  serialized_end=16760,
 )
 _sym_db.RegisterEnumDescriptor(_SPPPARAMETER_POOLMETHOD)
 
@@ -853,8 +853,8 @@ _SPPPARAMETER_ENGINE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=11133,
-  serialized_end=11176,
+  serialized_start=11510,
+  serialized_end=11553,
 )
 _sym_db.RegisterEnumDescriptor(_SPPPARAMETER_ENGINE)
 
@@ -1027,8 +1027,8 @@ _V1LAYERPARAMETER_LAYERTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=21008,
-  serialized_end=21608,
+  serialized_start=21385,
+  serialized_end=21985,
 )
 _sym_db.RegisterEnumDescriptor(_V1LAYERPARAMETER_LAYERTYPE)
 
@@ -1049,8 +1049,8 @@ _V1LAYERPARAMETER_DIMCHECKMODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=4149,
-  serialized_end=4191,
+  serialized_start=4319,
+  serialized_end=4361,
 )
 _sym_db.RegisterEnumDescriptor(_V1LAYERPARAMETER_DIMCHECKMODE)
 
@@ -1075,8 +1075,8 @@ _V0LAYERPARAMETER_POOLMETHOD = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=16337,
-  serialized_end=16383,
+  serialized_start=16714,
+  serialized_end=16760,
 )
 _sym_db.RegisterEnumDescriptor(_V0LAYERPARAMETER_POOLMETHOD)
 
@@ -1101,8 +1101,8 @@ _CTCPARAMETER_DECODER = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=23125,
-  serialized_end=23189,
+  serialized_start=23502,
+  serialized_end=23566,
 )
 _sym_db.RegisterEnumDescriptor(_CTCPARAMETER_DECODER)
 
@@ -1336,6 +1336,103 @@ _DATUM = _descriptor.Descriptor(
 )
 
 
+_MTCNNBBOX = _descriptor.Descriptor(
+  name='MTCNNBBox',
+  full_name='caffe.MTCNNBBox',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='xmin', full_name='caffe.MTCNNBBox.xmin', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='ymin', full_name='caffe.MTCNNBBox.ymin', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='xmax', full_name='caffe.MTCNNBBox.xmax', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='ymax', full_name='caffe.MTCNNBBox.ymax', index=3,
+      number=4, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=459,
+  serialized_end=526,
+)
+
+
+_MTCNNDATUM = _descriptor.Descriptor(
+  name='MTCNNDatum',
+  full_name='caffe.MTCNNDatum',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='datum', full_name='caffe.MTCNNDatum.datum', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='roi', full_name='caffe.MTCNNDatum.roi', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='pts', full_name='caffe.MTCNNDatum.pts', index=2,
+      number=3, type=2, cpp_type=6, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=528,
+  serialized_end=613,
+)
+
+
 _LABELMAPITEM = _descriptor.Descriptor(
   name='LabelMapItem',
   full_name='caffe.LabelMapItem',
@@ -1376,8 +1473,8 @@ _LABELMAPITEM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=459,
-  serialized_end=524,
+  serialized_start=615,
+  serialized_end=680,
 )
 
 
@@ -1407,8 +1504,8 @@ _LABELMAP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=526,
-  serialized_end=571,
+  serialized_start=682,
+  serialized_end=727,
 )
 
 
@@ -1459,8 +1556,8 @@ _SAMPLER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=573,
-  serialized_end=684,
+  serialized_start=729,
+  serialized_end=840,
 )
 
 
@@ -1525,8 +1622,8 @@ _SAMPLECONSTRAINT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=687,
-  serialized_end=879,
+  serialized_start=843,
+  serialized_end=1035,
 )
 
 
@@ -1584,8 +1681,8 @@ _BATCHSAMPLER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=882,
-  serialized_end=1060,
+  serialized_start=1038,
+  serialized_end=1216,
 )
 
 
@@ -1623,8 +1720,8 @@ _EMITCONSTRAINT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1063,
-  serialized_end=1201,
+  serialized_start=1219,
+  serialized_end=1357,
 )
 
 
@@ -1703,8 +1800,8 @@ _NORMALIZEDBBOX = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1204,
-  serialized_end=1339,
+  serialized_start=1360,
+  serialized_end=1495,
 )
 
 
@@ -1741,8 +1838,8 @@ _ANNOTATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1341,
-  serialized_end=1414,
+  serialized_start=1497,
+  serialized_end=1570,
 )
 
 
@@ -1779,8 +1876,8 @@ _ANNOTATIONGROUP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1416,
-  serialized_end=1493,
+  serialized_start=1572,
+  serialized_end=1649,
 )
 
 
@@ -1825,8 +1922,8 @@ _ANNOTATEDDATUM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1496,
-  serialized_end=1671,
+  serialized_start=1652,
+  serialized_end=1827,
 )
 
 
@@ -1893,6 +1990,13 @@ _FILLERPARAMETER = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='file', full_name='caffe.FillerParameter.file', index=8,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -1906,8 +2010,8 @@ _FILLERPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1674,
-  serialized_end=1940,
+  serialized_start=1830,
+  serialized_end=2110,
 )
 
 
@@ -1993,8 +2097,8 @@ _NETPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1943,
-  serialized_end=2213,
+  serialized_start=2113,
+  serialized_end=2383,
 )
 
 
@@ -2328,8 +2432,8 @@ _SOLVERPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2216,
-  serialized_end=3659,
+  serialized_start=2386,
+  serialized_end=3829,
 )
 
 
@@ -2394,8 +2498,8 @@ _SOLVERSTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3662,
-  serialized_end=3828,
+  serialized_start=3832,
+  serialized_end=3998,
 )
 
 
@@ -2439,8 +2543,8 @@ _NETSTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3830,
-  serialized_end=3908,
+  serialized_start=4000,
+  serialized_end=4078,
 )
 
 
@@ -2498,8 +2602,8 @@ _NETSTATERULE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3910,
-  serialized_end=4025,
+  serialized_start=4080,
+  serialized_end=4195,
 )
 
 
@@ -2551,8 +2655,8 @@ _PARAMSPEC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4028,
-  serialized_end=4191,
+  serialized_start=4198,
+  serialized_end=4361,
 )
 
 
@@ -2617,8 +2721,8 @@ _PREDICTBOXPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4194,
-  serialized_end=4366,
+  serialized_start=4364,
+  serialized_end=4536,
 )
 
 
@@ -3161,6 +3265,34 @@ _LAYERPARAMETER = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='st_param', full_name='caffe.LayerParameter.st_param', index=76,
+      number=156, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='st_loss_param', full_name='caffe.LayerParameter.st_loss_param', index=77,
+      number=157, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='power_file_param', full_name='caffe.LayerParameter.power_file_param', index=78,
+      number=158, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='loc_loss_param', full_name='caffe.LayerParameter.loc_loss_param', index=79,
+      number=159, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -3173,8 +3305,8 @@ _LAYERPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4369,
-  serialized_end=7939,
+  serialized_start=4539,
+  serialized_end=8316,
 )
 
 
@@ -3211,8 +3343,8 @@ _FLIPPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7941,
-  serialized_end=8010,
+  serialized_start=8318,
+  serialized_end=8387,
 )
 
 
@@ -3333,8 +3465,8 @@ _TRANSFORMATIONPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8013,
-  serialized_end=8471,
+  serialized_start=8390,
+  serialized_end=8848,
 )
 
 
@@ -3423,8 +3555,8 @@ _RESIZEPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8474,
-  serialized_end=9002,
+  serialized_start=8851,
+  serialized_end=9379,
 )
 
 
@@ -3461,8 +3593,8 @@ _SALTPEPPERPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9004,
-  serialized_end=9061,
+  serialized_start=9381,
+  serialized_end=9438,
 )
 
 
@@ -3576,8 +3708,8 @@ _NOISEPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9064,
-  serialized_end=9430,
+  serialized_start=9441,
+  serialized_end=9807,
 )
 
 
@@ -3677,8 +3809,8 @@ _DISTORTIONPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9433,
-  serialized_end=9750,
+  serialized_start=9810,
+  serialized_end=10127,
 )
 
 
@@ -3715,8 +3847,8 @@ _EXPANSIONPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9752,
-  serialized_end=9818,
+  serialized_start=10129,
+  serialized_end=10195,
 )
 
 
@@ -3761,8 +3893,8 @@ _LOSSPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9821,
-  serialized_end=10015,
+  serialized_start=10198,
+  serialized_end=10392,
 )
 
 
@@ -3806,8 +3938,8 @@ _ACCURACYPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10017,
-  serialized_end=10093,
+  serialized_start=10394,
+  serialized_end=10470,
 )
 
 
@@ -3851,8 +3983,8 @@ _ANNOTATEDDATAPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10096,
-  serialized_end=10245,
+  serialized_start=10473,
+  serialized_end=10622,
 )
 
 
@@ -3896,8 +4028,8 @@ _ARGMAXPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10247,
-  serialized_end=10324,
+  serialized_start=10624,
+  serialized_end=10701,
 )
 
 
@@ -3934,8 +4066,8 @@ _CONCATPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10326,
-  serialized_end=10383,
+  serialized_start=10703,
+  serialized_end=10760,
 )
 
 
@@ -3979,8 +4111,8 @@ _BATCHNORMPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10385,
-  serialized_end=10492,
+  serialized_start=10762,
+  serialized_end=10869,
 )
 
 
@@ -4024,8 +4156,8 @@ _BIASPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10494,
-  serialized_end=10587,
+  serialized_start=10871,
+  serialized_end=10964,
 )
 
 
@@ -4062,8 +4194,8 @@ _CONTRASTIVELOSSPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10589,
-  serialized_end=10665,
+  serialized_start=10966,
+  serialized_end=11042,
 )
 
 
@@ -4213,8 +4345,8 @@ _CONVOLUTIONPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10668,
-  serialized_end=11176,
+  serialized_start=11045,
+  serialized_end=11553,
 )
 
 
@@ -4251,8 +4383,8 @@ _CROPPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=11178,
-  serialized_end=11226,
+  serialized_start=11555,
+  serialized_end=11603,
 )
 
 
@@ -4346,8 +4478,8 @@ _DATAPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=11229,
-  serialized_end=11521,
+  serialized_start=11606,
+  serialized_end=11898,
 )
 
 
@@ -4412,8 +4544,8 @@ _DETECTIONEVALUATEPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=11524,
-  serialized_end=11744,
+  serialized_start=11901,
+  serialized_end=12121,
 )
 
 
@@ -4457,8 +4589,8 @@ _NONMAXIMUMSUPPRESSIONPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=11746,
-  serialized_end=11837,
+  serialized_start=12123,
+  serialized_end=12214,
 )
 
 
@@ -4530,8 +4662,8 @@ _SAVEOUTPUTPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=11840,
-  serialized_end=12056,
+  serialized_start=12217,
+  serialized_end=12433,
 )
 
 
@@ -4638,8 +4770,8 @@ _DETECTIONOUTPUTPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12059,
-  serialized_end=12514,
+  serialized_start=12436,
+  serialized_end=12891,
 )
 
 
@@ -4669,8 +4801,8 @@ _DROPOUTPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12516,
-  serialized_end=12562,
+  serialized_start=12893,
+  serialized_end=12939,
 )
 
 
@@ -4735,8 +4867,8 @@ _DUMMYDATAPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12565,
-  serialized_end=12725,
+  serialized_start=12942,
+  serialized_end=13102,
 )
 
 
@@ -4781,8 +4913,8 @@ _ELTWISEPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12728,
-  serialized_end=12893,
+  serialized_start=13105,
+  serialized_end=13270,
 )
 
 
@@ -4812,8 +4944,8 @@ _ELUPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12895,
-  serialized_end=12927,
+  serialized_start=13272,
+  serialized_end=13304,
 )
 
 
@@ -4871,8 +5003,8 @@ _EMBEDPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12930,
-  serialized_end=13102,
+  serialized_start=13307,
+  serialized_end=13479,
 )
 
 
@@ -4916,8 +5048,8 @@ _EXPPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13104,
-  serialized_end=13172,
+  serialized_start=13481,
+  serialized_end=13549,
 )
 
 
@@ -4954,8 +5086,8 @@ _FLATTENPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13174,
-  serialized_end=13231,
+  serialized_start=13551,
+  serialized_end=13608,
 )
 
 
@@ -4999,8 +5131,8 @@ _HDF5DATAPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13233,
-  serialized_end=13312,
+  serialized_start=13610,
+  serialized_end=13689,
 )
 
 
@@ -5030,8 +5162,8 @@ _HDF5OUTPUTPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13314,
-  serialized_end=13354,
+  serialized_start=13691,
+  serialized_end=13731,
 )
 
 
@@ -5062,8 +5194,8 @@ _HINGELOSSPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13356,
-  serialized_end=13450,
+  serialized_start=13733,
+  serialized_end=13827,
 )
 
 
@@ -5170,8 +5302,8 @@ _IMAGEDATAPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13453,
-  serialized_end=13732,
+  serialized_start=13830,
+  serialized_end=14109,
 )
 
 
@@ -5201,8 +5333,8 @@ _INFOGAINLOSSPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13734,
-  serialized_end=13773,
+  serialized_start=14111,
+  serialized_end=14150,
 )
 
 
@@ -5267,8 +5399,8 @@ _INNERPRODUCTPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13776,
-  serialized_end=13979,
+  serialized_start=14153,
+  serialized_end=14356,
 )
 
 
@@ -5298,8 +5430,8 @@ _INPUTPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13981,
-  serialized_end=14030,
+  serialized_start=14358,
+  serialized_end=14407,
 )
 
 
@@ -5343,8 +5475,8 @@ _LOGPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14032,
-  serialized_end=14100,
+  serialized_start=14409,
+  serialized_end=14477,
 )
 
 
@@ -5411,8 +5543,8 @@ _LRNPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14103,
-  serialized_end=14415,
+  serialized_start=14480,
+  serialized_end=14792,
 )
 
 
@@ -5470,8 +5602,8 @@ _MEMORYDATAPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14417,
-  serialized_end=14533,
+  serialized_start=14794,
+  serialized_end=14910,
 )
 
 
@@ -5652,8 +5784,8 @@ _MULTIBOXLOSSPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14536,
-  serialized_end=15664,
+  serialized_start=14913,
+  serialized_end=16041,
 )
 
 
@@ -5697,8 +5829,8 @@ _MVNPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15666,
-  serialized_end=15767,
+  serialized_start=16043,
+  serialized_end=16144,
 )
 
 
@@ -5749,8 +5881,8 @@ _NORMALIZEPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15770,
-  serialized_end=15917,
+  serialized_start=16147,
+  serialized_end=16294,
 )
 
 
@@ -5780,8 +5912,8 @@ _PARAMETERPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15919,
-  serialized_end=15972,
+  serialized_start=16296,
+  serialized_end=16349,
 )
 
 
@@ -5811,8 +5943,8 @@ _PERMUTEPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15974,
-  serialized_end=16007,
+  serialized_start=16351,
+  serialized_end=16384,
 )
 
 
@@ -5921,8 +6053,8 @@ _POOLINGPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=16010,
-  serialized_end=16428,
+  serialized_start=16387,
+  serialized_end=16805,
 )
 
 
@@ -5966,8 +6098,8 @@ _POWERPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=16430,
-  serialized_end=16500,
+  serialized_start=16807,
+  serialized_end=16877,
 )
 
 
@@ -6082,8 +6214,8 @@ _PRIORBOXPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=16503,
-  serialized_end=16812,
+  serialized_start=16880,
+  serialized_end=17189,
 )
 
 
@@ -6134,8 +6266,8 @@ _PYTHONPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=16814,
-  serialized_end=16917,
+  serialized_start=17191,
+  serialized_end=17294,
 )
 
 
@@ -6193,8 +6325,8 @@ _RECURRENTPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=16920,
-  serialized_end=17112,
+  serialized_start=17297,
+  serialized_end=17489,
 )
 
 
@@ -6239,8 +6371,8 @@ _REDUCTIONPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17115,
-  serialized_end=17288,
+  serialized_start=17492,
+  serialized_end=17665,
 )
 
 
@@ -6278,8 +6410,8 @@ _RELUPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17291,
-  serialized_end=17432,
+  serialized_start=17668,
+  serialized_end=17809,
 )
 
 
@@ -6323,8 +6455,8 @@ _RESHAPEPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17434,
-  serialized_end=17524,
+  serialized_start=17811,
+  serialized_end=17901,
 )
 
 
@@ -6382,8 +6514,8 @@ _SCALEPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17527,
-  serialized_end=17692,
+  serialized_start=17904,
+  serialized_end=18069,
 )
 
 
@@ -6414,8 +6546,8 @@ _SIGMOIDPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17694,
-  serialized_end=17814,
+  serialized_start=18071,
+  serialized_end=18191,
 )
 
 
@@ -6459,8 +6591,8 @@ _SLICEPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17816,
-  serialized_end=17892,
+  serialized_start=18193,
+  serialized_end=18269,
 )
 
 
@@ -6533,8 +6665,8 @@ _SOFTMAXPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17895,
-  serialized_end=18160,
+  serialized_start=18272,
+  serialized_end=18537,
 )
 
 
@@ -6565,8 +6697,8 @@ _TANHPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=18162,
-  serialized_end=18276,
+  serialized_start=18539,
+  serialized_end=18653,
 )
 
 
@@ -6603,8 +6735,8 @@ _TILEPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=18278,
-  serialized_end=18325,
+  serialized_start=18655,
+  serialized_end=18702,
 )
 
 
@@ -6634,8 +6766,8 @@ _THRESHOLDPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=18327,
-  serialized_end=18369,
+  serialized_start=18704,
+  serialized_end=18746,
 )
 
 
@@ -6687,8 +6819,8 @@ _VIDEODATAPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=18372,
-  serialized_end=18559,
+  serialized_start=18749,
+  serialized_end=18936,
 )
 
 
@@ -6802,8 +6934,8 @@ _WINDOWDATAPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=18562,
-  serialized_end=18883,
+  serialized_start=18939,
+  serialized_end=19260,
 )
 
 
@@ -6849,8 +6981,8 @@ _SPPPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=18886,
-  serialized_end=19121,
+  serialized_start=19263,
+  serialized_end=19498,
 )
 
 
@@ -7176,8 +7308,8 @@ _V1LAYERPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=19124,
-  serialized_end=21652,
+  serialized_start=19501,
+  serialized_end=22029,
 )
 
 
@@ -7467,8 +7599,8 @@ _V0LAYERPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=21655,
-  serialized_end=22676,
+  serialized_start=22032,
+  serialized_end=23053,
 )
 
 
@@ -7505,8 +7637,8 @@ _PRELUPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=22678,
-  serialized_end=22765,
+  serialized_start=23055,
+  serialized_end=23142,
 )
 
 
@@ -7536,8 +7668,8 @@ _TRANSPOSEPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=22767,
-  serialized_end=22800,
+  serialized_start=23144,
+  serialized_end=23177,
 )
 
 
@@ -7567,8 +7699,8 @@ _REVERSEPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=22802,
-  serialized_end=22837,
+  serialized_start=23179,
+  serialized_end=23214,
 )
 
 
@@ -7626,8 +7758,8 @@ _LSTMPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=22840,
-  serialized_end=23021,
+  serialized_start=23217,
+  serialized_end=23398,
 )
 
 
@@ -7665,8 +7797,8 @@ _CTCPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=23024,
-  serialized_end=23189,
+  serialized_start=23401,
+  serialized_end=23566,
 )
 
 
@@ -7710,8 +7842,8 @@ _CENTERLOSSPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=23191,
-  serialized_end=23296,
+  serialized_start=23568,
+  serialized_end=23673,
 )
 
 
@@ -7755,8 +7887,8 @@ _CTCLOSSPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=23298,
-  serialized_end=23388,
+  serialized_start=23675,
+  serialized_end=23765,
 )
 
 
@@ -7793,8 +7925,8 @@ _CONTINUATIONINDICATORPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=23390,
-  serialized_end=23467,
+  serialized_start=23767,
+  serialized_end=23844,
 )
 
 
@@ -7824,12 +7956,215 @@ _LABELSEQUENCEACCURACYPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=23469,
-  serialized_end=23525,
+  serialized_start=23846,
+  serialized_end=23902,
+)
+
+
+_SPATIALTRANSFORMERPARAMETER = _descriptor.Descriptor(
+  name='SpatialTransformerParameter',
+  full_name='caffe.SpatialTransformerParameter',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='transform_type', full_name='caffe.SpatialTransformerParameter.transform_type', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=True, default_value=_b("affine").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='sampler_type', full_name='caffe.SpatialTransformerParameter.sampler_type', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=True, default_value=_b("bilinear").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='output_H', full_name='caffe.SpatialTransformerParameter.output_H', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='output_W', full_name='caffe.SpatialTransformerParameter.output_W', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='to_compute_dU', full_name='caffe.SpatialTransformerParameter.to_compute_dU', index=4,
+      number=5, type=8, cpp_type=7, label=1,
+      has_default_value=True, default_value=True,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='theta_1_1', full_name='caffe.SpatialTransformerParameter.theta_1_1', index=5,
+      number=6, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='theta_1_2', full_name='caffe.SpatialTransformerParameter.theta_1_2', index=6,
+      number=7, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='theta_1_3', full_name='caffe.SpatialTransformerParameter.theta_1_3', index=7,
+      number=8, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='theta_2_1', full_name='caffe.SpatialTransformerParameter.theta_2_1', index=8,
+      number=9, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='theta_2_2', full_name='caffe.SpatialTransformerParameter.theta_2_2', index=9,
+      number=10, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='theta_2_3', full_name='caffe.SpatialTransformerParameter.theta_2_3', index=10,
+      number=11, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=23905,
+  serialized_end=24177,
+)
+
+
+_POWERFILEPARAMETER = _descriptor.Descriptor(
+  name='PowerFileParameter',
+  full_name='caffe.PowerFileParameter',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='shift_file', full_name='caffe.PowerFileParameter.shift_file', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=24179,
+  serialized_end=24219,
+)
+
+
+_STLOSSPARAMETER = _descriptor.Descriptor(
+  name='STLossParameter',
+  full_name='caffe.STLossParameter',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='output_H', full_name='caffe.STLossParameter.output_H', index=0,
+      number=1, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='output_W', full_name='caffe.STLossParameter.output_W', index=1,
+      number=2, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=24221,
+  serialized_end=24274,
+)
+
+
+_LOCLOSSPARAMETER = _descriptor.Descriptor(
+  name='LocLossParameter',
+  full_name='caffe.LocLossParameter',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='threshold', full_name='caffe.LocLossParameter.threshold', index=0,
+      number=1, type=1, cpp_type=5, label=2,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=24276,
+  serialized_end=24313,
 )
 
 _BLOBPROTO.fields_by_name['shape'].message_type = _BLOBSHAPE
 _BLOBPROTOVECTOR.fields_by_name['blobs'].message_type = _BLOBPROTO
+_MTCNNDATUM.fields_by_name['datum'].message_type = _DATUM
+_MTCNNDATUM.fields_by_name['roi'].message_type = _MTCNNBBOX
 _LABELMAP.fields_by_name['item'].message_type = _LABELMAPITEM
 _BATCHSAMPLER.fields_by_name['sampler'].message_type = _SAMPLER
 _BATCHSAMPLER.fields_by_name['sample_constraint'].message_type = _SAMPLECONSTRAINT
@@ -7933,6 +8268,10 @@ _LAYERPARAMETER.fields_by_name['reverse_param'].message_type = _REVERSEPARAMETER
 _LAYERPARAMETER.fields_by_name['ctc_loss_param'].message_type = _CTCLOSSPARAMETER
 _LAYERPARAMETER.fields_by_name['continuation_indicator_param'].message_type = _CONTINUATIONINDICATORPARAMETER
 _LAYERPARAMETER.fields_by_name['labelsequence_accuracy_param'].message_type = _LABELSEQUENCEACCURACYPARAMETER
+_LAYERPARAMETER.fields_by_name['st_param'].message_type = _SPATIALTRANSFORMERPARAMETER
+_LAYERPARAMETER.fields_by_name['st_loss_param'].message_type = _STLOSSPARAMETER
+_LAYERPARAMETER.fields_by_name['power_file_param'].message_type = _POWERFILEPARAMETER
+_LAYERPARAMETER.fields_by_name['loc_loss_param'].message_type = _LOCLOSSPARAMETER
 _TRANSFORMATIONPARAMETER.fields_by_name['resize_param'].message_type = _RESIZEPARAMETER
 _TRANSFORMATIONPARAMETER.fields_by_name['noise_param'].message_type = _NOISEPARAMETER
 _TRANSFORMATIONPARAMETER.fields_by_name['distort_param'].message_type = _DISTORTIONPARAMETER
@@ -8068,6 +8407,8 @@ DESCRIPTOR.message_types_by_name['BlobShape'] = _BLOBSHAPE
 DESCRIPTOR.message_types_by_name['BlobProto'] = _BLOBPROTO
 DESCRIPTOR.message_types_by_name['BlobProtoVector'] = _BLOBPROTOVECTOR
 DESCRIPTOR.message_types_by_name['Datum'] = _DATUM
+DESCRIPTOR.message_types_by_name['MTCNNBBox'] = _MTCNNBBOX
+DESCRIPTOR.message_types_by_name['MTCNNDatum'] = _MTCNNDATUM
 DESCRIPTOR.message_types_by_name['LabelMapItem'] = _LABELMAPITEM
 DESCRIPTOR.message_types_by_name['LabelMap'] = _LABELMAP
 DESCRIPTOR.message_types_by_name['Sampler'] = _SAMPLER
@@ -8160,6 +8501,10 @@ DESCRIPTOR.message_types_by_name['CenterLossParameter'] = _CENTERLOSSPARAMETER
 DESCRIPTOR.message_types_by_name['CtcLossParameter'] = _CTCLOSSPARAMETER
 DESCRIPTOR.message_types_by_name['ContinuationIndicatorParameter'] = _CONTINUATIONINDICATORPARAMETER
 DESCRIPTOR.message_types_by_name['LabelsequenceAccuracyParameter'] = _LABELSEQUENCEACCURACYPARAMETER
+DESCRIPTOR.message_types_by_name['SpatialTransformerParameter'] = _SPATIALTRANSFORMERPARAMETER
+DESCRIPTOR.message_types_by_name['PowerFileParameter'] = _POWERFILEPARAMETER
+DESCRIPTOR.message_types_by_name['STLossParameter'] = _STLOSSPARAMETER
+DESCRIPTOR.message_types_by_name['LocLossParameter'] = _LOCLOSSPARAMETER
 DESCRIPTOR.enum_types_by_name['Phase'] = _PHASE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -8190,6 +8535,20 @@ Datum = _reflection.GeneratedProtocolMessageType('Datum', (_message.Message,), d
   # @@protoc_insertion_point(class_scope:caffe.Datum)
   ))
 _sym_db.RegisterMessage(Datum)
+
+MTCNNBBox = _reflection.GeneratedProtocolMessageType('MTCNNBBox', (_message.Message,), dict(
+  DESCRIPTOR = _MTCNNBBOX,
+  __module__ = 'caffe_pb2'
+  # @@protoc_insertion_point(class_scope:caffe.MTCNNBBox)
+  ))
+_sym_db.RegisterMessage(MTCNNBBox)
+
+MTCNNDatum = _reflection.GeneratedProtocolMessageType('MTCNNDatum', (_message.Message,), dict(
+  DESCRIPTOR = _MTCNNDATUM,
+  __module__ = 'caffe_pb2'
+  # @@protoc_insertion_point(class_scope:caffe.MTCNNDatum)
+  ))
+_sym_db.RegisterMessage(MTCNNDatum)
 
 LabelMapItem = _reflection.GeneratedProtocolMessageType('LabelMapItem', (_message.Message,), dict(
   DESCRIPTOR = _LABELMAPITEM,
@@ -8834,6 +9193,34 @@ LabelsequenceAccuracyParameter = _reflection.GeneratedProtocolMessageType('Label
   # @@protoc_insertion_point(class_scope:caffe.LabelsequenceAccuracyParameter)
   ))
 _sym_db.RegisterMessage(LabelsequenceAccuracyParameter)
+
+SpatialTransformerParameter = _reflection.GeneratedProtocolMessageType('SpatialTransformerParameter', (_message.Message,), dict(
+  DESCRIPTOR = _SPATIALTRANSFORMERPARAMETER,
+  __module__ = 'caffe_pb2'
+  # @@protoc_insertion_point(class_scope:caffe.SpatialTransformerParameter)
+  ))
+_sym_db.RegisterMessage(SpatialTransformerParameter)
+
+PowerFileParameter = _reflection.GeneratedProtocolMessageType('PowerFileParameter', (_message.Message,), dict(
+  DESCRIPTOR = _POWERFILEPARAMETER,
+  __module__ = 'caffe_pb2'
+  # @@protoc_insertion_point(class_scope:caffe.PowerFileParameter)
+  ))
+_sym_db.RegisterMessage(PowerFileParameter)
+
+STLossParameter = _reflection.GeneratedProtocolMessageType('STLossParameter', (_message.Message,), dict(
+  DESCRIPTOR = _STLOSSPARAMETER,
+  __module__ = 'caffe_pb2'
+  # @@protoc_insertion_point(class_scope:caffe.STLossParameter)
+  ))
+_sym_db.RegisterMessage(STLossParameter)
+
+LocLossParameter = _reflection.GeneratedProtocolMessageType('LocLossParameter', (_message.Message,), dict(
+  DESCRIPTOR = _LOCLOSSPARAMETER,
+  __module__ = 'caffe_pb2'
+  # @@protoc_insertion_point(class_scope:caffe.LocLossParameter)
+  ))
+_sym_db.RegisterMessage(LocLossParameter)
 
 
 _BLOBSHAPE.fields_by_name['dim'].has_options = True
