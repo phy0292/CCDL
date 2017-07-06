@@ -54,7 +54,9 @@ extern "C"{
 		volatile SoftmaxResult** recResult;
 		volatile int job_cursor;
 		HANDLE semaphoreWait;
-		HANDLE semaphoreGetResult;
+		volatile HANDLE* cacheSemaphoreGetResult;
+		volatile HANDLE* semaphoreGetResult;
+		//HANDLE semaphoreGetResult;
 		HANDLE semaphoreGetResultFinish;
 		CRITICAL_SECTION jobCS;
 		volatile bool flag_run;
@@ -99,12 +101,25 @@ extern "C"{
 		int gpu_id = -1);
 
 	Caffe_API void __stdcall releaseClassifier(Classifier* classifier);
-	Caffe_API SoftmaxResult* __stdcall predictSoftmax(Classifier*classifier, const void* img, int len, int top_n = 5);
-	Caffe_API MultiSoftmaxResult* __stdcall predictMultiSoftmax(Classifier*classifier, const void** img, int* len, int num, int top_n = 5);
-	Caffe_API BlobData* __stdcall extfeature(Classifier*classifier, const void* img, int len, const char* feature_name);
+	Caffe_API SoftmaxResult* __stdcall predictSoftmax(Classifier* classifier, const void* img, int len, int top_n = 5);
+	Caffe_API MultiSoftmaxResult* __stdcall predictMultiSoftmax(Classifier* classifier, const void** img, int* len, int num, int top_n = 5);
+	Caffe_API BlobData* __stdcall extfeature(Classifier* classifier, const void* img, int len, const char* feature_name);
+
+	Caffe_API SoftmaxResult* __stdcall predictSoftmaxAny(Classifier* classifier, const float* data, const int* dims, int top_n = 5);
+	Caffe_API MultiSoftmaxResult* __stdcall predictMultiSoftmaxAny(Classifier* classifier, const float** data, const int* dims, int num, int top_n = 5);
+	Caffe_API BlobData* __stdcall extfeatureAny(Classifier* classifier, const float* data, const int* dims, const char* feature_name);
+
+	//获取任意层的blob
+	Caffe_API void __stdcall forward(Classifier* classifier, const void* img, int len);
+
+	//获取任意层的blob
+	Caffe_API BlobData* __stdcall getBlobData(Classifier* classifier, const char* blob_name);
 
 	//获取特征的长度
 	Caffe_API int __stdcall getBlobLength(BlobData* feature);
+
+	//获取张量数据维度
+	Caffe_API void __stdcall getBlobDims(BlobData* blob, int* dims_at_4_elem);
 
 	//将特征复制到缓存区
 	Caffe_API void __stdcall cpyBlobData(void* buffer, BlobData* feature);
@@ -169,6 +184,7 @@ extern "C"{
 	Caffe_API void __stdcall releaseTaskPool(TaskPool* taskPool);
 
 	Caffe_API SoftmaxResult* __stdcall predictSoftmaxByTaskPool(TaskPool* pool, const void* img, int len, int top_n = 1);
+	Caffe_API SoftmaxResult* __stdcall predictSoftmaxAnyByTaskPool(TaskPool* pool, const float* data, const int* dims, int top_n = 1);
 	Caffe_API SoftmaxResult* __stdcall predictSoftmaxByTaskPool2(TaskPool* pool, const Image* img, int top_n = 1);
 #ifdef __cplusplus 
 }; 
