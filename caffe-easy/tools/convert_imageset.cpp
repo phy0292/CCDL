@@ -77,6 +77,10 @@ int main(int argc, char** argv) {
   std::string line, filename;
   size_t pos;
 
+  bool isAnyData = FLAGS_backend == "anydata";
+  bool isMTCNN = FLAGS_backend == "mtcnn";
+  FLAGS_backend = "lmdb";
+
   while (std::getline(infile, line)){
 	  float label;
 	  std::istringstream iss(line);
@@ -89,7 +93,8 @@ int main(int argc, char** argv) {
 	  }
 
 	  //label, roi_minx, roi_miny, roi_maxx, roi_maxy, pts
-	  CHECK_GE(labels.size(), 5) << "Incorrect label size " << filename;
+	  //if (isMTCNN)
+	  //	CHECK_GE(labels.size(), 5) << "Incorrect label size " << filename;
 	  lines.push_back(std::make_pair(filename, labels));
   }
 
@@ -114,10 +119,6 @@ int main(int argc, char** argv) {
   int resize_height = std::max<int>(0, FLAGS_resize_height);
   int resize_width = std::max<int>(0, FLAGS_resize_width);
   _mkdir(argv[3]);
-
-  bool isAnyData = FLAGS_backend == "anydata";
-  bool isMTCNN = FLAGS_backend == "mtcnn";
-  FLAGS_backend = "lmdb";
 
   // Create new DB
   scoped_ptr<db::DB> db(db::GetDB(FLAGS_backend));

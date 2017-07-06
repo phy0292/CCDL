@@ -219,10 +219,18 @@ namespace caffe {
 		//label, roi_minx, roi_miny, roi_maxx, roi_maxy, pts
 		bool succ = ReadImageToDatum(filename, { label[0] }, height, width, is_color, encoding, datum->mutable_datum());
 		if (succ){
-			datum->mutable_roi()->set_xmin(label[1]);
-			datum->mutable_roi()->set_ymin(label[2]);
-			datum->mutable_roi()->set_xmax(label[3]);
-			datum->mutable_roi()->set_ymax(label[4]);
+			if (label.size() > 1)
+				datum->mutable_roi()->set_xmin(label[1]);
+
+			if (label.size() > 2)
+				datum->mutable_roi()->set_ymin(label[2]);
+
+			if (label.size() > 3)
+				datum->mutable_roi()->set_xmax(label[3]);
+
+			if (label.size() > 4)
+				datum->mutable_roi()->set_ymax(label[4]);
+
 			auto pts = datum->mutable_pts();
 			pts->Clear();
 			for (int i = 5; i < label.size(); ++i)

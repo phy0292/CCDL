@@ -13,7 +13,7 @@
 #include <utility>
 #include <vector>
 
-#define USE_STATIC_OPENBLAS
+//#define USE_STATIC_OPENBLAS
 #include <import-staticlib.h>
 
 using namespace caffe;
