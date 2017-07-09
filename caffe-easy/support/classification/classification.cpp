@@ -509,6 +509,11 @@ void Classifier::init(float scale_raw, const char* mean_file, int num_means, flo
 
 	CHECK_EQ(ThisNet->num_inputs(), 1) << "Network should have exactly one input.";
 
+	int limit_num_means = sizeof(this->mean_value_) / sizeof(this->mean_value_[0]);
+	this->num_means_ = min(limit_num_means, num_means);
+	if (this->num_means_ > 0 && means)
+		memcpy(this->mean_value_, means, this->num_means_ * sizeof(this->mean_value_[0]));
+
 	if (ThisNet->num_inputs() > 0){
 		Blob<float>* input_layer = ThisNet->input_blobs()[0];
 		num_channels_ = input_layer->channels();
@@ -586,13 +591,25 @@ static std::vector<int> Argmax(const float* v, int len, int N) {
   return result;
 }
 
-void Classifier::forward(const cv::Mat& img){
+void Classifier::reshape(int width, int height){
+	if (input_geometry_ == Size(width, height)) return;
+
+	input_geometry_ = Size(width, height);
+	if (this->num_means_ > 0){
+		Scalar mean_scal;
+		for (int i = 0; i < this->num_means_; ++i)
+			mean_scal[i] = this->mean_value_[i];
+		mean_ = cv::Mat(input_geometry_, CV_32FC(this->num_means_), mean_scal);
+	}
+
 	Blob<float>* input_layer = ThisNet->input_blobs()[0];
 	input_layer->Reshape(1, num_channels_,
 		input_geometry_.height, input_geometry_.width);
 	/* Forward dimension change to all layers. */
 	ThisNet->Reshape();
+}
 
+void Classifier::forward(const cv::Mat& img){
 	std::vector<cv::Mat> input_channels;
 	WrapInputLayer(input_channels);
 	Preprocess({ img }, input_channels);

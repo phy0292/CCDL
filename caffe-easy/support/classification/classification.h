@@ -1,6 +1,6 @@
 #pragma once
 
-#include <support-common.h>
+#include "support-common.h"
 
 #ifdef __cplusplus
 #include <opencv/cv.h>
@@ -38,6 +38,7 @@ public:
 	MultiSoftmaxResult* predictSoftmax(const std::vector<cv::Mat>& imgs, int top_n = 5);
 	BlobData* extfeature(const cv::Mat& img, const char* layer_name = 0);
 	void forward(const cv::Mat& img);
+	void reshape(int width, int height);
 
 	int input_num(int index = 0);
 	int input_channels(int index = 0);
@@ -62,6 +63,8 @@ private:
 public:
 	cv::Size input_geometry_;
 	int num_channels_;
+	int num_means_;
+	float mean_value_[3];
 	cv::Mat mean_;
 	float scale_raw;
 	int cache_size;
