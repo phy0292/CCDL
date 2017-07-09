@@ -17,4 +17,4 @@ visual studio 2013，建议使用这个版本。目前编译全部是静态编�
 添加了[任务池](https://github.com/dlunion/CCDL/blob/master/caffe-easy/support/classification/task_pool.cpp)，高性能服务器的神器<br/>
 添加了Socket-Server，通过socket调用caffe，这样可以支持win32的GPU调用或者其他语言的调用<br/>
 添加了[LSTM-CTC](https://github.com/tianzhi0549/CTPN)的支持，以备后续对序列方面训练的支持<br/>
-添加了[MTCNN]的训练和精简集成版[MTCNN-light]的支持<br/>
+添加了[MTCNN](https://github.com/dlunion/mtcnn)的训练和精简集成版[MTCNN-light](https://github.com/dlunion/mtcnn/tree/master/mtcnn-light)的支持<br/>
