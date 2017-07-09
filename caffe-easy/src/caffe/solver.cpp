@@ -10,7 +10,7 @@
 #include "caffe/util/format.hpp"
 #include "caffe/util/io.hpp"
 #include "caffe/util/upgrade_proto.hpp"
-
+#include <direct.h>
 
 //#define CCTrainControl
 #ifdef CCTrainControl
@@ -682,6 +682,24 @@ void Solver<Dtype>::CheckSnapshotWritePermissions() {
     CHECK(param_.has_snapshot_prefix())
         << "In solver params, snapshot is specified but snapshot_prefix is not";
     string probe_filename = SnapshotFilename(".tempfile");
+	int p = probe_filename.rfind("/");
+	p = p == -1 ? probe_filename.rfind("\\") : p;
+	char* str = (char*)probe_filename.c_str();
+	std::ofstream probe_ofs_tmp(probe_filename.c_str());
+
+	if (p != -1 && !probe_ofs_tmp.good()){
+		char v = str[p];
+		str[p] = 0;
+		_mkdir(str);
+		str[p] = v;
+	}
+
+	if (probe_ofs_tmp.good()){
+		probe_ofs_tmp.close();
+		std::remove(probe_filename.c_str());
+		return;
+	}
+
     std::ofstream probe_ofs(probe_filename.c_str());
     if (probe_ofs.good()) {
       probe_ofs.close();
