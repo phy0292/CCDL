@@ -40,3 +40,5 @@ predictSoftmaxAnyByTaskPool
 getBlobData
 forward
 getBlobDims
+reshape
+cropImage

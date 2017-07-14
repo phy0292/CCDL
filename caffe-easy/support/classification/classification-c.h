@@ -112,6 +112,12 @@ extern "C"{
 	//获取任意层的blob
 	Caffe_API void __stdcall forward(Classifier* classifier, const void* img, int len);
 
+	//调整输入尺寸
+	Caffe_API void __stdcall reshape(Classifier* classifier, int width, int height);
+
+	//裁图，保证缓存区的长度要够，outLen为指定的缓冲区长度，如果outLen不够长，则会返回false，只要够基本不会出现false
+	Caffe_API bool __stdcall cropImage(const char* img, int len, bool color, int x, int y, int width, int height, char* buf, int* outlen, const char* ext);
+
 	//获取任意层的blob
 	Caffe_API BlobData* __stdcall getBlobData(Classifier* classifier, const char* blob_name);
 

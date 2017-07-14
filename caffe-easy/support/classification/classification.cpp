@@ -26,12 +26,14 @@ static volatile DecipherCallback decipherCallback = 0;
 
 #define ThisNet ((Net<float>*)net_)
 
-#define Version		3.1
+#define Version		3.11
 #define	snprintf	_snprintf
 #define vsnprintf	_vsnprintf
 #define errBegin	try{
 #define errEnd(...)	}catch (const exception& e){setError(__FILE__, __LINE__,__FUNCTION__,"%s", e.what());}catch(...){setError(__FILE__, __LINE__,__FUNCTION__,"unknow error");} return __VA_ARGS__;
 #define errmsg(...) setError(__FILE__, __LINE__,__FUNCTION__, __VA_ARGS__)
+
+
 
 Caffe_API void __stdcall disableErrorOutput(){
 	static volatile int flag = 0;
@@ -330,6 +332,30 @@ Caffe_API void __stdcall cpyBlobData(void* buffer, BlobData* feature){
 	memcpy(buffer, feature->list, sizeof(feature->list[0])*feature->count);
 }
 
+Caffe_API bool __stdcall cropImage(const char* img, int len, bool color, int x, int y, int width, int height, char* buf, int* outlen, const char* ext){
+	if (!img || !buf || !outlen) return false;
+	Rect box(x, y, width, height);
+	Mat im;
+	try{
+		im = imdecode(Mat(1, len, CV_8U, (uchar*)img), color);
+	}
+	catch (...){}
+
+	if (im.empty()) return false;
+	box = box & Rect(0, 0, im.cols, im.rows);
+	if (box.width < 1 || box.height < 1) return false;
+
+	Mat part = im(box).clone();
+	vector<uchar> bout;
+	bool success = imencode(ext, part, bout);
+	if (!success) return false;
+
+	if (*outlen < bout.size()) return false;
+	*outlen = bout.size();
+	memcpy(buf, &bout[0], bout.size());
+	return true;
+}
+
 Caffe_API int __stdcall getNumOutlayers(SoftmaxResult* result){
 	if (!result) return 0;
 	return result->count;
@@ -356,6 +382,11 @@ Caffe_API void __stdcall getBlobDims(BlobData* blob, int* dims_at_4_elem){
 	*dims_at_4_elem++ = blob->channels;
 	*dims_at_4_elem++ = blob->height;
 	*dims_at_4_elem++ = blob->width;
+}
+
+Caffe_API void __stdcall reshape(Classifier* classifier, int width, int height){
+	if (!classifier) return;
+	classifier->reshape(width, height);
 }
 
 //多标签就是多个输出层，每个层取softmax
@@ -600,6 +631,9 @@ void Classifier::reshape(int width, int height){
 		for (int i = 0; i < this->num_means_; ++i)
 			mean_scal[i] = this->mean_value_[i];
 		mean_ = cv::Mat(input_geometry_, CV_32FC(this->num_means_), mean_scal);
+	}
+	else if (!mean_.empty()){
+		resize(mean_, mean_, input_geometry_);
 	}
 
 	Blob<float>* input_layer = ThisNet->input_blobs()[0];
