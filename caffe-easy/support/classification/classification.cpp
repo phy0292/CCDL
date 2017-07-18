@@ -332,6 +332,36 @@ Caffe_API void __stdcall cpyBlobData(void* buffer, BlobData* feature){
 	memcpy(buffer, feature->list, sizeof(feature->list[0])*feature->count);
 }
 
+//裁图，保证缓存区的长度要够，outLen为指定的缓冲区长度，如果outLen不够长，则会返回false，只要够基本不会出现false
+Caffe_API bool __stdcall cropCenterImage(const char* img, int len, bool color, char* buf, int* outlen, const char* ext){
+	if (!img || !buf || !outlen) return false;
+	Mat im;
+	try{
+		im = imdecode(Mat(1, len, CV_8U, (uchar*)img), color);
+	}
+	catch (...){}
+
+	if (im.empty()) return false;
+	Rect box;
+	box.x = im.cols < im.rows ? 0 : (im.cols - im.rows) / 2;
+	box.y = im.cols < im.rows ? (im.rows - im.cols) / 2 : 0;
+	box.width = min(im.cols, im.rows);
+	box.height = box.width;
+
+	box = box & Rect(0, 0, im.cols, im.rows);
+	if (box.width < 1 || box.height < 1) return false;
+
+	Mat part = im(box).clone();
+	vector<uchar> bout;
+	bool success = imencode(ext, part, bout);
+	if (!success) return false;
+
+	if (*outlen < bout.size()) return false;
+	*outlen = bout.size();
+	memcpy(buf, &bout[0], bout.size());
+	return true;
+}
+
 Caffe_API bool __stdcall cropImage(const char* img, int len, bool color, int x, int y, int width, int height, char* buf, int* outlen, const char* ext){
 	if (!img || !buf || !outlen) return false;
 	Rect box(x, y, width, height);
@@ -622,7 +652,30 @@ static std::vector<int> Argmax(const float* v, int len, int N) {
   return result;
 }
 
+void Classifier::reshape(int num, int height, int width){
+	Blob<float>* input_layer = ThisNet->input_blobs()[0];
+	if (input_geometry_ == Size(width, height) && input_layer->shape(0) == num) return;
+
+	input_geometry_ = Size(width, height);
+	if (this->num_means_ > 0){
+		Scalar mean_scal;
+		for (int i = 0; i < this->num_means_; ++i)
+			mean_scal[i] = this->mean_value_[i];
+		mean_ = cv::Mat(input_geometry_, CV_32FC(this->num_means_), mean_scal);
+	}
+	else if (!mean_.empty()){
+		resize(mean_, mean_, input_geometry_);
+	}
+
+	input_layer->Reshape(num, num_channels_,
+		input_geometry_.height, input_geometry_.width);
+	/* Forward dimension change to all layers. */
+	ThisNet->Reshape();
+}
+
 void Classifier::reshape(int width, int height){
+	this->reshape(1, height, width);
+	/*
 	if (input_geometry_ == Size(width, height)) return;
 
 	input_geometry_ = Size(width, height);
@@ -638,9 +691,9 @@ void Classifier::reshape(int width, int height){
 
 	Blob<float>* input_layer = ThisNet->input_blobs()[0];
 	input_layer->Reshape(1, num_channels_,
-		input_geometry_.height, input_geometry_.width);
+		input_geometry_.height, input_geometry_.width);*/
 	/* Forward dimension change to all layers. */
-	ThisNet->Reshape();
+	//ThisNet->Reshape();
 }
 
 void Classifier::forward(const cv::Mat& img){
@@ -651,7 +704,24 @@ void Classifier::forward(const cv::Mat& img){
 	ThisNet->Forward();
 }
 
+void Classifier::forward(const vector<cv::Mat>& imgs){
+	std::vector<cv::Mat> input_channels;
+	WrapInputLayer(input_channels);
+	Preprocess(imgs, input_channels);
+
+	ThisNet->Forward();
+}
+
+BlobData* Classifier::extfeatureImgs(const std::vector<cv::Mat>& imgs, const char* layer_name){
+	this->reshape(imgs.size(), input_geometry_.height, input_geometry_.width);
+	forward(imgs);
+	return getBlobData(layer_name);
+}
+
 BlobData* Classifier::extfeature(const cv::Mat& img, const char* feature_name){
+	return extfeatureImgs({ img }, feature_name);
+	
+#if 0
 	Blob<float>* input_layer = ThisNet->input_blobs()[0];
 	input_layer->Reshape(1, num_channels_,
 		input_geometry_.height, input_geometry_.width);
@@ -665,6 +735,7 @@ BlobData* Classifier::extfeature(const cv::Mat& img, const char* feature_name){
 
 	ThisNet->Forward();
 	return getBlobData(feature_name);
+#endif
 }
 
 MultiSoftmaxResult* Classifier::predictSoftmax(const std::vector<cv::Mat>& imgs, int top_n){

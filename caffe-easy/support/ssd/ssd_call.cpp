@@ -89,7 +89,7 @@ bool fileExists(const char* file){
 	return true;
 }
 
-#if 0
+#if 1
 int main(int argc, char** argv){
 	//disableErrorOutput();
 	char caffemodel[260] = "../../../../../demo-data/SSD_300x300/VGG_coco_SSD_300x300_iter_400000.caffemodel";
@@ -120,9 +120,9 @@ int main(int argc, char** argv){
 
 	float means[] = { 104.0f, 117.0f, 123.0f };
 	Classifier cc(prototxt, caffemodel, 1, 0, 3, means);
-	WPtr<BlobData> fr = cc.extfeature(im, "detection_out");
+	WPtr<BlobData> fr = cc.extfeatureImgs({ im, im }, "detection_out");
 	vector<DetectObjectInfo> objs = toDetInfo(fr, im.cols, im.rows);
-
+	printf("%d, %d, %d, %d, count = %d\n", fr->count, fr->channels, fr->height, fr->width, fr->count);
 	for (int i = 0; i < objs.size(); ++i){
 		auto obj = objs[i];
 		if (obj.score > 0.25){
@@ -137,7 +137,7 @@ int main(int argc, char** argv){
 }
 #endif
 
-#if 1
+#if 0
 int main(int argc, char** argv){
 	//disableErrorOutput();
 	char caffemodel[260] = "../../../../../demo-data/SSD_300x300/VGG_coco_SSD_300x300_iter_400000.caffemodel";
