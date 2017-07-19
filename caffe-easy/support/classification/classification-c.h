@@ -195,6 +195,8 @@ extern "C"{
 	Caffe_API SoftmaxResult* __stdcall predictSoftmaxByTaskPool(TaskPool* pool, const void* img, int len, int top_n = 1);
 	Caffe_API SoftmaxResult* __stdcall predictSoftmaxAnyByTaskPool(TaskPool* pool, const float* data, const int* dims, int top_n = 1);
 	Caffe_API SoftmaxResult* __stdcall predictSoftmaxByTaskPool2(TaskPool* pool, const Image* img, int top_n = 1);
+	//Caffe_API BlobData* __stdcall forwardByTaskPool(TaskPool* pool, const void* img, int len, const char* blob_name);
+	//Caffe_API BlobData* __stdcall forwardByTaskPool2(TaskPool* pool, const Image* img, int len, const char* blob_name);
 #ifdef __cplusplus 
 }; 
 #endif

@@ -263,7 +263,7 @@ Caffe_API MultiSoftmaxResult* __stdcall predictMultiSoftmax(Classifier* classifi
 	catch (...){}
 	if (ims.empty()) return 0;
 
-	return classifier->predictSoftmax(ims, top_n);
+	return classifier->predictSoftmax(&ims[0], ims.size(), top_n);
 	errEnd(0);
 }
 
@@ -309,7 +309,7 @@ Caffe_API MultiSoftmaxResult* __stdcall predictMultiSoftmaxAny(Classifier* class
 	catch (...){}
 	if (ims.empty()) return 0;
 
-	return classifier->predictSoftmax(ims, top_n);
+	return classifier->predictSoftmax(&ims[0], ims.size(), top_n);
 	errEnd(0);
 }
 
@@ -697,14 +697,12 @@ void Classifier::reshape(int width, int height){
 }
 
 void Classifier::forward(const cv::Mat& img){
-	std::vector<cv::Mat> input_channels;
-	WrapInputLayer(input_channels);
-	Preprocess({ img }, input_channels);
-
-	ThisNet->Forward();
+	this->forward(&img, 1);
 }
 
-void Classifier::forward(const vector<cv::Mat>& imgs){
+void Classifier::forward(const cv::Mat* ptr_imgs, int num){
+	std::vector<cv::Mat> imgs(ptr_imgs, ptr_imgs + num);
+
 	std::vector<cv::Mat> input_channels;
 	WrapInputLayer(input_channels);
 	Preprocess(imgs, input_channels);
@@ -712,14 +710,14 @@ void Classifier::forward(const vector<cv::Mat>& imgs){
 	ThisNet->Forward();
 }
 
-BlobData* Classifier::extfeatureImgs(const std::vector<cv::Mat>& imgs, const char* layer_name){
-	this->reshape(imgs.size(), input_geometry_.height, input_geometry_.width);
-	forward(imgs);
+BlobData* Classifier::extfeature(const cv::Mat* imgs, int num, const char* layer_name){
+	this->reshape(num, input_geometry_.height, input_geometry_.width);
+	forward(imgs, num);
 	return getBlobData(layer_name);
 }
 
 BlobData* Classifier::extfeature(const cv::Mat& img, const char* feature_name){
-	return extfeatureImgs({ img }, feature_name);
+	return extfeature(&img, 1, feature_name);
 	
 #if 0
 	Blob<float>* input_layer = ThisNet->input_blobs()[0];
@@ -738,9 +736,10 @@ BlobData* Classifier::extfeature(const cv::Mat& img, const char* feature_name){
 #endif
 }
 
-MultiSoftmaxResult* Classifier::predictSoftmax(const std::vector<cv::Mat>& imgs, int top_n){
-	if (imgs.size() == 0) return 0;
+MultiSoftmaxResult* Classifier::predictSoftmax(const Mat* imgs_, int num, int top_n){
+	if (num < 1) return 0;
 
+	vector<Mat> imgs(imgs_, imgs_ + num);
 	std::vector<std::vector<float>> output;
 	Predict(imgs, output);
 	MultiSoftmaxResult* rtn = new MultiSoftmaxResult();
@@ -874,7 +873,7 @@ void Classifier::Preprocess(const std::vector<cv::Mat>& imgs,
 	cv::Mat sample;
 	cv::Mat sample_resized;
 	cv::Mat sample_float;
-	CHECK(imgs.size() * num_channels_ <= input_channels.size()) << "worning image channels";
+	CHECK_LE(imgs.size() * num_channels_, input_channels.size()) << "worning image channels";
 
 	for (int i = 0; i < imgs.size(); ++i){
 		Mat img = imgs[i];

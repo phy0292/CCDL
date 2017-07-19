@@ -35,11 +35,11 @@ public:
 
 public:
 	SoftmaxResult* predictSoftmax(const cv::Mat& img, int top_n = 5);
-	MultiSoftmaxResult* predictSoftmax(const std::vector<cv::Mat>& imgs, int top_n = 5);
+	MultiSoftmaxResult* predictSoftmax(const cv::Mat* imgs, int num, int top_n = 5);
 	BlobData* extfeature(const cv::Mat& img, const char* layer_name = 0);
-	BlobData* extfeatureImgs(const std::vector<cv::Mat>& imgs, const char* layer_name = 0);
+	BlobData* extfeature(const cv::Mat* imgs, int num, const char* layer_name = 0);
 	void forward(const cv::Mat& img);
-	void forward(const std::vector<cv::Mat>& imgs);
+	void forward(const cv::Mat* imgs, int num);
 	void reshape(int width, int height);
 	void reshape(int num, int height, int width);
 

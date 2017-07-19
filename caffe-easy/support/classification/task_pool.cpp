@@ -43,15 +43,15 @@ void poolThread(void* param){
 	// GPU是线程上下文相关的
 	setGPU(pool->gpu_id);
 
-	vector<Mat> ims;
+	//vector<Mat> ims;
 	while (pool->flag_run){
 		swapCache(pool);
 		if (pool->recNum > 0){
-			ims.clear();
-			for (int i = 0; i < pool->recNum; ++i)
-				ims.push_back(((Mat*)pool->recImgs)[i]);
+			//ims.clear();
+			//for (int i = 0; i < pool->recNum; ++i)
+			//	ims.push_back(((Mat*)pool->recImgs)[i]);
 
-			MultiSoftmaxResult* multi = pool->model->predictSoftmax(ims, pool->top_n[0]);
+			MultiSoftmaxResult* multi = pool->model->predictSoftmax((Mat*)pool->recImgs, pool->recNum, pool->top_n[0]);
 			//MultiSoftmaxResult* multi = predictMultiSoftmax(pool->model, (const void**)pool->recImgs, (int*)pool->recLengths, pool->recNum, pool->top_n[0]);
 			memcpy(pool->recResult, multi->list, sizeof(SoftmaxResult*)* multi->count);
 			delete [] multi->list;
@@ -209,3 +209,13 @@ Caffe_API SoftmaxResult* __stdcall predictSoftmaxByTaskPool2(TaskPool* pool, con
 	ReleaseSemaphore(pool->semaphoreGetResultFinish, 1, 0);
 	return (SoftmaxResult*)result;
 }
+
+#if 0
+Caffe_API SoftmaxResult* __stdcall forwardByTaskPool(TaskPool* pool, const void* img, int len, const char* blob_name){
+
+}
+
+Caffe_API SoftmaxResult* __stdcall forwardByTaskPool2(TaskPool* pool, const Image* img, int len, const char* blob_name){
+
+}
+#endif
