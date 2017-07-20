@@ -6,10 +6,10 @@ namespace caffe {
         const vector<Blob<Dtype>*>& bottom, 
         const vector<Blob<Dtype>*>& top) {
         ContinuationIndicatorParameter param = this->layer_param_.continuation_indicator_param();
-		if (param.has_batch_size())
-			mini_batch_ = param.batch_size();
-		else
+		if (bottom.size() > 0)
 			mini_batch_ = bottom[0]->num();
+		else
+			mini_batch_ = param.batch_size();
 
         time_step_ = param.time_step();
         CHECK_GT(mini_batch_, 0) << "The batch size should be greater than 0.";
@@ -22,10 +22,10 @@ namespace caffe {
         const vector<Blob<Dtype>*>& top) {
 
 		ContinuationIndicatorParameter param = this->layer_param_.continuation_indicator_param();
-		if (param.has_batch_size())
-			mini_batch_ = param.batch_size();
-		else
+		if (bottom.size() > 0)
 			mini_batch_ = bottom[0]->num();
+		else
+			mini_batch_ = param.batch_size();
 
         vector<int> top_shape{time_step_, mini_batch_};
         top[0]->Reshape(top_shape);
