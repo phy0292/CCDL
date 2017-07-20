@@ -49,12 +49,16 @@ public:
 	int input_height(int index = 0);
 
 	BlobData* getOutputBlob(int index);
+	BlobData* getOutputBlob(int num_index, int index);
 	int getOutputBlobCount();
 	BlobData* getBlobData(const char* blob_name);
+	BlobData* getBlobData(int num_index, const char* blob_name);
+	SoftmaxResult* getSoftmaxResult(int num_index = 0, int top_n = 5);
 
 private:
 	//Blob<float>
 	BlobData* getBlobDataByRawBlob(void* blob);
+	BlobData* getBlobDataByRawBlob(int num_index, void* blob);
 	void SetMean(const char* mean_file);
 	void Predict(const std::vector<cv::Mat>& imgs, std::vector<std::vector<float> >& out);
 	void WrapInputLayer(std::vector<cv::Mat>& input_channels);

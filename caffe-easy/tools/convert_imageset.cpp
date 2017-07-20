@@ -43,6 +43,8 @@ DEFINE_bool(encoded, false,
     "When this option is on, the encoded image will be save in datum");
 DEFINE_string(encode_type, "",
 	"Optional: What type should we encode the image as ('png','jpg',...).");
+DEFINE_string(db_mode, "new",
+	"Optional: DB create mode, new or append.");
 
 int main(int argc, char** argv) {
 #ifdef USE_OPENCV
@@ -120,9 +122,9 @@ int main(int argc, char** argv) {
   int resize_width = std::max<int>(0, FLAGS_resize_width);
   _mkdir(argv[3]);
 
-  // Create new DB
+  db::Mode dbmode = FLAGS_db_mode == "append" ? db::WRITE : db::NEW;
   scoped_ptr<db::DB> db(db::GetDB(FLAGS_backend));
-  db->Open(argv[3], db::NEW);
+  db->Open(argv[3], dbmode);
   scoped_ptr<db::Transaction> txn(db->NewTransaction());
 
   // Storing to db

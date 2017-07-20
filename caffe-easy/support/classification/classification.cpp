@@ -26,14 +26,30 @@ static volatile DecipherCallback decipherCallback = 0;
 
 #define ThisNet ((Net<float>*)net_)
 
-#define Version		3.11
+#define Version		3.17
 #define	snprintf	_snprintf
 #define vsnprintf	_vsnprintf
 #define errBegin	try{
 #define errEnd(...)	}catch (const exception& e){setError(__FILE__, __LINE__,__FUNCTION__,"%s", e.what());}catch(...){setError(__FILE__, __LINE__,__FUNCTION__,"unknow error");} return __VA_ARGS__;
 #define errmsg(...) setError(__FILE__, __LINE__,__FUNCTION__, __VA_ARGS__)
 
+static bool PairCompare(const std::pair<float, int>& lhs,
+	const std::pair<float, int>& rhs) {
+	return lhs.first > rhs.first;
+}
 
+/* Return the indices of the top N values of vector v. */
+static std::vector<int> Argmax(const float* v, int len, int N) {
+	std::vector<std::pair<float, int> > pairs;
+	for (size_t i = 0; i < len; ++i)
+		pairs.push_back(std::make_pair(v[i], static_cast<int>(i)));
+	std::partial_sort(pairs.begin(), pairs.begin() + N, pairs.end(), PairCompare);
+
+	std::vector<int> result;
+	for (int i = 0; i < N; ++i)
+		result.push_back(pairs[i].second);
+	return result;
+}
 
 Caffe_API void __stdcall disableErrorOutput(){
 	static volatile int flag = 0;
@@ -365,7 +381,7 @@ Caffe_API bool __stdcall cropCenterImage(const char* img, int len, bool color, c
 Caffe_API bool __stdcall cropImage(const char* img, int len, bool color, int x, int y, int width, int height, char* buf, int* outlen, const char* ext){
 	if (!img || !buf || !outlen) return false;
 	Rect box(x, y, width, height);
-	Mat im;
+	Mat im; 
 	try{
 		im = imdecode(Mat(1, len, CV_8U, (uchar*)img), color);
 	}
@@ -528,6 +544,35 @@ BlobData* Classifier::getOutputBlob(int index){
 	return getBlobDataByRawBlob(ThisNet->output_blobs()[index]);
 }
 
+BlobData* Classifier::getOutputBlob(int num_index, int index){
+	if (index < 0 || index >= ThisNet->num_outputs()){
+		cout << "layer index out of range.";
+		return 0;
+	}
+
+	return getBlobDataByRawBlob(num_index, ThisNet->output_blobs()[index]);
+}
+
+BlobData* Classifier::getBlobDataByRawBlob(int num_index, void* _blob){
+
+	Blob<float>* blob = (Blob<float>*)_blob;
+	if (num_index < 0 || num_index >= blob->num()) return 0;
+
+
+	const float* begin = blob->cpu_data();
+	BlobData* fresult = new BlobData();
+	fresult->channels = blob->channels();
+	fresult->num = 1;
+	fresult->height = blob->height();
+	fresult->width = blob->width();
+
+	int plane = fresult->height * fresult->width * fresult->channels;
+	fresult->count = fresult->num * plane;
+	fresult->list = new float[fresult->count];
+	memcpy(fresult->list, begin + num_index * plane, sizeof(float)*fresult->count);
+	return fresult;
+}
+
 BlobData* Classifier::getBlobDataByRawBlob(void* _blob){
 	Blob<float>* blob = (Blob<float>*)_blob;
 	const float* begin = blob->cpu_data();
@@ -540,6 +585,49 @@ BlobData* Classifier::getBlobDataByRawBlob(void* _blob){
 	fresult->width = blob->width();
 	memcpy(fresult->list, begin, sizeof(float)*fresult->count);
 	return fresult;
+}
+
+SoftmaxResult* Classifier::getSoftmaxResult(int num_index, int top_n){
+	vector<vector<float>> out;
+	out.resize(ThisNet->output_blobs().size());
+	for (int i = 0; i < ThisNet->output_blobs().size(); ++i){
+		Blob<float>* output_layer = ThisNet->output_blobs()[i];
+		int plane = output_layer->channels() * output_layer->width() * output_layer->height();
+		const float* begin = output_layer->cpu_data() + plane * num_index;
+		const float* end = begin + plane;
+		out[i] = std::vector<float>(begin, end);
+	}
+
+	SoftmaxResult* result = new SoftmaxResult();
+	result->count = out.size();
+	result->list = new SoftmaxLayerOutput[result->count];
+
+	int N;
+	for (int i = 0; i < result->count; ++i){
+		N = top_n;
+		N = N > out[i].size() ? out[i].size() : N;
+		result->list[i].result = new SoftmaxData[N];
+		result->list[i].count = N;
+
+		std::vector<int> maxN = Argmax(&out[i][0], out[i].size(), N);
+		for (int k = 0; k < N; ++k) {
+			int idx = maxN[k];
+			result->list[i].result[k].label = idx;
+			result->list[i].result[k].conf = out[i][idx];
+		}
+	}
+	return result;
+}
+
+BlobData* Classifier::getBlobData(int num_index, const char* blob_name){
+	if (blob_name == 0 || *blob_name == 0)
+		return getOutputBlob(num_index, 0);
+
+	if (!ThisNet->has_blob(blob_name)){
+		printf("no blob: %s\n", blob_name);
+		return 0;
+	}
+	return getBlobDataByRawBlob(num_index, ThisNet->blob_by_name(blob_name).get());
 }
 
 BlobData* Classifier::getBlobData(const char* blob_name){
@@ -634,37 +722,26 @@ Classifier::~Classifier(){
 	net_ = 0;
 }
 
-static bool PairCompare(const std::pair<float, int>& lhs,
-                        const std::pair<float, int>& rhs) {
-  return lhs.first > rhs.first;
-}
-
-/* Return the indices of the top N values of vector v. */
-static std::vector<int> Argmax(const float* v, int len, int N) {
-  std::vector<std::pair<float, int> > pairs;
-  for (size_t i = 0; i < len; ++i)
-    pairs.push_back(std::make_pair(v[i], static_cast<int>(i)));
-  std::partial_sort(pairs.begin(), pairs.begin() + N, pairs.end(), PairCompare);
-
-  std::vector<int> result;
-  for (int i = 0; i < N; ++i)
-    result.push_back(pairs[i].second);
-  return result;
-}
-
 void Classifier::reshape(int num, int height, int width){
 	Blob<float>* input_layer = ThisNet->input_blobs()[0];
+	
+	height = height == -1 ? input_geometry_.height : height;
+	width = width == -1 ? input_geometry_.width : width;
+	num = num == -1 ? input_layer->shape(0) : num;
+
 	if (input_geometry_ == Size(width, height) && input_layer->shape(0) == num) return;
 
-	input_geometry_ = Size(width, height);
-	if (this->num_means_ > 0){
-		Scalar mean_scal;
-		for (int i = 0; i < this->num_means_; ++i)
-			mean_scal[i] = this->mean_value_[i];
-		mean_ = cv::Mat(input_geometry_, CV_32FC(this->num_means_), mean_scal);
-	}
-	else if (!mean_.empty()){
-		resize(mean_, mean_, input_geometry_);
+	if (input_geometry_ != Size(width, height)){
+		input_geometry_ = Size(width, height);
+		if (this->num_means_ > 0){
+			Scalar mean_scal;
+			for (int i = 0; i < this->num_means_; ++i)
+				mean_scal[i] = this->mean_value_[i];
+			mean_ = cv::Mat(input_geometry_, CV_32FC(this->num_means_), mean_scal);
+		}
+		else if (!mean_.empty()){
+			resize(mean_, mean_, input_geometry_);
+		}
 	}
 
 	input_layer->Reshape(num, num_channels_,
@@ -711,7 +788,7 @@ void Classifier::forward(const cv::Mat* ptr_imgs, int num){
 }
 
 BlobData* Classifier::extfeature(const cv::Mat* imgs, int num, const char* layer_name){
-	this->reshape(num, input_geometry_.height, input_geometry_.width);
+	this->reshape(num, -1, -1);
 	forward(imgs, num);
 	return getBlobData(layer_name);
 }
@@ -771,8 +848,12 @@ MultiSoftmaxResult* Classifier::predictSoftmax(const Mat* imgs_, int num, int to
 
 /* Return the top N predictions. */
 SoftmaxResult* Classifier::predictSoftmax(const cv::Mat& img, int top_n) {
-  std::vector<std::vector<float>> output;
-  Predict({ img }, output);
+  forward(img);
+  return getSoftmaxResult(0, top_n);
+
+  //Predict({ img }, output);
+  //std::vector<std::vector<float>> output;
+  /*
   SoftmaxResult* result = new SoftmaxResult();
   result->count = output.size();
   result->list = new SoftmaxLayerOutput[result->count];
@@ -791,7 +872,7 @@ SoftmaxResult* Classifier::predictSoftmax(const cv::Mat& img, int top_n) {
 		  result->list[i].result[k].conf = output[i][idx];
 	  }
   }
-  return result;
+  return result;*/
 }
 
 /* Load the mean file in binaryproto format. */

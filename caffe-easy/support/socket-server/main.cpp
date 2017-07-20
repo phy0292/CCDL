@@ -427,6 +427,47 @@ void execute(cmd* c, vector<param>& ps){
 		ps.push_back(param("confs", &confs[0], confs.size()*sizeof(confs[0])));
 		releaseSoftmaxResult(result);
 	}
+	else if (c->name == "forwardByTaskPool"){
+		int modelID = getParamInt(c, "model_id");
+		string blob_name = getParamStr(c, "blob_name");
+		if (modelID < 1 || modelID > pools.size()){
+			error(ps, "错误的模型id");
+			return;
+		}
+
+		modelID--;
+		if (pools[modelID] == 0){
+			error(ps, "该模型已经被干掉了");
+			return;
+		}
+
+		Mat im = getParamImage(c, "image", getParamInt(c, "isColor", 1));
+		if (im.empty()){
+			error(ps, "图像解析失败");
+			return;
+		}
+
+		bool isScale = getParamInt(c, "isScale");
+		if (isScale){
+			im.convertTo(im, CV_32F);
+			im = im / 255;
+		}
+
+		TaskPool* pool = pools[modelID];
+		BlobData* result = forwardByTaskPool2(pool, &im, blob_name.c_str());
+		if (!result){
+			error(ps, "发生错误");
+			return;
+		}
+
+		vector<float> confs(result->list, result->list + result->count);
+		ps.push_back(param("width", result->width));
+		ps.push_back(param("height", result->height));
+		ps.push_back(param("channels", result->channels));
+		ps.push_back(param("count", result->count));
+		ps.push_back(param("blob_data", &confs[0], confs.size()*sizeof(confs[0])));
+		releaseBlobData(result);
+	}
 }
 
 void doAction(clientContext* client){

@@ -27,27 +27,37 @@ map<int, int> mp;
 CRITICAL_SECTION gcs;
 void recThread(void* param){
 	TaskPool* pool = (TaskPool*)param;
-	vector<char> imd = readAtFile(RootDir "samples/00W0_27c86a8b9ce8d0b1fe1d3d47b4040a28.png");
+	vector<char> imd = readAtFile(RootDir "samples/0A79_xxx.png");
 
 	double time = getTickCount();
 	for(int i = 0; i < 1000000; ++i){
 		int labels[4];
 		float confs[4];
 		time = getTickCount();
-		SoftmaxResult* val = predictSoftmaxByTaskPool(pool, &imd[0], imd.size(), 1);
-		time = (getTickCount() - time) / getTickFrequency() * 1000.0;
-		getMultiLabel(val, labels);
-		getMultiConf(val, confs);
+
+		if (i % 2 == 0){
+			SoftmaxResult* val = predictSoftmaxByTaskPool(pool, &imd[0], imd.size(), 1);
+
+			time = (getTickCount() - time) / getTickFrequency() * 1000.0;
+			getMultiLabel(val, labels);
+			getMultiConf(val, confs);
 #if 1
-		if (i % 50 == 0){
-			printf("labels = %d, %d, %d, %d\n", labels[0], labels[1], labels[2], labels[3]);
-			printf("confs = %f, %f, %f, %f\n", confs[0], confs[1], confs[2], confs[3]);
-		}
-		printf("%.2f, 耗时：%.2f ms\n", getTickCount() / getTickFrequency(), time);
+			//if (i % 100 == 0 && val && blob){
+
+			//printf("0x%p labels = %d, %d, %d, %d\n", val, labels[0], labels[1], labels[2], labels[3]);
+			printf("0x%p confs = %f, %f, %f, %f\n", val, confs[0], confs[1], confs[2], confs[3]);
+			//}
+			//printf("%.2f, 耗时：%.2f ms\n", getTickCount() / getTickFrequency(), time);
 #endif
 
-		//printf("%d\n", val);
-		releaseSoftmaxResult(val);
+			//printf("%d\n", val);
+			releaseSoftmaxResult(val);
+		}
+		else{
+			BlobData* blob = forwardByTaskPool(pool, &imd[0], imd.size(), "cccp7");
+			printf("0x%p blob = %d, %d, %d, %d\n", blob, blob->count, blob->channels, blob->height, blob->width);
+			releaseBlobData(blob);
+		}
 
 #if 0
 		EnterCriticalSection(&gcs);
@@ -109,11 +119,11 @@ void main(int argc, char** argv){
 	InitializeCriticalSection(&gcs);
 
 	//测试任务池
-	TaskPool* pool = createTaskPool(RootDir "deploy.prototxt", RootDir "nin_iter_16000.caffemodel", 1.0, "", 0, 0, 0, 5);
+	TaskPool* pool = createTaskPool(RootDir "deploy.prototxt", RootDir "nin_iter_16000.caffemodel", 1.0, "", 0, 0, 0, 32);
 	for (int i = 0; i < 160; ++i){
 		_beginthread(recThread, 0, pool);
 	}
-	Sleep(1000 * 10);
+	Sleep(1000 * 100000);
 	printf("停止...\n");
 	releaseTaskPool(pool);
 	printf("已经停止...\n");
