@@ -1039,5 +1039,6 @@
     <None Include="..\..\src\caffe\layers\st_loss_layer.cu">
       <Filter>src\layers</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

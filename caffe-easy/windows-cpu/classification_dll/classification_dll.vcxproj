@@ -41,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v120_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Static</UseOfMfc>
@@ -49,7 +49,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v120_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Static</UseOfMfc>
@@ -87,15 +87,15 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>../../include;../../3rd/include/protobuf;../../3rd/include/;../../3rd/include/openblas0.2.14.1;../../3rd/include/lmdb;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;../../3rd/include/opencv2.4.10;../../3rd/include/opencv2.4.10/opencv;../../3rd/include/opencv2.4.10/opencv2;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <LibraryPath>../../3rd/staticlib/boost/$(Platform)/;../../3rd/staticlib/gflags/$(Platform)/;../../3rd/staticlib/glog/$(Platform)/;../../3rd/staticlib/protobuf/$(Platform)/;../../3rd/staticlib/openblas/$(Platform)/;../../3rd/staticlib/lmdb/$(Platform)/;../../3rd/staticlib/opencv2.4.10/$(Platform)/vc$(PlatformToolsetVersion)/staticlib;../../3rd/staticlib/openblas-staticlib/$(Platform)/;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <IncludePath>D:\my doc\Visual Studio 2017\Projects\glog\src\windows;D:\my doc\Visual Studio 2017\Projects\gflags\vs2013\include;../../include;D:\my doc\Visual Studio 2017\Projects\protobuf_v3.5.0\src;D:\my doc\Visual Studio 2017\Projects\NugetPackages\OpenBLAS.0.2.14.1\lib\native\include;D:\my doc\Visual Studio 2017\Projects\NugetPackages\lmdb-v120-clean.0.9.14.0\lib\native\include;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;D:\my doc\Visual Studio 2017\Projects\NugetPackages\OpenCV.2.4.10\build\native\include;D:\my doc\Visual Studio 2017\Projects\NugetPackages\OpenCV.2.4.10\build\native\include\opencv;D:\my doc\Visual Studio 2017\Projects\NugetPackages\OpenCV.2.4.10\build\native\include\opencv2;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>../../3rd/staticlib/boost/$(Platform)/;D:\my doc\Visual Studio 2017\Projects\gflags\vs2013x86\lib\Release;D:\my doc\Visual Studio 2017\Projects\glog\Release;D:\my doc\Visual Studio 2017\Projects\protobuf_v3.5.0\vs2013x86\Release;D:\my doc\Visual Studio 2017\Projects\OpenBLAS\vs2013x86\lib\RELEASE;D:\my doc\Visual Studio 2017\Projects\lmdb\libraries\liblmdb\Release;D:\my doc\Visual Studio 2017\Projects\opencv\vs2013x86\lib\Release;D:\my doc\Visual Studio 2017\Projects\opencv\vs2013x86\3rdparty\lib\Release;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
     <OutDir>../../Build/cpu/$(Configuration)/$(Platform)/</OutDir>
     <IntDir>../../Build/cpu/outobj/$(ProjectName)/$(Configuration)/$(Platform)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>../../include;../../3rd/include/protobuf;../../3rd/include/;../../3rd/include/openblas0.2.14.1;../../3rd/include/lmdb;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;../../3rd/include/opencv2.4.10;../../3rd/include/opencv2.4.10/opencv;../../3rd/include/opencv2.4.10/opencv2;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <LibraryPath>../../3rd/staticlib/boost/$(Platform)/;../../3rd/staticlib/gflags/$(Platform)/;../../3rd/staticlib/glog/$(Platform)/;../../3rd/staticlib/protobuf/$(Platform)/;../../3rd/staticlib/openblas/$(Platform)/;../../3rd/staticlib/lmdb/$(Platform)/;../../3rd/staticlib/opencv2.4.10/$(Platform)/vc$(PlatformToolsetVersion)/staticlib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+    <IncludePath>../../include;D:\my doc\Visual Studio 2017\Projects\protobuf_v3.5.0\src;D:\my doc\Visual Studio 2017\Projects\glog\src\windows;D:\my doc\Visual Studio 2017\Projects\gflags\vs2013\include;D:\my doc\Visual Studio 2017\Projects\NugetPackages\OpenBLAS.0.2.14.1\lib\native\include;D:\my doc\Visual Studio 2017\Projects\NugetPackages\lmdb-v120-clean.0.9.14.0\lib\native\include;../../include\caffe\proto;../../support\network;../../support\mtcnn;../../support\classification;../../support;../../support\train\lmdb;D:\my doc\Visual Studio 2017\Projects\NugetPackages\OpenCV.2.4.10\build\native\include;D:\my doc\Visual Studio 2017\Projects\NugetPackages\OpenCV.2.4.10\build\native\include\opencv;D:\my doc\Visual Studio 2017\Projects\NugetPackages\OpenCV.2.4.10\build\native\include\opencv2;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>../../3rd/staticlib/boost/$(Platform)/;D:\my doc\Visual Studio 2017\Projects\gflags\vs2013\lib\Release;D:\my doc\Visual Studio 2017\Projects\glog\x64\Release;D:\my doc\Visual Studio 2017\Projects\protobuf_v3.5.0\vs2013\x64\Release;D:\my doc\Visual Studio 2017\Projects\OpenBLAS\vs2013\lib\RELEASE;D:\my doc\Visual Studio 2017\Projects\lmdb\libraries\liblmdb\x64\Release;D:\my doc\Visual Studio 2017\Projects\opencv\vs2013\3rdparty\lib\Release;D:\my doc\Visual Studio 2017\Projects\opencv\vs2013\lib\Release;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
     <OutDir>../../Build/cpu/$(Configuration)/$(Platform)/</OutDir>
     <IntDir>../../Build/cpu/outobj/$(ProjectName)/$(Configuration)/$(Platform)/</IntDir>
   </PropertyGroup>
@@ -149,19 +149,22 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>CCTrainControl;BuildDLL;WIN32;_CRT_SECURE_NO_DEPRECATE;USE_OPENCV;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CPU_ONLY;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GOOGLE_GLOG_DLL_DECL=;USE_STATIC_OPENBLAS;CCTrainControl;BuildDLL;WIN32;_CRT_SECURE_NO_DEPRECATE;USE_OPENCV;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CPU_ONLY;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>../../support/def.def</ModuleDefinitionFile>
       <MinimumRequiredVersion>5.04</MinimumRequiredVersion>
-      <IgnoreSpecificDefaultLibraries>MSVCRT.lib</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
       <DelayLoadDLLs>
       </DelayLoadDLLs>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -176,7 +179,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>USE_LMDB;CCTrainControl;USE_LMDB;BuildDLL;WIN32;_CRT_SECURE_NO_DEPRECATE;USE_OPENCV;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CPU_ONLY;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GOOGLE_GLOG_DLL_DECL=;USE_STATIC_OPENBLAS;CCTrainControl;BuildDLL;WIN32;_CRT_SECURE_NO_DEPRECATE;USE_OPENCV;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;CPU_ONLY;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>

@@ -206,6 +206,9 @@ extern "C"{
 	Caffe_API SoftmaxResult* __stdcall predictSoftmaxByTaskPool2(TaskPool* pool, const Image* img, int top_n = 1);
 	Caffe_API BlobData* __stdcall forwardByTaskPool(TaskPool* pool, const void* img, int len, const char* blob_name);
 	Caffe_API BlobData* __stdcall forwardByTaskPool2(TaskPool* pool, const Image* img, const char* blob_name);
+
+	Caffe_API bool __stdcall GetProtoParam(const char* filename, int *num_output, int *time_step);
+
 #ifdef __cplusplus 
 }; 
 #endif

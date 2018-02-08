@@ -12,8 +12,12 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <io.h>
+#include <fcntl.h>
+#include "google/protobuf/io/zero_copy_stream_impl.h"
+#include "google/protobuf/text_format.h"
 
-//#define USE_STATIC_OPENBLAS
+#define USE_STATIC_OPENBLAS
 #include <import-staticlib.h>
 
 using namespace caffe;
@@ -1002,4 +1006,34 @@ int Classifier::input_width(int index){
 
 int Classifier::input_height(int index){
 	return ThisNet->input_blobs()[index]->height();
+}
+
+//获取deploy.prototxt网络中的num_output和time_step参数值
+Caffe_API bool __stdcall GetProtoParam(const char* filename, int *num_output, int *time_step){
+	caffe::NetParameter proto;
+	int fd = open(filename, O_RDONLY);
+	if (fd == -1)return false;
+	google::protobuf::io::FileInputStream* input = new google::protobuf::io::FileInputStream(fd);
+	bool success = google::protobuf::TextFormat::Parse(input, &proto);
+	delete input;
+	close(fd);
+	*num_output = 0;
+	*time_step = 0;
+	if (success)
+	{
+		for (int i = 0; i < proto.layer_size(); i++)
+		{
+			caffe::LayerParameter layerp = proto.layer(i);
+			if (layerp.name() == "fc1x")
+			{
+				*num_output = layerp.inner_product_param().num_output();
+			}
+			if (layerp.name() == "indicator")
+			{
+				*time_step = layerp.continuation_indicator_param().time_step();
+			}
+			if (*num_output != 0 && *time_step != 0)break;
+		}
+	}
+	return *num_output != 0 && *time_step != 0;
 }
