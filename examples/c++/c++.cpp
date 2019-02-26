@@ -94,62 +94,73 @@ void doproc(const string strFile)
 	string strFileName = strFile;
 	string strFileNameAll = strPath + strFileName;
 	//printf("开始一个线程%s", strFileName.c_str());
-	vector<char> data = readFile(strFileNameAll.c_str());
-	BlobData* 张量句柄;
-	for (int i = 0; i < 30; i++)
+	BlobData* 张量句柄 = NULL;
+	try
 	{
-		张量句柄 = forwardByTaskPool(classifierHandle, &data[0], data.size(), "premuted_fc");
-		if (张量句柄 != NULL)break;
-		Sleep(30);
-	}
-	if (张量句柄 != NULL)
-	{
-		int 空白标签索引 = num_output - 1;
-		int prev = 空白标签索引;
-		int o = 0;
-		string rt = "";
-		int len = getBlobLength(张量句柄);
-		if (len != 0)
+		vector<char> data = readFile(strFileNameAll.c_str());
+		for (int i = 0; i < 30; i++)
 		{
-			float* permute_fc = new float[len];
-			try
-			{
-				cpyBlobData(permute_fc, 张量句柄);
-
-				for (int i = 1; i < time_step; i++)
-				{
-					o = argmax(permute_fc, (i - 1) * num_output, i * num_output);
-
-					if (o != 空白标签索引 && prev != o && o > -1 && o < num_output)
-					{
-						rt += labelMap[o];
-					}
-
-					prev = o;
-				}
-			}
-			catch (...)
-			{
-			}
-			delete[] permute_fc;
-			string strS = strFileName.substr(0, strFileName.find('_', 0));
-			string s;
-			EnterCriticalSection(&g_csThreadCode);
-			if (strS == rt)
-			{
-				正确++;
-				s = "正确";
-			}
-			else
-			{
-				错误++;
-				s = "错误";
-				printf("识别的结果是：%s\t%s\t正确答案=%s\n", rt.c_str(), s.c_str(), strFileName.c_str());
-			}
-			LeaveCriticalSection(&g_csThreadCode);
+			张量句柄 = forwardByTaskPool(classifierHandle, &data[0], data.size(), "premuted_fc");
+			if (张量句柄 != NULL)break;
+			Sleep(30);
 		}
-		releaseBlobData(张量句柄);
+		if (张量句柄 != NULL)
+		{
+			int 空白标签索引 = num_output - 1;
+			int prev = 空白标签索引;
+			int o = 0;
+			string rt = "";
+			int len = getBlobLength(张量句柄);
+			if (len != 0)
+			{
+				float* permute_fc = new float[len];
+				try
+				{
+					cpyBlobData(permute_fc, 张量句柄);
+
+					for (int i = 1; i < time_step; i++)
+					{
+						o = argmax(permute_fc, (i - 1) * num_output, i * num_output);
+
+						if (o != 空白标签索引 && prev != o && o > -1 && o < num_output)
+						{
+							rt += labelMap[o];
+						}
+
+						prev = o;
+					}
+				}
+				catch (...)
+				{
+				}
+				delete[] permute_fc;
+				string strS = strFileName.substr(0, strFileName.find('_', 0));
+				string s;
+				EnterCriticalSection(&g_csThreadCode);
+				if (strS == rt)
+				{
+					正确++;
+					s = "正确";
+				}
+				else
+				{
+					错误++;
+					s = "错误";
+					printf("识别的结果是：%s\t%s\t正确答案=%s\n", rt.c_str(), s.c_str(), strFileName.c_str());
+				}
+				LeaveCriticalSection(&g_csThreadCode);
+			}
+		}
+		else
+		{
+			printf("张量句柄是空:%s,大小=%d\n", strFile.c_str(), data.size());
+		}
 	}
+	catch (...)
+	{
+		printf("异常");
+	}
+	if(张量句柄)releaseBlobData(张量句柄);
 	ReleaseSemaphore(g_hThreadParameter, 1, &lReleaseCount);
 }
 
@@ -169,8 +180,8 @@ void FindFile()
 	do
 	{
 		WaitForSingleObject(g_hThreadParameter, INFINITE);
-		//string str = findData.cFileName;
-		thread(doproc, findData.cFileName).detach();
+		string str = findData.cFileName;
+		thread(doproc, str).detach();
 		//Sleep(1);
 		//doproc(findData.cFileName);
 	} while (FindNextFileA(hFindFine, &findData));
@@ -178,6 +189,7 @@ void FindFile()
 	{
 		Sleep(100);
 	}
+	Sleep(1000);
 	DeleteCriticalSection(&g_csThreadCode);
 	CloseHandle(g_hThreadParameter);
 	printf("正确=%d个，错误=%d个，正确率=%f\n", 正确, 错误, (double)正确 / (错误 + 正确));
